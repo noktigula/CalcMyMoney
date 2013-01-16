@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:key="@string/preferenceTitle">
+
+    <ListPreference 
+        android:key = "@string/currencyPreference"
+        android:title = "@string/currencyPreference"
+        android:entries="@array/currences"
+        android:entryValues="@array/currency_values"
+        android:dialogTitle="@string/currencyDialogTitle"
+        />
+    <ListPreference 
+        android:key="@string/quantityPreference"
+        android:title="@string/quantityPreference"
+        android:entries="@array/quantity"
+        android:entryValues="@array/quantity_values"
+        android:dialogTitle="@string/quantityDialogTitle"
+        />
+
+</PreferenceScreen>

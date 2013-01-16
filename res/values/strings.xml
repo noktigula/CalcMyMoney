@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, MainActivity!</string>
+    <string name="app_name">CalcMyMoney</string>
+    <string name="month_tip">Месяц:</string>
+    <string name="newMonthButtonTip">Новый месяц</string>
+    <string name="newMonthButtonOk">Готово!</string>
+    <string name="newMonthButtonIncome">Прибыль</string>
+    <string name="newMonthButtonExpend">Траты</string>
+    <string name="financeOperations">Финансы</string>
+    <string name="emptyDetails">Нет данных о финансах</string>
+    <string name="hintExplain">Описание</string>
+    <string name="hintPrice">Цена</string>
+    <string name="hintQuantity">Кол-во</string>
+    <string name="tipNewFinanceOperation">Добавить операцию</string>
+    <string name="errEmptyField">Заполнены не все поля</string>
+    <string name="hintDays">Выберите день</string>
+    <string name="year_tag">год</string>
+    <string name="errNoCursor">ОШИБКА: невозможно создать представление - курсор не инициализирован</string>
+	<string name="hintSelectDate">Выберите дату</string>
+	<string name="button_ok">OK</string>
+	<string name="button_cancel">Отмена</string>
+    <string name="money_format">%9.2f</string>
+    <string name="type_income">Доходы</string>
+    <string name="type_expend">Расходы</string>
+    <string name="date_main_hint">Дата</string>
+    
+    <!-- Menu items -->
+    <string name="menuCurrencyTitle">Валюта</string>
+    <string name="menuQuantityTitle">Единицы измерения</string>
+    <string name="menuDeveloperHelp">Помощь разработчикам</string>
+    <string name="menuPreferences">Настройки</string>
+    
+    <!-- Preferences -->
+    <string name="preferenceTitle">Настройки</string>
+    <string name="currencyPreference">Валюта</string>
+    <string name="quantityPreference">Единицы измерения</string>
+    
+    <!-- Currences -->
+    <string name="currencyDialogTitle">Выберите валюту:</string>
+    <string name="currencyRur">RUR</string>
+    <string name="currencyEur">EUR</string>
+    <string name="currencyUsd">USD</string>
+    <string name="currencyUserDefined">Своя</string>
+    
+    <!-- Quntities -->
+    <string name="quantityDialogTitle">Выберите единицу измерения</string>
+	    
+    <string-array name="strArrayMonths">
+        <item>Январь</item>
+        <item>Февраль</item>
+        <item>Март</item>
+        <item>Апрель</item>
+        <item>Май</item>
+        <item>Июнь</item>
+        <item>Июль</item>
+        <item>Август</item>
+        <item>Сентябрь</item>
+        <item>Октябрь</item>
+        <item>Ноябрь</item>
+        <item>Декабрь</item>
+    </string-array>
+    
+    <string-array name="currences">
+    	<item>RUR</item>
+    	<item>EUR</item>
+    	<item>USD</item>
+    	<item>Другая</item>
+    </string-array>
+    
+    <string-array name="currency_values">
+    	<item>0</item>
+    	<item>1</item>
+    	<item>2</item>
+    	<item>3</item>
+    </string-array>
+
+    <string-array name="quantity">
+    	<item>Ед.</item>
+    	<item>Шт.</item>
+    </string-array>
+    
+    <string-array name="quantity_values">
+    	<item>0</item>
+    	<item>1</item>
+    </string-array>
+</resources>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:stretchColumns="0,1,2">
+    
+    <TextView 
+		android:id="@+id/tvShowDate1"
+		android:layout_width="match_parent"
+	    android:layout_height = "15dp"
+		android:layout_weight="1.0"
+		android:textSize="12sp"
+		android:layout_gravity="right|bottom"
+		android:text = "дата"
+	 />
+    
+    <TextView 
+	    android:id = "@+id/tvFinanceOperationDetails1"
+	    android:layout_width="match_parent"
+	    android:layout_height = "18dp"
+	    android:textSize="14sp"
+	    android:gravity = "left" 
+	    android:text = "описание"
+    />
+        
+	<TableRow
+	    style = "@style/list_item_3_point">"
+		 <TextView 
+	        android:id = "@+id/tvShowPrice1"
+	        android:layout_width="0dp"
+	    	android:layout_height = "15dp"
+	        android:layout_weight = "1.0"
+	        android:textSize="12sp"
+	        android:layout_gravity="left"
+	        android:gravity = "left" 
+	        android:text = "100"
+	        />
+	    
+	    <TextView 
+	        android:id = "@+id/tvShowQuant1"
+	        android:layout_width="0dp"
+	   		android:layout_height = "15dp"
+	        android:layout_weight = "1.0" 
+	        android:textSize="12sp"
+	        android:layout_gravity="center"
+	        android:gravity="center"
+	        android:text = "2"
+	        />
+	    
+	     <TextView 
+            android:id = "@+id/tvShowTotalCost1"
+            android:layout_width="0dp"
+	    	android:layout_height = "15dp"
+            android:layout_weight = "1.0"
+            android:textSize="12sp"
+            android:gravity="right"
+            android:layout_gravity="right"
+            android:text = "200"
+            />
+	     
+	      <TextView
+	        android:layout_width="0dp" 
+	        android:layout_height="wrap_content"
+	        android:layout_weight="0.2"
+	        android:text=" "
+	        />
+	</TableRow>
+
+</TableLayout>

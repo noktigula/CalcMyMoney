@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="5.0"
+    android:orientation="vertical" >
+
+    <RadioGroup
+        android:id = "@+id/rgCurrency"
+       	style = "@style/wrap"
+        android:orientation="vertical"
+        android:layout_weight="4.0"
+        >
+        
+        <RadioButton
+            android:id = "@+id/rbRur"
+            style = "@style/wrap"
+            android:layout_weight="1.0"
+            android:text = "@string/currencyRur"
+             />
+        <RadioButton
+            android:id = "@+id/rbEur"
+            style = "@style/wrap"
+            android:layout_weight="1.0"
+            android:text = "@string/currencyEur"
+            />
+        <RadioButton 
+            android:id = "@+id/rbUsd"
+            style = "@style/wrap"
+            android:layout_weight="1.0"
+            android:text = "@string/currencyUsd"
+            />
+        <RadioButton
+            android:id = "@+id/tbUserDefined"
+            style = "@style/wrap"
+            android:layout_weight="1.0"
+            android:text= "@string/currencyUserDefined"
+            />
+    </RadioGroup>
+    
+
+    <EditText 
+        android:id = "@+id/etCurrencyUserDefined"
+        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:hint="@string/currencyUserDefined"
+        android:layout_weight="1.0"
+        android:maxLines="1"
+        android:maxLength="4"
+        android:inputType="text"
+        android:layout_marginLeft="35dp"
+        />
+	
+</LinearLayout>

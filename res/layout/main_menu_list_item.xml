@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+    <TextView
+         android:id = "@+id/tvMainMonthTitle"
+         style = "@style/list_item_2_points"
+         android:textSize="16sp"
+        />
+    
+    <TableRow
+        style="@style/list_item_2_points"
+        >
+        
+        <TextView
+	        android:id = "@+id/tvMainMonthIncome"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:textSize="16sp"
+	        android:text = "+/мес"
+	        android:gravity="left"
+	    />
+	    <TextView
+	        android:id = "@+id/tvMainMonthExpend"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:textSize="16sp"
+	        android:text = "-/мес"
+	        android:gravity="center"
+	    />
+	    <TextView
+	        android:id = "@+id/tvMainMonthBalance"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:textSize="16sp"
+	        android:text = "diff/мес"
+	        android:gravity="right"
+	    />
+	    <TextView
+	        android:layout_width="0dp" 
+	        android:layout_height="wrap_content"
+	        android:layout_weight="0.2"
+	        android:text=" "
+	        />
+        
+    </TableRow>"
+
+</TableLayout>
