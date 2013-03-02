@@ -10,6 +10,14 @@ public class DBHelper extends SQLiteOpenHelper
 {
 
 	public static final int CURRENT_DATABASE_VERSION = 1;
+
+    public static final String FINANCE          = "Finance";
+    public static final String FINANCE_ID       = "idFinance";
+    public static final String FINANCE_REASON   = "reason";
+    public static final String FINANCE_PRICE    = "price";
+    public static final String FINANCE_QUANTITY = "quantity";
+    public static final String FINANCE_DATE     = "financeDate";
+    public static final String FINANCE_TYPE     = "type";
 	
 	public DBHelper(Context context, int version) 
 	{
@@ -20,19 +28,19 @@ public class DBHelper extends SQLiteOpenHelper
 	@Override
 	public void onCreate(SQLiteDatabase db) 
 	{
-		String[] strArrMonth = new String[]{"Январь", "Февраль", 
-											"Март",   "Апрель", "Май",
-											"Июнь",   "Июль",	"Август",
-											"Сентябрь", "Октябрь", "Ноябрь",
-											"Декабрь"};
+		String[] strArrMonth = new String[]{"РЇРЅРІР°СЂСЊ", "Р¤РµРІСЂР°Р»СЊ",
+											"РњР°СЂС‚",   "РђРїСЂРµР»СЊ", "РњР°Р№",
+											"РСЋРЅСЊ",   "РСЋР»СЊ",	"РђРІРіСѓСЃС‚",
+											"РЎРµРЅС‚СЏР±СЂСЊ", "РћРєС‚СЏР±СЂСЊ", "РќРѕСЏР±СЂСЊ",
+											"Р”РµРєР°Р±СЂСЊ"};
 		
-		String queryCreateFinance = new String("CREATE TABLE Finance( " +
-											  "idFinance INTEGER PRIMARY KEY AUTOINCREMENT, " +
-											  "reason 	 TEXT 	 NOT NULL, " +
-											  "price	 REAL 	 NOT NULL, " +
-											  "quantity  INTEGER NOT NULL, " +
-											  "type		 INTEGER NOT NULL, " +
-											  "financeDate TEXT NOT NULL)");
+		String queryCreateFinance = new String("CREATE TABLE " + FINANCE + "( " +
+											  FINANCE_ID       + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+											  FINANCE_REASON   + " TEXT 	 NOT NULL, " +
+											  FINANCE_PRICE    + " REAL 	 NOT NULL, " +
+											  FINANCE_QUANTITY + " INTEGER NOT NULL, " +
+											  FINANCE_TYPE     + " INTEGER NOT NULL, " +
+											  FINANCE_DATE     + " TEXT NOT NULL)");
 		 
 		String queryCreateMonthTitle = new String("CREATE TABLE MonthTitle( " +
 												  "idMonthTitle INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -49,7 +57,7 @@ public class DBHelper extends SQLiteOpenHelper
 			db.insert("MonthTitle", null, cv);
 		} // for
 		
-		String[] reasons = new String[] {"test_1", "test_2", "зарплата", "Джинсы", "Машина", "Дом",   "Наследство"};
+		String[] reasons = new String[] {"test_1", "test_2", "test_4", "test_5", "test_6", "test_7",   "test_8"};
 		double[] prices = new double[]  {100, 		500,	 30000,		 5000,	   300000,	 1000000, 10000000};
 		int[] quants = new int[]		{2,			2,		 1,			 2,		   1,		 1,		  1};
 		int[] types = new int[]			{1,			0,		 1,			 0,		   1,		 0,		  1};

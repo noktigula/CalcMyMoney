@@ -112,15 +112,15 @@ public class MonthDetailsAdapter extends BaseAdapter //implements OnItemClickLis
 				tvExplain.setText(explain);
 				
 				TextView tvPrice = (TextView) v.findViewById(R.id.tvShowPrice1);
-				tvPrice.setText(String.format(this.moneyFormat, price) + " ð");
+				tvPrice.setText(String.format(this.moneyFormat, price) + " Ñ€");
 				tvPrice.setTextColor(color);
 						
 				TextView tvQuant = (TextView) v.findViewById(R.id.tvShowQuant1);
-				tvQuant.setText(quant.toString() + " øò.");
+				tvQuant.setText(quant.toString() + " ÑˆÑ‚");
 				tvQuant.setTextColor(color);
 				
 				TextView tvBalance = (TextView) v.findViewById(R.id.tvShowTotalCost1);
-				tvBalance.setText(String.format(this.moneyFormat, price * quant) + " ð");
+				tvBalance.setText(String.format(this.moneyFormat, price * quant) + " Ñ€");
 				tvBalance.setTextColor(color);
 				
 				TextView tvDate = (TextView) v.findViewById(R.id.tvShowDate1);

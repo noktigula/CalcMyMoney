@@ -83,7 +83,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener
 			String action = intent.getAction();
 			if(action.equalsIgnoreCase("ru.nstudio.android.showDetails"))
 			{
-				int year = intent.getIntExtra("ru.nstudio.android.year", 2012);
+				int year = intent.getIntExtra("ru.nstudio.android.year", 2013); // set dynamic year
 				int month = intent.getIntExtra("ru.nstudio.android.month", 1);
 				this.gcDate = new GregorianCalendar(year, month-1, 1);
 			} // if
@@ -116,7 +116,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener
 		
 		if (c.moveToFirst())
 		{
-			//@preorder - только одна строка(выборка по первичному ключу)
+			//@preorder - пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ(пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ)
 			this.etExplain.setText(c.getString(c.getColumnIndex("reason")));
 			
 			Double price = c.getDouble(c.getColumnIndex("price"));
@@ -200,10 +200,23 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener
 			this.initDatabase();
 			
 			ContentValues cv = new ContentValues();
+
+            String quant = etQuantity.getText().toString();
+            String price = etPrice.getText().toString();
+
+            if(quant.contains(","))
+            {
+                quant = quant.replace(",", ".");
+            }   // if quant contains ,
+
+            if(price.contains(","))
+            {
+                price = price.replace(",", ".");
+            }   // if quant contains ,
 			
 			cv.put("reason", etExplain.getText().toString());
-			cv.put("quantity", Double.parseDouble(etQuantity.getText().toString()));
-			cv.put("price", Double.parseDouble(etPrice.getText().toString()));
+			cv.put("quantity", Double.parseDouble(quant));
+			cv.put("price", Double.parseDouble(price));
 			cv.put("type", rbIncome.isChecked());
 			cv.put("financeDate", DateParser.format(this, this.gcDate, DateParser.SQLITE_FORMAT));
 								

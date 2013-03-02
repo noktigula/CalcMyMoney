@@ -11,9 +11,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.View;
+import android.view.*;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -70,27 +68,41 @@ public class ChangeMonthActivity extends ListActivity implements /*OnClickListen
 		createListView();
 		
 		this.wasChanges = false;
-	
-		/*btnOk = (Button) findViewById(R.id.btnAddNewMonthOK);
-		btnOk.setOnClickListener(this);*/		
-	} // onCreate 
 
-	/*public void onClick(View v) 
-	{
-		switch (v.getId())
-		{
-			case R.id.btnAddNewMonthOK:
-			{
-				Intent intent = new Intent();
-				
-				intent.putExtra("ru.nstudio.android.changes", this.wasChanges);
-				
-				setResult(RESULT_OK, intent);
-				finish();
-				break;
-			} // case OK button
-		} // switch
-	} // onCLick*/
+        registerForContextMenu(this.lvAddFinances);
+	} // onCreate
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+    {
+        ContextMenuInitializer initializer = new ContextMenuInitializer(menu, v, menuInfo);
+        menu = initializer.getMenu();
+    } // onCreateContextMenu
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item)
+    {
+        switch(item.getGroupId())
+        {
+            case ContextMenuInitializer.CONTEXT_MENU_CHANGE:
+            {
+
+                break;
+            } // change
+
+            case ContextMenuInitializer.CONTEXT_MENU_DELETE:
+            {
+                break;
+            } // delete
+
+            default:
+            {
+                break;
+            } // def
+        } //switch
+
+        return true;
+    } // onContextItemSelected
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)
