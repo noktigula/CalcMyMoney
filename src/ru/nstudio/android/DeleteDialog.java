@@ -79,7 +79,7 @@ public class DeleteDialog implements DialogInterface.OnClickListener
         String[] whereArgs = new String[]{Integer.toString(year), Integer.toString(month)};
 
         db.delete(DBHelper.FINANCE, whereClause, whereArgs);
-
+        db.close();
        //Intent intent = new Intent();
         MainActivity activity = (MainActivity) this.context;
         activity.makeListCalculations();
@@ -87,7 +87,18 @@ public class DeleteDialog implements DialogInterface.OnClickListener
 
     private void deleteOperation()
     {
+        DBHelper dbHelper = new DBHelper(context, DBHelper.CURRENT_DATABASE_VERSION);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
 
+        String whereClause = DBHelper.FINANCE_ID + " = ?";
+        String[] whereArgs = new String[]{Integer.toString(this.itemId)};
+
+        db.delete(DBHelper.FINANCE, whereClause, whereArgs);
+        db.close();
+
+        ChangeMonthActivity activity = (ChangeMonthActivity) this.context;
+        activity.createListView();
+        activity.wasChanges = true;
     } // deleteOperation
 
 }

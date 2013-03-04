@@ -25,6 +25,7 @@ import android.widget.TableLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 import ru.nstudio.android.FinanceOperation;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
 public class ChangeMonthActivity extends ListActivity implements /*OnClickListener,*/ OnItemClickListener
 {
@@ -37,8 +38,9 @@ public class ChangeMonthActivity extends ListActivity implements /*OnClickListen
 	private SQLiteDatabase				db;
 	private int							month;
 	private int							year;
-	private boolean 					wasChanges;
+	public  boolean 					wasChanges;
 	private TextView					tvMonthDescription;
+    private final String INTENT_ACTION_SHOW_DETAILS = "ru.nstudio.android.showDetails";
 		
 	private static int RESULT_FIRST_USER_DETAIL = 11;
 	
@@ -82,16 +84,20 @@ public class ChangeMonthActivity extends ListActivity implements /*OnClickListen
     @Override
     public boolean onContextItemSelected(MenuItem item)
     {
+        AdapterView.AdapterContextMenuInfo acmi = (AdapterContextMenuInfo) item.getMenuInfo();
+        int id = (int) acmi.id;
+
         switch(item.getGroupId())
         {
             case ContextMenuInitializer.CONTEXT_MENU_CHANGE:
             {
-
+                this.showOperationDetails(id);
                 break;
             } // change
 
             case ContextMenuInitializer.CONTEXT_MENU_DELETE:
             {
+                this.deleteOperation(id);
                 break;
             } // delete
 
@@ -133,17 +139,27 @@ public class ChangeMonthActivity extends ListActivity implements /*OnClickListen
 
 	public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) 
 	{
-		Intent intent = new Intent("ru.nstudio.android.showDetails");
-		intent.putExtra("ru.nstudio.android.idFinance", (int)id);
-		
-		intent.putExtra("ru.nstudio.android.month", this.month);
-		intent.putExtra("ru.nstudio.android.year", this.year);
-		
-		startActivityForResult(intent, RESULT_FIRST_USER_DETAIL);
-		
+		this.showOperationDetails((int) id);
 	} // OnItemClick
+
+    public void showOperationDetails(int id)
+    {
+        Intent intent = new Intent(this.INTENT_ACTION_SHOW_DETAILS);
+        intent.putExtra("ru.nstudio.android.idFinance", id);
+
+        intent.putExtra("ru.nstudio.android.month", this.month);
+        intent.putExtra("ru.nstudio.android.year", this.year);
+
+        startActivityForResult(intent, RESULT_FIRST_USER_DETAIL);
+    } // showOperationDetails
+
+    public void deleteOperation(int id)
+    {
+        DeleteDialog deleteDialog = new DeleteDialog(this, id);
+        deleteDialog.show();
+    } // deleteOperation
 	
-	private void createListView()
+	public void createListView()
 	{
 		this.initDatabase();
 		if (this.lvAddFinances != null)

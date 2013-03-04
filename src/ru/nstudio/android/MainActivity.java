@@ -100,16 +100,6 @@ public class MainActivity extends ListActivity implements OnItemClickListener, O
 
     public void deleteMonthInfo(int monthYearCode)
     {
-        //show dialog to ensure user want drop month info
-//        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-//        dialogBuilder.setTitle(R.string.deleteDialogTitle);
-//
-//        dialogBuilder.setPositiveButton(R.string.dialogOK, this);
-//        dialogBuilder.setNegativeButton(R.string.dialogCancel, this);
-//        dialogBuilder.setMessage(R.string.deleteDialogFinalAsk);
-//
-//        AlertDialog dialog = dialogBuilder.create();
-//        dialog.show();
         DeleteDialog dialog = new DeleteDialog(this, monthYearCode);
         dialog.show();
     } // deleteMonthInfo
