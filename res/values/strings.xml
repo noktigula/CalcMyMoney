@@ -13,6 +13,7 @@
     <string name="hintExplain">Описание</string>
     <string name="hintPrice">Цена</string>
     <string name="hintQuantity">Кол-во</string>
+    <string name="hintType">Тип операции</string>
     <string name="tipNewFinanceOperation">Добавить операцию</string>
     <string name="errEmptyField">Заполнены не все поля</string>
     <string name="hintDays">Выберите день</string>

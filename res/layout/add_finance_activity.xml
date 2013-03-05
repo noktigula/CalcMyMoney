@@ -84,7 +84,7 @@
 		<TextView
 		        android:id = "@+id/tvTypeOperation"
 		        style="@style/wrap"
-		        android:text="@string/hintQuantity"
+		        android:text="@string/hintType"
 		        android:textSize="10sp"
 		        android:layout_weight="1.0" 
 		        android:layout_gravity="left"

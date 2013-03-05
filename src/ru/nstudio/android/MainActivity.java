@@ -1,24 +1,24 @@
 package ru.nstudio.android;
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
+//import java.util.ArrayList;
+//import java.util.GregorianCalendar;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
+//import android.app.Dialog;
 import android.app.ListActivity;
-import android.content.ContentValues;
+//import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.text.format.DateFormat;
-import android.util.Log;
+//import android.text.format.DateFormat;
+//import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
 import android.content.DialogInterface.OnClickListener;
-import ru.nstudio.android.DeleteDialog;
+//import ru.nstudio.android.DeleteDialog;
 
 public class MainActivity extends ListActivity implements OnItemClickListener, OnClickListener
 {
@@ -27,7 +27,7 @@ public class MainActivity extends ListActivity implements OnItemClickListener, O
 	private ListView 		lv;
 	private View 			vFooter; 
 	private FinanceAdapter 	fAdapter;
-	private Menu			menu;
+	//private Menu			menu;
 	//private MenuListener	menuListener;
 	
 	public static final int 	RESULT_FIRST_USER_MAIN = 10;
@@ -162,12 +162,12 @@ public class MainActivity extends ListActivity implements OnItemClickListener, O
 							   "FROM Finance AS f " +
 							   "INNER JOIN MonthTitle AS mt ON mt.idMonthTitle = fmonth " +
 							   "LEFT JOIN (SELECT strftime('%m', financeDate) AS month, strftime('%Y', financeDate) AS year, " +
-							   "SUM(price) AS plus " + 
+							   "SUM(price*quantity) AS plus " +
 							   "FROM Finance " + 
 							   "WHERE type = 1 " + 
 							   "GROUP BY year, month) AS tmp1 ON tmp1.month = fmonth AND tmp1.year = fyear " +
 							   "LEFT JOIN (SELECT strftime('%m', financeDate) AS month, strftime('%Y', financeDate) AS year, " +
-							   "SUM(price) AS minus " + 
+							   "SUM(price*quantity) AS minus " +
 							   "FROM Finance " + 
 							   "WHERE type = 0 " +
 							   "GROUP BY year, month) AS tmp2 ON tmp2.month = fmonth AND tmp2.year = fyear " +
