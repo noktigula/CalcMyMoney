@@ -9,14 +9,13 @@ import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 
-/*
 public class MenuListener implements OnMenuItemClickListener, DialogInterface.OnClickListener
 {
-	/*private final int	DIALOG_SET_CURRENCY = 0;	
+	private final int	DIALOG_SET_CURRENCY = 0;
 	private final int	DIALOG_SET_QUANTITY = 1;
 	private final int 	DIALOG_DEV_HELP		= 2;
-	*/
-	/*public static final int RESULT_MENU_PREFERENCES = 15;
+
+	public static final int RESULT_MENU_PREFERENCES = 15;
 	public static final int RESULT_MENU_DEV_HELP	= 16;
 	
 	private Activity	activity;
@@ -28,10 +27,10 @@ public class MenuListener implements OnMenuItemClickListener, DialogInterface.On
 	
 	public boolean onMenuItemClick(MenuItem item) 
 	{
-		int id = item.getItemId();
+		/*int id = item.getItemId();
 		switch (id)
 		{
-			/*case R.id.menuCurrency:
+			case R.id.menuCurrency:
 			{
 				this.activity.showDialog(DIALOG_SET_CURRENCY);
 				break;
@@ -54,7 +53,7 @@ public class MenuListener implements OnMenuItemClickListener, DialogInterface.On
 				//this.activity.showDialog(DIALOG_DEV_HELP);
 				break;
 			} // case devHelp
-		} // switch id
+		} // switch */
 		return true;
 	} // onMenuItemClick
 	
@@ -84,4 +83,4 @@ public class MenuListener implements OnMenuItemClickListener, DialogInterface.On
 		
 	}
 	
-} // class MenuListener*/
+} // class MenuListener

@@ -1,24 +1,16 @@
 package ru.nstudio.android;
 
-//import java.util.ArrayList;
-//import java.util.GregorianCalendar;
-
 import android.app.AlertDialog;
-//import android.app.Dialog;
 import android.app.ListActivity;
-//import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-//import android.text.format.DateFormat;
-//import android.util.Log;
 import android.view.*;
 import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
 import android.content.DialogInterface.OnClickListener;
-//import ru.nstudio.android.DeleteDialog;
 
 public class MainActivity extends ListActivity implements OnItemClickListener, OnClickListener
 {
@@ -27,8 +19,8 @@ public class MainActivity extends ListActivity implements OnItemClickListener, O
 	private ListView 		lv;
 	private View 			vFooter; 
 	private FinanceAdapter 	fAdapter;
-	//private Menu			menu;
-	//private MenuListener	menuListener;
+	private Menu			menu;
+	private MenuListener	menuListener;
 	
 	public static final int 	RESULT_FIRST_USER_MAIN = 10;
 	public static final int		RESULT_FIRST_USER_DETAIL = 11;
@@ -48,7 +40,7 @@ public class MainActivity extends ListActivity implements OnItemClickListener, O
     	this.makeListCalculations();
         registerForContextMenu(this.lv);
     	
-    	//this.menuListener = new MenuListener(this);
+    	this.menuListener = new MenuListener(this);
     } // onCreate
 
     @Override
@@ -119,12 +111,12 @@ public class MainActivity extends ListActivity implements OnItemClickListener, O
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-		/*MenuInflater mi = getMenuInflater();
+		MenuInflater mi = getMenuInflater();
 		mi.inflate(R.menu.menu, menu);
 		
 		this.menu = menu;
-		return true;*/
-		return super.onCreateOptionsMenu(menu);
+		return true;
+		//return super.onCreateOptionsMenu(menu);
 	} // onCreateOptionsMenu
 	
 	/*@Override
