@@ -3,17 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
     android:stretchColumns="0,1,2">
-    
-    <TextView 
-		android:id="@+id/tvShowDate1"
-		android:layout_width="match_parent"
-	    android:layout_height = "15dp"
-		android:layout_weight="1.0"
-		android:textSize="12sp"
-		android:layout_gravity="right|bottom"
-		android:text = "дата"
-	 />
-    
+
+    <TableRow
+        style="@style/list_item_3_point">
+        <TextView
+            android:id="@+id/tvShowDate1"
+            android:layout_width="match_parent"
+            android:layout_height = "15dp"
+            android:layout_weight="1.0"
+            android:textSize="12sp"
+            android:layout_gravity="left|bottom"
+            android:text = "дата"
+         />
+        <TextView
+            android:id="@+id/tvShowCategory"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:layout_weight="1.0"
+            android:textSize="12sp"
+            android:layout_gravity="right|bottom"
+            android:text="категория"/>
+    </TableRow>
+
     <TextView 
 	    android:id = "@+id/tvFinanceOperationDetails1"
 	    android:layout_width="match_parent"

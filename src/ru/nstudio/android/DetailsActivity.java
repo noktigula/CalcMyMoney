@@ -1,8 +1,5 @@
 package ru.nstudio.android;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import android.app.Activity;
@@ -17,7 +14,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -30,24 +26,26 @@ import android.widget.Toast;
 public class DetailsActivity extends Activity 
 implements OnClickListener, android.content.DialogInterface.OnClickListener
 {
-	private EditText 			etExplain;
-	private EditText 			etPrice;
-	private EditText 			etQuantity;
+	private EditText 			_etExplain;
+	private EditText 			_etPrice;
+	private EditText 			_etQuantity;
 
-	private RadioGroup 			rgIncomeExpend;
-	private RadioButton 		rbIncome;
-	private RadioButton 		rbExpend;
+	private RadioGroup 			_rgIncomeExpend;
+	private RadioButton 		_rbIncome;
+	private RadioButton 		_rbExpend;
+
+	private Spinner				_spinner;
 	
-	private TextView			tvDateExplain;
+	private TextView 			_tvDateExplain;
 	
-	private Button 				btnExplainOk;
+	private Button 				_btnExplainOk;
 	
-	private GregorianCalendar 	gcDate;
+	private GregorianCalendar 	_gcDate;
 	
-	private SQLiteDatabase		db;
-	private DBHelper			dbHelper;
+	private SQLiteDatabase 		_db;
+	private DBHelper 			_dbHelper;
 	
-	private int					idFinance;
+	private int 				_idFinance;
 		
 	private final int DIALOG_DATE_EXPLAIN = 1;
 	private final int RESULT_FIRST_USER_DETAIL = 11;
@@ -58,26 +56,28 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener
 		super.onCreate(savedInstanceState);
 		//setContentView(R.layout.element_add_finance);
 		setContentView(R.layout.add_finance_activity);
-		etExplain = (EditText) findViewById(R.id.etExplain);
-		etPrice = (EditText) findViewById(R.id.etPrice);
-		etQuantity = (EditText) findViewById(R.id.etQuantity);
+		_etExplain = (EditText) findViewById(R.id.etExplain);
+		_etPrice = (EditText) findViewById(R.id.etPrice);
+		_etQuantity = (EditText) findViewById(R.id.etQuantity);
 		
-		rgIncomeExpend = (RadioGroup) findViewById(R.id.rgIncomeExpend);
-		rbIncome = (RadioButton) findViewById(R.id.rbIncome);
-		rbExpend = (RadioButton) findViewById(R.id.rbExpend);
+		_rgIncomeExpend = (RadioGroup) findViewById(R.id.rgIncomeExpend);
+		_rbIncome = (RadioButton) findViewById(R.id.rbIncome);
+		_rbExpend = (RadioButton) findViewById(R.id.rbExpend);
 	
-		tvDateExplain = (TextView) findViewById(R.id.tvFinanceDate);		
-		this.gcDate = new GregorianCalendar();
+		_tvDateExplain = (TextView) findViewById(R.id.tvFinanceDate);
+		_gcDate = new GregorianCalendar();
 		
-		btnExplainOk = (Button) findViewById(R.id.btnExplainOK);
-		btnExplainOk.setOnClickListener(this);
+		_btnExplainOk = (Button) findViewById(R.id.btnExplainOK);
+		_btnExplainOk.setOnClickListener(this);
+
+		_spinner = (Spinner) findViewById(R.id.spinnerCategory);
 		
-		Intent intent = this.getIntent();
-		this.idFinance = intent.getIntExtra("ru.nstudio.android.idFinance", -1);
-		if (this.idFinance != -1)
+		Intent intent = getIntent();
+		_idFinance = intent.getIntExtra("ru.nstudio.android.idFinance", -1);
+		if (_idFinance != -1)
 		{
-			this.getOperationValues(idFinance);
-		} // if isset idFinance
+			getOperationValues(_idFinance);
+		} // if isset _idFinance
 		else
 		{
 			String action = intent.getAction();
@@ -85,69 +85,86 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener
 			{
 				int year = intent.getIntExtra("ru.nstudio.android.year", 2013); // set dynamic year
 				int month = intent.getIntExtra("ru.nstudio.android.month", 1);
-				this.gcDate = new GregorianCalendar(year, month-1, 1);
+				_gcDate = new GregorianCalendar(year, month-1, 1);
 			} // if
 			else
 			{
-				this.gcDate = new GregorianCalendar();
+				_gcDate = new GregorianCalendar();
 			} // else
 			
-			this.rbIncome.setChecked(true);
+			_rbIncome.setChecked(true);
 			
 			displayDate();
 		} // else
+
+
+		fillSpinnerWithCategories();
 	} // onCreate
-	
+
+	private void fillSpinnerWithCategories()
+	{
+		initDatabase();
+
+		String query = "SELECT " + DBHelper.Category.NAME + " FROM " + DBHelper.Category.TABLE_NAME;
+
+		Cursor c = _db.rawQuery(query, null);
+
+		CategoryAdapter categoryAdapter = new CategoryAdapter( this, getLayoutInflater(), c );
+		_spinner.setAdapter( categoryAdapter );
+	}
+
 	private void initDatabase()
 	{
-		if (this.dbHelper == null)
-			this.dbHelper = new DBHelper(this, DBHelper.CURRENT_DATABASE_VERSION);
+		if (_dbHelper == null)
+			_dbHelper = new DBHelper(this, DBHelper.CURRENT_DATABASE_VERSION);
 		
-		if (this.db == null)
-			this.db = this.dbHelper.getWritableDatabase();
+		if (_db == null)
+			_db = _dbHelper.getWritableDatabase();
 	} // initDataBase
 	
 	private void getOperationValues(int idFinance)
 	{
 		initDatabase();
 		
-		String query = new String ("SELECT * FROM Finance WHERE idFinance = ?");
-		Cursor c = db.rawQuery(query, new String[]{Integer.toString(idFinance)});
+		String query = new String ("SELECT * FROM " + DBHelper.Finance.TABLE_NAME +
+								   " WHERE " + DBHelper.Finance.ID + " = ?");
+		Cursor c = _db.rawQuery(query, new String[]{Integer.toString(idFinance)});
 		
 		if (c.moveToFirst())
 		{
-			//@preorder - ������ ���� ������(������� �� ���������� �����)
-			this.etExplain.setText(c.getString(c.getColumnIndex("reason")));
+			_etExplain.setText(c.getString(c.getColumnIndex( DBHelper.Finance.REASON ) ));
 			
-			Double price = c.getDouble(c.getColumnIndex("price"));
-			this.etPrice.setText(String.format(this.getString(R.string.money_format), price));
+			Double price = c.getDouble(c.getColumnIndex(DBHelper.Finance.PRICE));
+			_etPrice.setText(String.format(getString(R.string.money_format), price));
 			
-			int quant = c.getInt(c.getColumnIndex("quantity"));
-			this.etQuantity.setText(Integer.toString(quant));
+			int quant = c.getInt(c.getColumnIndex(DBHelper.Finance.QUANTITY));
+			_etQuantity.setText(Integer.toString(quant));
 			
-			String strDate = c.getString(c.getColumnIndex("financeDate"));
+			String strDate = c.getString(c.getColumnIndex(DBHelper.Finance.DATE));
 			
-			this.displayDate(strDate);		
+			displayDate(strDate);		
 			
-			boolean type = (c.getInt(c.getColumnIndex("type")) == 1);
-			this.rbIncome.setChecked(type);
-			this.rbExpend.setChecked(!type);
+			boolean type = (c.getInt(c.getColumnIndex(DBHelper.Finance.TYPE)) == 1);
+			_rbIncome.setChecked(type);
+			_rbExpend.setChecked(!type);
 		} // if
+
+		fillSpinnerWithCategories();
 		
 		c.close();
 	} // getOperationValues
 	
 	private void displayDate(String strDate)
 	{
-		this.gcDate = DateParser.parseStringToDate(this, strDate);
+		_gcDate = DateParser.parseStringToDate(this, strDate);
 		String dateDesc = DateParser.format(this, strDate, DateParser.CALCMONEY_FORMAT);
-		this.tvDateExplain.setText(dateDesc);
+		_tvDateExplain.setText(dateDesc);
 	} // displayDate
 	
 	private void displayDate()
 	{
-		String dateDesc = DateParser.format(this, this.gcDate, DateParser.CALCMONEY_FORMAT);
-		this.tvDateExplain.setText(dateDesc);
+		String dateDesc = DateParser.format(this, _gcDate, DateParser.CALCMONEY_FORMAT);
+		_tvDateExplain.setText(dateDesc);
 	} // displayDate
 	
 	@SuppressWarnings("deprecation")
@@ -162,9 +179,9 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener
 		if (id == DIALOG_DATE_EXPLAIN)
 		{
 			DatePickerDialog dpdExplain = new DatePickerDialog(this, dpdExplainCallback, 
-					this.gcDate.get(GregorianCalendar.YEAR), 
-					this.gcDate.get(GregorianCalendar.MONTH), 
-					this.gcDate.get(GregorianCalendar.DAY_OF_MONTH));
+					_gcDate.get(GregorianCalendar.YEAR),
+					_gcDate.get(GregorianCalendar.MONTH),
+					_gcDate.get(GregorianCalendar.DAY_OF_MONTH));
 			
 			dpdExplain.setTitle(R.string.hintSelectDate);
 			return dpdExplain;
@@ -180,7 +197,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener
 			int resYear = year;
 			int resMonthOfYear = monthOfYear;
 			int resDay = dayOfMonth;
-			gcDate = new GregorianCalendar(resYear, resMonthOfYear, resDay);
+			_gcDate = new GregorianCalendar(resYear, resMonthOfYear, resDay);
 			displayDate();
 		} // onDateSet
 	}; // new OnDateSetListener*/
@@ -189,20 +206,20 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener
 	{
 		if (v.getId() == R.id.btnExplainOK)
 		{
-			if (etExplain.getText().toString().isEmpty() ||
-				etQuantity.getText().toString().isEmpty() ||
-				etPrice.getText().toString().isEmpty())
+			if (_etExplain.getText().toString().isEmpty() ||
+				_etQuantity.getText().toString().isEmpty() ||
+				_etPrice.getText().toString().isEmpty())
 			{
 				Toast.makeText(this, R.string.errEmptyField, 10000).show();
 				return;
 			} // if
 			
-			this.initDatabase();
+			initDatabase();
 			
 			ContentValues cv = new ContentValues();
 
-            String quant = etQuantity.getText().toString();
-            String price = etPrice.getText().toString();
+            String quant = _etQuantity.getText().toString();
+            String price = _etPrice.getText().toString();
 
             if(quant.contains(","))
             {
@@ -214,24 +231,24 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener
                 price = price.replace(",", ".");
             }   // if quant contains ,
 			
-			cv.put("reason", etExplain.getText().toString());
+			cv.put("reason", _etExplain.getText().toString());
 			cv.put("quantity", Double.parseDouble(quant));
 			cv.put("price", Double.parseDouble(price));
-			cv.put("type", rbIncome.isChecked());
-			cv.put("financeDate", DateParser.format(this, this.gcDate, DateParser.SQLITE_FORMAT));
+			cv.put("type", _rbIncome.isChecked());
+			cv.put("financeDate", DateParser.format(this, _gcDate, DateParser.SQLITE_FORMAT));
 								
-			if (this.idFinance == -1)
+			if (_idFinance == -1)
 			{
-				this.db.insert("Finance", null, cv);
+				_db.insert("Finance", null, cv);
 			} // if adding new
 			else
 			{
-				this.db.update("Finance", 
-							   cv, 
-							   "idFinance = ?", 
-							   new String[]{Integer.toString(this.idFinance)});
+				_db.update("Finance",
+						cv,
+						"_idFinance = ?",
+						new String[]{Integer.toString(_idFinance)});
 			} // else
-			this.db.close();
+			_db.close();
 			Intent intent = new Intent();
 			intent.putExtra("ru.nstudio.android.success", true);
 			setResult(RESULT_FIRST_USER_DETAIL, intent);

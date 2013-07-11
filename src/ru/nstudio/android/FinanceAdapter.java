@@ -70,11 +70,7 @@ public class FinanceAdapter extends BaseAdapter //implements OnItemClickListener
 
 	public View getView(int position, View convertView, ViewGroup parent) 
 	{
-		if (convertView == null)
-		{
-			convertView = this.alView.get(position);
-		} // if
-		
+		convertView = this.alView.get(position);
 		return convertView;
 	} // getView
 	

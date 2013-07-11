@@ -70,15 +70,15 @@ public class DeleteDialog implements DialogInterface.OnClickListener
         DBHelper dbHelper = new DBHelper(context, DBHelper.CURRENT_DATABASE_VERSION);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        String whereClause = "CAST (strftime('%Y', " + DBHelper.FINANCE_DATE + " ) AS INTEGER) = ? AND " +
-                             "CAST (strftime('%m', " + DBHelper.FINANCE_DATE + " ) AS INTEGER) = ? ";
+        String whereClause = "CAST (strftime('%Y', " + DBHelper.Finance.DATE + " ) AS INTEGER) = ? AND " +
+                             "CAST (strftime('%m', " + DBHelper.Finance.DATE + " ) AS INTEGER) = ? ";
 
         int year = this.itemId / 100;
         int month = this.itemId % 100;
 
         String[] whereArgs = new String[]{Integer.toString(year), Integer.toString(month)};
 
-        db.delete(DBHelper.FINANCE, whereClause, whereArgs);
+        db.delete(DBHelper.Finance.TABLE_NAME, whereClause, whereArgs);
         db.close();
        //Intent intent = new Intent();
         MainActivity activity = (MainActivity) this.context;
@@ -90,10 +90,10 @@ public class DeleteDialog implements DialogInterface.OnClickListener
         DBHelper dbHelper = new DBHelper(context, DBHelper.CURRENT_DATABASE_VERSION);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-        String whereClause = DBHelper.FINANCE_ID + " = ?";
+        String whereClause = DBHelper.Finance.ID + " = ?";
         String[] whereArgs = new String[]{Integer.toString(this.itemId)};
 
-        db.delete(DBHelper.FINANCE, whereClause, whereArgs);
+        db.delete(DBHelper.Finance.ID, whereClause, whereArgs);
         db.close();
 
         ChangeMonthActivity activity = (ChangeMonthActivity) this.context;

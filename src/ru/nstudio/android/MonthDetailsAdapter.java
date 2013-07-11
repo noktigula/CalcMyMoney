@@ -75,10 +75,7 @@ public class MonthDetailsAdapter extends BaseAdapter //implements OnItemClickLis
 	
 	public View getView(int position, View convertView, ViewGroup parent) 
 	{
-		if (convertView == null)
-		{
-			convertView = this.alView.get(position);
-		} // if called first time
+		convertView = this.alView.get(position);
 		return convertView;
 	} // getView
 
@@ -94,12 +91,13 @@ public class MonthDetailsAdapter extends BaseAdapter //implements OnItemClickLis
 		{
 			do
 			{
-				boolean isIncome = (c.getInt(c.getColumnIndex("type")) == 1);
-				String explain = new String(c.getString(c.getColumnIndex("reason")));
-				Double price = c.getDouble(c.getColumnIndex("price"));
-				Integer quant = c.getInt(c.getColumnIndex("quantity"));
-				int id = c.getInt(c.getColumnIndex("idFinance"));
-				String date = new String(c.getString(c.getColumnIndex("financeDate")));
+				boolean isIncome = (c.getInt(c.getColumnIndex(DBHelper.Finance.TYPE)) == 1);
+				String explain = new String(c.getString(c.getColumnIndex(DBHelper.Finance.REASON)));
+				Double price = c.getDouble(c.getColumnIndex(DBHelper.Finance.PRICE));
+				Integer quant = c.getInt(c.getColumnIndex(DBHelper.Finance.QUANTITY));
+				int id = c.getInt(c.getColumnIndex(DBHelper.Finance.ID));
+				String date = new String(c.getString(c.getColumnIndex(DBHelper.Finance.DATE)));
+				String category = new String(c.getString(c.getColumnIndex(DBHelper.Category.NAME)));
 				
 				String dateDescript = 
 					DateParser.format(this.context, date, DateParser.CALCMONEY_FORMAT);
@@ -125,6 +123,9 @@ public class MonthDetailsAdapter extends BaseAdapter //implements OnItemClickLis
 				
 				TextView tvDate = (TextView) v.findViewById(R.id.tvShowDate1);
 				tvDate.setText(dateDescript);
+
+				TextView tvCategory = (TextView) v.findViewById(R.id.tvShowCategory);
+				tvCategory.setText(category);
 				
 				v.setId(id);
 				

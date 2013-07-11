@@ -22,27 +22,43 @@
       </GlobalState>
     </option>
   </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="DEBUG" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="a48beac1-aca3-410b-9c30-e7393a6df66c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/nstudio/android/MainActivity.java" afterPath="$PROJECT_DIR$/src/ru/nstudio/android/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/nstudio/android/MenuListener.java" afterPath="$PROJECT_DIR$/src/ru/nstudio/android/MenuListener.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ru/nstudio/android/CategoryAdapter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/spinner_item_category.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/nstudio/android/ChangeMonthActivity.java" afterPath="$PROJECT_DIR$/src/ru/nstudio/android/ChangeMonthActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/nstudio/android/DBHelper.java" afterPath="$PROJECT_DIR$/src/ru/nstudio/android/DBHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/nstudio/android/DeleteDialog.java" afterPath="$PROJECT_DIR$/src/ru/nstudio/android/DeleteDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/nstudio/android/DetailsActivity.java" afterPath="$PROJECT_DIR$/src/ru/nstudio/android/DetailsActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/nstudio/android/FinanceAdapter.java" afterPath="$PROJECT_DIR$/src/ru/nstudio/android/FinanceAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ru/nstudio/android/MonthDetailsAdapter.java" afterPath="$PROJECT_DIR$/src/ru/nstudio/android/MonthDetailsAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/add_finance_activity.xml" afterPath="$PROJECT_DIR$/res/layout/add_finance_activity.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/list_item_month_details.xml" afterPath="$PROJECT_DIR$/res/layout/list_item_month_details.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/strings.xml" afterPath="$PROJECT_DIR$/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="375608bc-b95e-4100-9b0c-9fc217962bb1" name="Failed commit: Default" comment="implement changing &amp; deleting month info from context menu" />
     <ignored path="CalcMyMoney.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1362841348331" ignored="false" />
-    <file path="/DetailsActivity.java" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1358533901017" ignored="false" />
+    <file path="/Dummy.txt" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1373583627268" ignored="false" />
+    <file path="/DetailsActivity.java" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1373585171836" ignored="false" />
     <file path="/MainActivity.java" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1362260955761" ignored="false" />
-    <file path="/strings.xml" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1362506355345" ignored="false" />
-    <file path="/fragment.java" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1362841584265" ignored="false" />
+    <file path="/strings.xml" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1373584218133" ignored="false" />
+    <file path="/fragment.java" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1372790116196" ignored="false" />
     <file path="/ParameterAlertDialog.java" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1362237615517" ignored="false" />
-    <file path="/DeleteDialog.java" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1362422451532" ignored="false" />
-    <file path="/DBHelper.java" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1362239876430" ignored="false" />
-    <file path="/ChangeMonthActivity.java" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1362422441093" ignored="false" />
+    <file path="/DeleteDialog.java" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1372795608074" ignored="false" />
+    <file path="/DBHelper.java" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1372794690224" ignored="false" />
+    <file path="/ChangeMonthActivity.java" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1372966779469" ignored="false" />
     <file path="/ContextMenuCreator.java" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1362260651536" ignored="false" />
     <file path="/ContextMenuInitializer.java" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1362260890820" ignored="false" />
-    <file path="/add_finance_activity.xml" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1362506364254" ignored="false" />
+    <file path="/add_finance_activity.xml" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1373584930664" ignored="false" />
+    <file path="/MonthDetailsAdapter.java" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1372967274640" ignored="false" />
+    <file path="/list_item_month_details.xml" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1372795331396" ignored="false" />
+    <file path="/CategoryAdapter.java" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1373584336322" ignored="false" />
+    <file path="/spinner_item_category.xml" changelist="a48beac1-aca3-410b-9c30-e7393a6df66c" time="1373584028696" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +73,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -92,6 +107,23 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <line_breakpoints>
+      <breakpoint url="file://$PROJECT_DIR$/src/ru/nstudio/android/ChangeMonthActivity.java" line="190" class="ru.nstudio.android.ChangeMonthActivity" package="ru.nstudio.android">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </line_breakpoints>
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -101,25 +133,69 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MainActivity.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/ru/nstudio/android/MainActivity.java">
+      <file leaf-file-name="FinanceAdapter.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ru/nstudio/android/FinanceAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="134" column="79" selection-start="3801" selection-end="3801" vertical-scroll-proportion="0.39891696">
+            <state line="71" column="5" selection-start="1801" selection-end="1801" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DetailsActivity.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/ru/nstudio/android/DetailsActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="112" column="44" selection-start="3294" selection-end="3294" vertical-scroll-proportion="0.8528827">
               <folding>
-                <element signature="method#onContextItemSelected#0;class#MainActivity#0" expanded="false" />
-                <element signature="method#deleteMonthInfo#0;class#MainActivity#0" expanded="false" />
-                <element signature="method#onClick#0;class#MainActivity#0" expanded="false" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#4933#4965#0" expanded="true" />
+                <element signature="e#5074#5106#0" expanded="true" />
+                <element signature="e#5611#5926#0" expanded="true" />
+                <element signature="e#5909#5910#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MenuListener.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ru/nstudio/android/MenuListener.java">
+      <file leaf-file-name="MonthDetailsAdapter.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ru/nstudio/android/MonthDetailsAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="22" selection-start="1443" selection-end="1443" vertical-scroll-proportion="0.0">
+            <state line="83" column="8" selection-start="2043" selection-end="2182" vertical-scroll-proportion="0.0">
               <folding />
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="strings.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="29" column="47" selection-start="1497" selection-end="1497" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="spinner_item_category.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/spinner_item_category.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="13" selection-start="272" selection-end="272" vertical-scroll-proportion="-3.8888888">
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="add_finance_activity.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/add_finance_activity.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="94" column="42" selection-start="2845" selection-end="2845" vertical-scroll-proportion="-2.2222223">
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
           </provider>
         </entry>
       </file>
@@ -150,19 +226,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/ru/nstudio/android/FinanceAdapter.java" />
-        <option value="$PROJECT_DIR$/src/ru/nstudio/android/MonthDetailsAdapter.java" />
-        <option value="$PROJECT_DIR$/src/ru/nstudio/android/DetailsActivity.java" />
         <option value="$PROJECT_DIR$/src/ru/nstudio/android/ParameterAlertDialog.java" />
-        <option value="$PROJECT_DIR$/src/ru/nstudio/android/DBHelper.java" />
         <option value="$PROJECT_DIR$/src/ru/nstudio/android/ContextMenuCreator.java" />
         <option value="$PROJECT_DIR$/src/ru/nstudio/android/ContextMenuInitializer.java" />
-        <option value="$PROJECT_DIR$/src/ru/nstudio/android/ChangeMonthActivity.java" />
-        <option value="$PROJECT_DIR$/src/ru/nstudio/android/DeleteDialog.java" />
-        <option value="$PROJECT_DIR$/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/res/layout/add_finance_activity.xml" />
         <option value="$PROJECT_DIR$/src/ru/nstudio/android/MenuListener.java" />
         <option value="$PROJECT_DIR$/src/ru/nstudio/android/MainActivity.java" />
+        <option value="$PROJECT_DIR$/src/ru/nstudio/android/FinanceAdapter.java" />
+        <option value="$PROJECT_DIR$/src/ru/nstudio/android/DBHelper.java" />
+        <option value="$PROJECT_DIR$/res/layout/list_item_month_details.xml" />
+        <option value="$PROJECT_DIR$/src/ru/nstudio/android/DeleteDialog.java" />
+        <option value="$PROJECT_DIR$/src/ru/nstudio/android/ChangeMonthActivity.java" />
+        <option value="$PROJECT_DIR$/src/ru/nstudio/android/MonthDetailsAdapter.java" />
+        <option value="$PROJECT_DIR$/res/layout/spinner_item_category.xml" />
+        <option value="$PROJECT_DIR$/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/src/ru/nstudio/android/CategoryAdapter.java" />
+        <option value="$PROJECT_DIR$/res/layout/add_finance_activity.xml" />
+        <option value="$PROJECT_DIR$/src/ru/nstudio/android/DetailsActivity.java" />
       </list>
     </option>
   </component>
@@ -196,6 +275,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -246,24 +327,59 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CalcMyMoney" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CalcMyMoney" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="values" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CalcMyMoney" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CalcMyMoney" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="139" />
+    <property name="OverrideImplement.combined" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="141" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="139" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="MemberChooser.sorted" value="false" />
     <property name="recentsLimit" value="5" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="139" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="145" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="939" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="939" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="939" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="145" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="141" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
@@ -316,6 +432,19 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -341,19 +470,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -410,8 +526,8 @@
       <option name="ACTIVITY_CLASS" value="" />
       <option name="MODE" value="default_activity" />
       <option name="DEPLOY" value="true" />
-      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="PREFERRED_AVD" value="MyDev" />
+      <option name="TARGET_SELECTION_MODE" value="USB_DEVICE" />
+      <option name="PREFERRED_AVD" value="" />
       <option name="COMMAND_LINE" value="" />
       <option name="WIPE_USER_DATA" value="false" />
       <option name="DISABLE_BOOT_ANIMATION" value="false" />
@@ -475,35 +591,39 @@
       <created>1362506794535</created>
       <updated>1362506794535</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="re-implement main menu">
+      <created>1362842104533</created>
+      <updated>1362842104533</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32917705" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32917705" sideWeight="0.49713057" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3297414" sideWeight="0.6708229" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32917705" sideWeight="0.5530847" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37531173" sideWeight="0.49713057" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37531173" sideWeight="0.4978479" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37531173" sideWeight="0.57101864" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27431422" sideWeight="0.517934" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32917705" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3283582" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32793018" sideWeight="0.49713057" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32917705" sideWeight="0.49713057" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24605452" sideWeight="0.19700748" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20444763" sideWeight="0.7256858" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27431422" sideWeight="0.49713057" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27431422" sideWeight="0.47704446" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998565" sideWeight="0.7256858" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998565" sideWeight="0.7256858" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998565" sideWeight="0.7256858" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -546,7 +666,7 @@
     <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix bugs with incorrect calculating income &amp; expend &#10;fix other minor bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="re-implement main menu" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -564,6 +684,7 @@
     <MESSAGE value="Implement class for creating context menu" />
     <MESSAGE value="implement changing &amp; deleting operation info from main menu" />
     <MESSAGE value="fix bugs with incorrect calculating income &amp; expend &#10;fix other minor bugs" />
+    <MESSAGE value="re-implement main menu" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -573,69 +694,120 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/ru/nstudio/android/MonthDetailsAdapter.java">
+    <entry file="file://$PROJECT_DIR$/src/ru/nstudio/android/IDialogFinishedCallback.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="122" column="86" selection-start="3530" selection-end="3530" vertical-scroll-proportion="0.0" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#0#428#0" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/nstudio/android/ManagedDialog.java">
+    <entry file="file://$PROJECT_DIR$/src/ru/nstudio/android/DeleteDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../android-sdks/sources/android-15/android/view/View.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6232" column="45" selection-start="234687" selection-end="234687" vertical-scroll-proportion="0.0">
+        <state line="95" column="37" selection-start="2962" selection-end="2962" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/nstudio/android/FinanceAdapter.java">
+    <entry file="file://$PROJECT_DIR$/src/ru/nstudio/android/DBHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="133" column="77" selection-start="3925" selection-end="3925" vertical-scroll-proportion="0.0" />
+        <state line="97" column="52" selection-start="3565" selection-end="3565" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../android-sdks/sources/android-15/android/os/Binder.java">
+    <entry file="file://$PROJECT_DIR$/../../android-sdks/sources/android-15/android/app/Activity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="337" column="0" selection-start="11696" selection-end="11696" vertical-scroll-proportion="0.0" />
+        <state line="3122" column="0" selection-start="131479" selection-end="131479" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../android-sdks/sources/android-15/java/lang/Thread.java">
+    <entry file="file://$PROJECT_DIR$/res/layout/add_new_month.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="855" column="0" selection-start="28522" selection-end="28522" vertical-scroll-proportion="0.0" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/nstudio/android/ContextMenuInitializer.java">
+    <entry file="file://$PROJECT_DIR$/../../android-sdks/sources/android-15/android/content/Context.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="33" selection-start="1088" selection-end="1088" vertical-scroll-proportion="0.0">
+        <state line="281" column="0" selection-start="12394" selection-end="12394" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/nstudio/android/ChangeMonthActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="11" selection-start="1320" selection-end="1320" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/nstudio/android/DeleteDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="92" column="66" selection-start="2838" selection-end="2838" vertical-scroll-proportion="0.0">
+        <state line="208" column="0" selection-start="6718" selection-end="6718" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/nstudio/android/FinanceOperation.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="13" selection-start="136" selection-end="136" vertical-scroll-proportion="0.0">
+        <state line="7" column="13" selection-start="136" selection-end="136" vertical-scroll-proportion="-2.6004229">
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/nstudio/android/MonthDetailsAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="83" column="8" selection-start="2043" selection-end="2182" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="47" selection-start="1497" selection-end="1497" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/nstudio/android/CategoryAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="96" column="57" selection-start="2108" selection-end="2108" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ru/nstudio/android/FinanceAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="71" column="5" selection-start="1801" selection-end="1801" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/list_item_month_details.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="34" selection-start="920" selection-end="920" vertical-scroll-proportion="0.7173913">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/spinner_item_category.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="13" selection-start="272" selection-end="272" vertical-scroll-proportion="-3.8888888">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/add_finance_activity.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="46" selection-start="2540" selection-end="2540" vertical-scroll-proportion="0.0">
+        <state line="94" column="42" selection-start="2845" selection-end="2845" vertical-scroll-proportion="-2.2222223">
           <folding />
         </state>
       </provider>
@@ -645,39 +817,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ru/nstudio/android/DetailsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="246" column="20" selection-start="7261" selection-end="7261" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/nstudio/android/DBHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="79" selection-start="1983" selection-end="1983" vertical-scroll-proportion="0.30232558">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="40" selection-start="727" selection-end="727" vertical-scroll-proportion="0.019379845">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/nstudio/android/MenuListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="22" selection-start="1443" selection-end="1443" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ru/nstudio/android/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="134" column="79" selection-start="3801" selection-end="3801" vertical-scroll-proportion="0.39891696">
+        <state line="112" column="44" selection-start="3294" selection-end="3294" vertical-scroll-proportion="0.8528827">
           <folding>
-            <element signature="method#onContextItemSelected#0;class#MainActivity#0" expanded="false" />
-            <element signature="method#deleteMonthInfo#0;class#MainActivity#0" expanded="false" />
-            <element signature="method#onClick#0;class#MainActivity#0" expanded="false" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#4933#4965#0" expanded="true" />
+            <element signature="e#5074#5106#0" expanded="true" />
+            <element signature="e#5611#5926#0" expanded="true" />
+            <element signature="e#5909#5910#0" expanded="true" />
           </folding>
         </state>
       </provider>

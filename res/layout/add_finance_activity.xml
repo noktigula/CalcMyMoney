@@ -75,6 +75,29 @@
 		       
 		</TableRow>
 	</TableLayout>
+
+    <LinearLayout
+            android:id = "@+id/llAddCategory"
+            style="@style/llChild"
+            android:orientation = "vertical"
+            android:layout_marginTop="10dp"
+            >
+
+        <TextView
+                android:id = "@+id/tvCategoryHint"
+                style="@style/wrap"
+                android:text="@string/hintCategory"
+                android:textSize="10sp"
+                android:layout_gravity="left"
+                android:gravity="bottom|left"/>
+
+        <Spinner
+                android:id = "@+id/spinnerCategory"
+                style="@style/match"
+                android:layout_weight="1.0"
+                android:singleLine="true"
+                />
+    </LinearLayout>
 	
 	<LinearLayout
 	    style="@style/llChild"

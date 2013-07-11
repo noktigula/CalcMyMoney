@@ -171,8 +171,8 @@ public class ChangeMonthActivity extends ListActivity implements /*OnClickListen
 				
 		this.lvAddFinances.addFooterView(this.vFooter, null, true);
 		
-		String[] columns = new String[]{"idFinance", "reason", "price", "quantity", "type", "financeDate"};
-		String whereClause  = new String("strftime('%Y', financeDate) = ? and strftime('%m', financeDate) = ?");
+//		String[] columns = new String[]{"idFinance", "reason", "price", "quantity", "type", "financeDate"};
+//		String whereClause  = new String("strftime('%Y', financeDate) = ? and strftime('%m', financeDate) = ?");
 		String monthWithLeadingZero;
 		if ((this.month / 10) == 0)
 		{
@@ -182,11 +182,29 @@ public class ChangeMonthActivity extends ListActivity implements /*OnClickListen
 		{
 			monthWithLeadingZero = new String(Integer.toString(this.month));
 		} // else
-		
+
 		String[] whereArgs = new String[] {Integer.toString(this.year), monthWithLeadingZero};
-		String order = new String("strftime('%d', financeDate), idFinance");
-		
-		Cursor c = this.db.query("Finance", columns, whereClause, whereArgs, null, null, order);
+//		String order = new String("strftime('%d', financeDate), idFinance");
+//
+//		Cursor c = this.db.query("Finance", columns, whereClause, whereArgs, null, null, order);
+
+		String query = " SELECT " +
+					   "f." + DBHelper.Finance.ID 		+ ", " +
+					   "f." + DBHelper.Finance.REASON 	+ ", " +
+					   "f." + DBHelper.Finance.PRICE 	+ ", " +
+					   "f." + DBHelper.Finance.QUANTITY + ", " +
+					   "f." + DBHelper.Finance.DATE 	+ ", " +
+					   "f." + DBHelper.Finance.TYPE 	+ ", " +
+					   "c." + DBHelper.Category.NAME    +
+					   " FROM " + DBHelper.Finance.TABLE_NAME + " AS f " +
+					   " INNER JOIN " + DBHelper.Category.TABLE_NAME +  " AS c " +
+					   		"ON f." + DBHelper.Finance.ID + " = c." + DBHelper.Category.ID +
+					   " WHERE strftime('%Y', " + DBHelper.Finance.DATE + ") = ? " +
+						  "AND strftime('%m', " + DBHelper.Finance.DATE + ") = ? " +
+					   " ORDER BY strftime('%d', " + DBHelper.Finance.DATE + "), " + DBHelper.Finance.ID;
+
+
+		Cursor c = this.db.rawQuery(query, whereArgs);
 		
 		MonthDetailsAdapter mda = new MonthDetailsAdapter(this, this.getLayoutInflater(), c);
 		
