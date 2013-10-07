@@ -2,6 +2,7 @@ package ru.nstudio.android;
 
 import java.util.GregorianCalendar;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
@@ -11,6 +12,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,6 +21,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +38,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener
 	private RadioButton 		_rbExpend;
 
 	private Spinner				_spinner;
+	private Button				_btnAddCategory;
 	
 	private TextView 			_tvDateExplain;
 	
@@ -71,6 +75,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener
 		_btnExplainOk.setOnClickListener(this);
 
 		_spinner = (Spinner) findViewById(R.id.spinnerCategory);
+		_btnAddCategory = (Button) findViewById( R.id.btnAddCategory );
 		
 		Intent intent = getIntent();
 		_idFinance = intent.getIntExtra("ru.nstudio.android.idFinance", -1);
@@ -99,17 +104,25 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener
 
 
 		fillSpinnerWithCategories();
+		_btnAddCategory.setOnClickListener( this );
 	} // onCreate
 
+	@TargetApi( Build.VERSION_CODES.HONEYCOMB )
 	private void fillSpinnerWithCategories()
 	{
 		initDatabase();
 
-		String query = "SELECT " + DBHelper.Category.NAME + " FROM " + DBHelper.Category.TABLE_NAME;
+		String query = "SELECT " + DBHelper.Category.ID + " AS _id, " + DBHelper.Category.NAME + " FROM " + DBHelper.Category.TABLE_NAME;
 
 		Cursor c = _db.rawQuery(query, null);
+		//_db.close();
+		//CategoryAdapter categoryAdapter = new CategoryAdapter( this, getLayoutInflater(), c );
+		SimpleCursorAdapter categoryAdapter =
+				new SimpleCursorAdapter( this, R.layout.spinner_item_category, c,
+										 new String[]{ DBHelper.Category.NAME },
+										 new int[]{R.id.tvCategory},
+										 SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER );
 
-		CategoryAdapter categoryAdapter = new CategoryAdapter( this, getLayoutInflater(), c );
 		_spinner.setAdapter( categoryAdapter );
 	}
 
@@ -254,8 +267,16 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener
 			setResult(RESULT_FIRST_USER_DETAIL, intent);
 			finish();
 		} // if
-		
+		else if ( v.getId() == R.id.btnAddCategory )
+		{
+			showDialogAddCategory();
+		}
 	} //onClick
+
+	private void showDialogAddCategory()
+	{
+
+	}
 
 	public void onClick(DialogInterface dialog, int which) 
 	{

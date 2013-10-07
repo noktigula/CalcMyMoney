@@ -3,10 +3,6 @@
 import android.app.Dialog;
 import android.util.SparseArray;
 
-/**
- * @class DialogRegisty класс-регистратор диалоговых окон
- * @author Noktigula (Pro Android 3)
- * 
 public class DialogRegistry 
 {
 	SparseArray<IDialogProtocol> idForDialog = new SparseArray();

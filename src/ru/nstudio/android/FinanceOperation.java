@@ -31,7 +31,7 @@ public class FinanceOperation implements Parcelable
 		quantity = in.readInt();
 		type = in.readInt();
 		date = (GregorianCalendar) in.readSerializable();		
-	} // конструктор для случая восстановления из Parcel
+	}
 	
 	public boolean setExplain(String strExplain)
 	{
@@ -62,7 +62,7 @@ public class FinanceOperation implements Parcelable
 	
 	public boolean setDate (GregorianCalendar gcDate)
 	{
-		/*Проверка допустимых значений*/
+		/*пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ*/
 		this.date = gcDate;
 		return true;
 	} // setDate
@@ -118,5 +118,5 @@ public class FinanceOperation implements Parcelable
 		{
 			return new FinanceOperation[size];
 		} // newArray
-	}; // Встроенный класс Creator
+	}; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ Creator
 } // class FinalOperations implements Parcelable

@@ -5,7 +5,6 @@ import android.app.Dialog;
 
 public class DialogCaller implements IDialogFinishedCallback 
 {
-	//Реестр управляемых окон
 	private DialogRegistry 	dr = new DialogRegistry();
 	private Activity	   	activity;
 	public static final int	DIALOG_CURRENCY = 0;

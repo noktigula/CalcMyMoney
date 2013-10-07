@@ -2,10 +2,6 @@
 
 import android.app.Dialog;
 
-/**
- * @interface IDialogProtocol - отвечает за создание диалогового окна и подготовку перед каждым выводом на экран
- * @author Noktigula
- * 
 public interface IDialogProtocol 
 {
 	public Dialog create();

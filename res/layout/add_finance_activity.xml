@@ -90,13 +90,24 @@
                 android:textSize="10sp"
                 android:layout_gravity="left"
                 android:gravity="bottom|left"/>
-
-        <Spinner
-                android:id = "@+id/spinnerCategory"
-                style="@style/match"
-                android:layout_weight="1.0"
-                android:singleLine="true"
-                />
+        <TableLayout
+                style="@style/llChild"
+               >
+            <TableRow
+                    android:weightSum="1.0">
+                <Spinner
+                        android:id = "@+id/spinnerCategory"
+                        style="@style/match"
+                        android:layout_weight="0.8"
+                        />
+                <Button
+                        android:id="@+id/btnAddCategory"
+                        style="@style/wrap"
+                        android:text="+"
+                        android:layout_weight="0.2"
+                        />
+            </TableRow>
+        </TableLayout>
     </LinearLayout>
 	
 	<LinearLayout

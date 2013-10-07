@@ -4,12 +4,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 
-/**
- * @class ManagedDialog - обща€ реализаци€ всех классов диалоговых окон, готовых реализовать интерфейс IDialogProtocol
- * create() * prepare() переопредел€ютс€ в базовых классах.
- * »нформирует родительское Activity о завершении работы.
- * @author Noktigula (Pro Android 3)
- * 
 public class ManagedDialog implements IDialogProtocol, OnClickListener 
 {
 	private DialogCaller dCaller;

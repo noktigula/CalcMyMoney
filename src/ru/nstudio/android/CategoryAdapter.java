@@ -86,16 +86,11 @@ public class CategoryAdapter extends BaseAdapter
 			{
 				String category = _cursor.getString( _cursor.getColumnIndex( DBHelper.Category.NAME ) );
 
-//				View v = _inflater.inflate( R.layout.spinner_item_category, null );
-//				TextView tv = (TextView) v.findViewById( R.id.tvCategory );
-//				tv.setText( category );
-
-
 				_alView.add( getViewWithText( category ) );
 			} while(_cursor.moveToNext());
 		}
 
-		_alView.add( getViewWithText( _context.getString( R.string.new_category ) ) );
+		//_alView.add( getViewWithText( _context.getString( R.string.new_category ) ) );
 	}
 
 	private View getViewWithText(String text)

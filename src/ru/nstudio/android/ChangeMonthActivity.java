@@ -170,23 +170,18 @@ public class ChangeMonthActivity extends ListActivity implements /*OnClickListen
 		this.lvAddFinances = getListView();
 				
 		this.lvAddFinances.addFooterView(this.vFooter, null, true);
-		
-//		String[] columns = new String[]{"idFinance", "reason", "price", "quantity", "type", "financeDate"};
-//		String whereClause  = new String("strftime('%Y', financeDate) = ? and strftime('%m', financeDate) = ?");
+
 		String monthWithLeadingZero;
 		if ((this.month / 10) == 0)
 		{
 			monthWithLeadingZero = new String("0" + Integer.toString(this.month));
-		} // if month without leading zero
+		}
 		else
 		{
 			monthWithLeadingZero = new String(Integer.toString(this.month));
-		} // else
+		}
 
 		String[] whereArgs = new String[] {Integer.toString(this.year), monthWithLeadingZero};
-//		String order = new String("strftime('%d', financeDate), idFinance");
-//
-//		Cursor c = this.db.query("Finance", columns, whereClause, whereArgs, null, null, order);
 
 		String query = " SELECT " +
 					   "f." + DBHelper.Finance.ID 		+ ", " +
@@ -198,7 +193,7 @@ public class ChangeMonthActivity extends ListActivity implements /*OnClickListen
 					   "c." + DBHelper.Category.NAME    +
 					   " FROM " + DBHelper.Finance.TABLE_NAME + " AS f " +
 					   " INNER JOIN " + DBHelper.Category.TABLE_NAME +  " AS c " +
-					   		"ON f." + DBHelper.Finance.ID + " = c." + DBHelper.Category.ID +
+					   		"ON f." + DBHelper.Finance.CATEGORY + " = c." + DBHelper.Category.ID +
 					   " WHERE strftime('%Y', " + DBHelper.Finance.DATE + ") = ? " +
 						  "AND strftime('%m', " + DBHelper.Finance.DATE + ") = ? " +
 					   " ORDER BY strftime('%d', " + DBHelper.Finance.DATE + "), " + DBHelper.Finance.ID;

@@ -118,18 +118,7 @@ public class MainActivity extends ListActivity implements OnItemClickListener, O
 		return true;
 		//return super.onCreateOptionsMenu(menu);
 	} // onCreateOptionsMenu
-	
-	/*@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		return this.menuListener.onMenuItemClick(item);
-	} // onOptionItemSelected*/
-	/*
-	@SuppressWarnings("deprecation")
-	protected Dialog onCreateDialog(int id)
-	{
-		return this.menuListener.onCreateDialog(id);
-	} // onCreateDialog*/
+
 	
 	void makeListCalculations()
 	{
