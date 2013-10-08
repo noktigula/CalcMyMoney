@@ -61,8 +61,8 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		//setContentView(R.layout.element_add_finance);
 		setContentView(R.layout.add_finance_activity);
+
 		_etExplain = (EditText) findViewById(R.id.etExplain);
 		_etPrice = (EditText) findViewById(R.id.etPrice);
 		_etQuantity = (EditText) findViewById(R.id.etQuantity);
@@ -79,7 +79,9 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 
 		_spinner = (Spinner) findViewById(R.id.spinnerCategory);
 		_btnAddCategory = (Button) findViewById( R.id.btnAddCategory );
-		
+
+		fillSpinnerWithCategories();
+
 		Intent intent = getIntent();
 		_idFinance = intent.getIntExtra("ru.nstudio.android.idFinance", -1);
 		if (_idFinance != -1)
@@ -106,7 +108,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 		} // else
 
 
-		fillSpinnerWithCategories();
+		//fillSpinnerWithCategories();
 		_btnAddCategory.setOnClickListener( this );
 	} // onCreate
 
@@ -142,7 +144,12 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 	{
 		initDatabase();
 		
-		String query = new String ("SELECT * FROM " + DBHelper.Finance.TABLE_NAME +
+		String query = new String (" SELECT " + DBHelper.Finance.TABLE_NAME + ".*, " +
+								   DBHelper.Category.TABLE_NAME + "." + DBHelper.Category.NAME +
+								   " FROM " + DBHelper.Finance.TABLE_NAME +
+								   " INNER JOIN  " + DBHelper.Category.TABLE_NAME +
+								   " ON " + DBHelper.Category.TABLE_NAME+"."+DBHelper.Category.ID +
+								   "=" + DBHelper.Finance.TABLE_NAME + "." + DBHelper.Finance.CATEGORY +
 								   " WHERE " + DBHelper.Finance.ID + " = ?");
 		Cursor c = _db.rawQuery(query, new String[]{Integer.toString(idFinance)});
 		
@@ -163,9 +170,9 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 			boolean type = (c.getInt(c.getColumnIndex(DBHelper.Finance.TYPE)) == 1);
 			_rbIncome.setChecked(type);
 			_rbExpend.setChecked(!type);
-		} // if
 
-		fillSpinnerWithCategories();
+			_spinner.setSelection( c.getInt( c.getColumnIndex( DBHelper.Finance.CATEGORY ) ) - 1 );
+		} // if
 		
 		c.close();
 	} // getOperationValues
@@ -262,7 +269,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 			{
 				_db.update( DBHelper.Finance.TABLE_NAME,
 						cv,
-						"_idFinance = ?",
+						DBHelper.Finance.ID + "= ?",
 						new String[]{Integer.toString(_idFinance)});
 			} // else
 			_db.close();
