@@ -2,6 +2,7 @@ package ru.nstudio.android;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -82,7 +83,6 @@ public class DBHelper extends SQLiteOpenHelper
 			cv.put( Category.NAME, category );
 			db.insert(Category.TABLE_NAME, null, cv);
 		}
-
 		
 		String[] reasons = new String[] {"test_1", "test_2", "test_4", "test_5", "test_6", "test_7",   "test_8"};
 		double[] prices = new double[]  {100, 		500,	 30000,		 5000,	   300000,	 1000000, 10000000};
@@ -109,5 +109,23 @@ public class DBHelper extends SQLiteOpenHelper
 	{
 
 	} // onUpgrade
+
+	public boolean isValueUnique(  String tableName, String field, String value )
+	{
+		SQLiteDatabase db = getWritableDatabase();
+		Cursor c = db.query( tableName, new String[]{field}, field + " = ?", new String[]{value}, null, null, null );
+		return c.getCount() == 0;
+	}
+
+	public void insertDistinct( String tableName, String field, String value )
+	{
+		if( !isValueUnique( tableName, field, value ) )	return;
+
+		ContentValues cv = new ContentValues(  );
+		cv.put( field, value );
+
+		SQLiteDatabase db = getWritableDatabase();
+		db.insert( tableName, null, cv );
+	}
 
 } // DBHelper

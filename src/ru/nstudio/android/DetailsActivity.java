@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -26,8 +27,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ru.nstudio.android.dialogs.AddCategoryDialog;
+
 public class DetailsActivity extends Activity 
-implements OnClickListener, android.content.DialogInterface.OnClickListener
+implements OnClickListener, android.content.DialogInterface.OnClickListener, IDialogListener
 {
 	private EditText 			_etExplain;
 	private EditText 			_etPrice;
@@ -275,7 +278,8 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener
 
 	private void showDialogAddCategory()
 	{
-
+		DialogFragment dialog = new AddCategoryDialog();
+		dialog.show( getFragmentManager(), "add_category" );
 	}
 
 	public void onClick(DialogInterface dialog, int which) 
@@ -285,4 +289,20 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener
 			
 		} // if
 	} // onClick(Dialog)
+
+	@Override
+	public void onDialogPositiveClick( DialogFragment dialog )
+	{
+		AddCategoryDialog addCategoryDialog = (AddCategoryDialog)dialog;
+		String category = addCategoryDialog.getCategory();
+
+		_dbHelper.insertDistinct( DBHelper.Category.TABLE_NAME, DBHelper.Category.NAME, category );
+		fillSpinnerWithCategories();
+	}
+
+	@Override
+	public void onDialogNegativeClick( DialogFragment dialog )
+	{
+
+	}
 } // AddNewDetailsActivity

@@ -28,6 +28,9 @@
     <string name="type_expend">Расходы</string>
     <string name="date_main_hint">Дата</string>
     <string name="new_category">Новая категория</string>
+
+    <string name="dialog_category_title">Добавление категории</string>
+    <string name="dialog_category_hint">Введите название категории</string>
     
     <!-- Menu items -->
     <string name="menuCurrencyTitle">Валюта</string>
