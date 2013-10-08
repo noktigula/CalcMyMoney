@@ -45,7 +45,7 @@ public class DBHelper extends SQLiteOpenHelper
 											"Сентябрь", "Октябрь", "Ноябрь",
 											"Декабрь"};
 
-		String defaultCategory = new String("Нет категории");
+		String[] strCategories= new String[]{"Нет категории", "Транспорт", "Продукты", "Развлечения"};
 		
 		String queryCreateFinance = new String("CREATE TABLE " + Finance.TABLE_NAME + "( " +
 											  Finance.ID       + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -76,9 +76,13 @@ public class DBHelper extends SQLiteOpenHelper
 			db.insert("MonthTitle", null, cv);
 		} // for
 
-		cv.clear();
-		cv.put( Category.NAME, defaultCategory );
-		db.insert(Category.TABLE_NAME, null, cv);
+		for(String category : strCategories)
+		{
+			cv.clear();
+			cv.put( Category.NAME, category );
+			db.insert(Category.TABLE_NAME, null, cv);
+		}
+
 		
 		String[] reasons = new String[] {"test_1", "test_2", "test_4", "test_5", "test_6", "test_7",   "test_8"};
 		double[] prices = new double[]  {100, 		500,	 30000,		 5000,	   300000,	 1000000, 10000000};

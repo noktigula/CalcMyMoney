@@ -115,14 +115,14 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener
 		String query = "SELECT " + DBHelper.Category.ID + " AS _id, " + DBHelper.Category.NAME + " FROM " + DBHelper.Category.TABLE_NAME;
 
 		Cursor c = _db.rawQuery(query, null);
-		//_db.close();
-		//CategoryAdapter categoryAdapter = new CategoryAdapter( this, getLayoutInflater(), c );
+
 		SimpleCursorAdapter categoryAdapter =
-				new SimpleCursorAdapter( this, R.layout.spinner_item_category, c,
+				new SimpleCursorAdapter( this, android.R.layout.simple_spinner_item, c,
 										 new String[]{ DBHelper.Category.NAME },
-										 new int[]{R.id.tvCategory},
+										 new int[]{ android.R.id.text1 },
 										 SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER );
 
+		categoryAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
 		_spinner.setAdapter( categoryAdapter );
 	}
 

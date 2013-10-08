@@ -97,7 +97,7 @@
                     android:weightSum="1.0">
                 <Spinner
                         android:id = "@+id/spinnerCategory"
-                        style="@style/match"
+                        style="@style/wrap"
                         android:layout_weight="0.8"
                         />
                 <Button
@@ -203,5 +203,8 @@
 	        android:gravity="center"
 	        android:text=" " />
 	</LinearLayout>
+    <Spinner android:id="@+id/stub"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"/>
 
 </LinearLayout>
