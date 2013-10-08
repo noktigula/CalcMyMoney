@@ -220,7 +220,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 
 	public void onClick(View v) 
 	{
-		if (v.getId() == R.id.btnExplainOK)
+		if ( v.getId() == R.id.btnExplainOK )
 		{
 			if (_etExplain.getText().toString().isEmpty() ||
 				_etQuantity.getText().toString().isEmpty() ||
@@ -228,7 +228,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 			{
 				Toast.makeText(this, R.string.errEmptyField, 10000).show();
 				return;
-			} // if
+			}
 			
 			initDatabase();
 			
@@ -236,30 +236,31 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 
             String quant = _etQuantity.getText().toString();
             String price = _etPrice.getText().toString();
+			long categoryID = _spinner.getSelectedItemId();
 
             if(quant.contains(","))
             {
                 quant = quant.replace(",", ".");
-            }   // if quant contains ,
-
+            }
             if(price.contains(","))
             {
                 price = price.replace(",", ".");
-            }   // if quant contains ,
-			
-			cv.put("reason", _etExplain.getText().toString());
-			cv.put("quantity", Double.parseDouble(quant));
-			cv.put("price", Double.parseDouble(price));
-			cv.put("type", _rbIncome.isChecked());
-			cv.put("financeDate", DateParser.format(this, _gcDate, DateParser.SQLITE_FORMAT));
+            }
+
+			cv.put( DBHelper.Finance.REASON, _etExplain.getText().toString() );
+			cv.put( DBHelper.Finance.QUANTITY, Double.parseDouble(quant) );
+			cv.put( DBHelper.Finance.PRICE, Double.parseDouble(price) );
+			cv.put( DBHelper.Finance.TYPE, _rbIncome.isChecked() );
+			cv.put( DBHelper.Finance.DATE, DateParser.format( this, _gcDate, DateParser.SQLITE_FORMAT ) );
+			cv.put( DBHelper.Category.ID, categoryID );
 								
 			if (_idFinance == -1)
 			{
-				_db.insert("Finance", null, cv);
+				_db.insert( DBHelper.Finance.TABLE_NAME, null, cv);
 			} // if adding new
 			else
 			{
-				_db.update("Finance",
+				_db.update( DBHelper.Finance.TABLE_NAME,
 						cv,
 						"_idFinance = ?",
 						new String[]{Integer.toString(_idFinance)});
@@ -276,6 +277,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 		}
 	} //onClick
 
+	@TargetApi( Build.VERSION_CODES.HONEYCOMB )
 	private void showDialogAddCategory()
 	{
 		DialogFragment dialog = new AddCategoryDialog();
