@@ -3,14 +3,23 @@ package ru.nstudio.android;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.*;
-import android.widget.*;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.content.DialogInterface.OnClickListener;
+import android.widget.ListView;
+import android.widget.TableLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.app.ActionBar;
 
 public class MainActivity extends ListActivity implements OnItemClickListener, OnClickListener
 {
@@ -41,6 +50,8 @@ public class MainActivity extends ListActivity implements OnItemClickListener, O
         registerForContextMenu(this.lv);
     	
     	this.menuListener = new MenuListener(this);
+		ActionBar actionBar = getActionBar();
+
     } // onCreate
 
     @Override

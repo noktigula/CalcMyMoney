@@ -30,7 +30,7 @@
 	    android:layout_width="match_parent"
 	    android:layout_height = "18dp"
 	    android:textSize="14sp"
-	    android:gravity = "left" 
+	    android:gravity = "left"
 	    android:text = "описание"
     />
         

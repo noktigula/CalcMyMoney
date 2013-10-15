@@ -121,13 +121,13 @@ public class FinanceAdapter extends BaseAdapter //implements OnItemClickListener
 				tvMonthName.setText(monthTitle);
 				
 				TextView tvIncome = (TextView) monthDetails.findViewById(R.id.tvMainMonthIncome);
-				tvIncome.setText(String.format(this.moneyFormat, income) + " р");
+				tvIncome.setText(String.format(this.moneyFormat, income));
 				
 				TextView tvExpend = (TextView) monthDetails.findViewById(R.id.tvMainMonthExpend);
-				tvExpend.setText(String.format(this.moneyFormat, expend) + " р");
+				tvExpend.setText(String.format(this.moneyFormat, expend));
 				
 				TextView tvBalance = (TextView) monthDetails.findViewById(R.id.tvMainMonthBalance);
-				tvBalance.setText(String.format(this.moneyFormat, diff) + " р");
+				tvBalance.setText(String.format(this.moneyFormat, diff));
 				
 				monthDetails.setId(idItem);
 				this.alView.add(monthDetails);
