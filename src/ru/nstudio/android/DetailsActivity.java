@@ -3,7 +3,6 @@ package ru.nstudio.android;
 import java.util.GregorianCalendar;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
@@ -108,8 +107,6 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 			displayDate();
 		} // else
 
-
-		//fillSpinnerWithCategories();
 		_btnAddCategory.setOnClickListener( this );
 	} // onCreate
 
@@ -190,13 +187,15 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 		String dateDesc = DateParser.format(this, _gcDate, DateParser.CALCMONEY_FORMAT);
 		_tvDateExplain.setText(dateDesc);
 	} // displayDate
-	
+
+	//TODO - replace this shit to fragments
 	@SuppressWarnings("deprecation")
 	public void onDateExplainClick (View v)
 	{
 		showDialog(DIALOG_DATE_EXPLAIN);
 	} // onDateExplainClick	
-	
+
+	//TODO - replace this shit to fragments
 	@SuppressWarnings("deprecation")
 	protected Dialog onCreateDialog(int id)
 	{
@@ -212,7 +211,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 		} // id == DIALOG_DATE_EXPLAIN
 		return super.onCreateDialog(id);
 	} // onCreateDialog
-	
+	//TODO - replace this shit to fragments
 	OnDateSetListener dpdExplainCallback = new OnDateSetListener() 
 	{
 		public void onDateSet(DatePicker view, int year, int monthOfYear,

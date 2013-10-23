@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, MainActivity!</string>
     <string name="app_name">CalcMyMoney</string>
     <string name="month_tip">Месяц:</string>
     <string name="newMonthButtonTip">Новый месяц</string>
@@ -39,6 +38,7 @@
     <string name="menuPreferences">Настройки</string>
     <string name="menuChangeRequest">Изменить</string>
     <string name="menuDeleteRequest">Удалить</string>
+    <string name="menuNewItem">Добавить</string>
     
     <!-- Preferences -->
     <string name="preferenceTitle">Настройки</string>

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,15 +20,14 @@ import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.app.ActionBar;
 
-public class MainActivity extends ListActivity implements OnItemClickListener, OnClickListener
+public class MainActivity extends ActionBarActivity implements OnItemClickListener, OnClickListener
 {
-	private DBHelper 		dbHelper;
-	private SQLiteDatabase 	db;
-	private ListView 		lv;
-	private View 			vFooter; 
-	private FinanceAdapter 	fAdapter;
+	private DBHelper _dbHelper;
+	private SQLiteDatabase _db;
+	private ListView _lv;
+	private View _vFooter;
+	private FinanceAdapter _fAdapter;
 	private Menu			menu;
 	private MenuListener	menuListener;
 	
@@ -41,15 +41,19 @@ public class MainActivity extends ListActivity implements OnItemClickListener, O
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
+		setContentView( R.layout.main );
+
+        initDatabase();
+
+		_lv = (ListView) findViewById( R.id.lvMain );
+    	_vFooter = getLayoutInflater().inflate(R.layout.tip_add_new_details, null);
         
-        this.initDatabase();
-        
-    	this.vFooter = getLayoutInflater().inflate(R.layout.tip_add_new_details, null);
-        
-    	this.makeListCalculations();
-        registerForContextMenu(this.lv);
+    	makeListCalculations();
+        registerForContextMenu( _lv );
     	
-    	this.menuListener = new MenuListener(this);
+    	menuListener = new MenuListener( this );
+
+		//ActionBar actionBar = getSupportActionB
     } // onCreate
 
     @Override
@@ -124,8 +128,8 @@ public class MainActivity extends ListActivity implements OnItemClickListener, O
 		mi.inflate(R.menu.menu, menu);
 		
 		this.menu = menu;
-		return true;
-		//return super.onCreateOptionsMenu(menu);
+		//return true;
+		return super.onCreateOptionsMenu(menu);
 	} // onCreateOptionsMenu
 
 	
@@ -133,17 +137,17 @@ public class MainActivity extends ListActivity implements OnItemClickListener, O
 	{
 		this.initDatabase();
 		
-		if (this.lv != null)
+		if (this._lv != null)
 		{
-			this.lv.removeFooterView(this.vFooter);
+			this._lv.removeFooterView( this._vFooter );
 		} // if
 		
-		this.lv = null;
-		this.lv = getListView();
+		this._lv = null;
+		this._lv = (ListView) findViewById( R.id.lvMain );
 		
 		String [] args = new String[]{};
 	        
-		Cursor c = db.rawQuery("SELECT " +
+		Cursor c = _db.rawQuery("SELECT " +
 							   "f.idFinance, " +
 							   "strftime('%Y', f.financeDate) AS fyear, " + 
 							   "strftime('%m', f.financeDate) AS fmonth, " + 
@@ -165,14 +169,14 @@ public class MainActivity extends ListActivity implements OnItemClickListener, O
 							   "tmp1.plus, tmp2.minus, (IFNULL(tmp1.plus, 0) - IFNULL(tmp2.minus, 0)) " +
 							   "ORDER BY fyear, fmonth", args);
 	
-		lv.addFooterView(this.vFooter, null, true);
+		_lv.addFooterView( this._vFooter, null, true );
 		
-		this.fAdapter = new FinanceAdapter(this, this.getLayoutInflater(), c);		    
+		this._fAdapter = new FinanceAdapter(this, this.getLayoutInflater(), c);
 		
 		try
 		{
-			lv.setAdapter(this.fAdapter);
-			lv.setOnItemClickListener(this);
+			_lv.setAdapter( this._fAdapter );
+			_lv.setOnItemClickListener( this );
 		} // try
 		catch (IllegalStateException e)
 		{
@@ -185,22 +189,22 @@ public class MainActivity extends ListActivity implements OnItemClickListener, O
 		} // catch*/
 		
 		c.close();
-		this.db.close();
+		this._db.close();
 	} // makeListCalculations
 	
 	public void initDatabase()
 	{
-		if(this.dbHelper == null)
+		if(this._dbHelper == null)
 		{
-			this.dbHelper = new DBHelper(this, DBHelper.CURRENT_DATABASE_VERSION);
+			this._dbHelper = new DBHelper(this, DBHelper.CURRENT_DATABASE_VERSION);
 		} // if
-		if(this.db == null)
+		if(this._db == null)
 		{
-			this.db = this.dbHelper.getWritableDatabase();
+			this._db = this._dbHelper.getWritableDatabase();
 		} // if
 		
-		if(!this.db.isOpen())
-			this.db = this.dbHelper.getWritableDatabase();
+		if(!this._db.isOpen())
+			this._db = this._dbHelper.getWritableDatabase();
 	} // initDatabase
 	  
 	public void onItemClick(AdapterView<?> adView, View target, int position, long id)
