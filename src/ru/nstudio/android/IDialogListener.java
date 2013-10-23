@@ -1,6 +1,6 @@
 package ru.nstudio.android;
 
-import android.app.DialogFragment;
+import android.support.v4.app.DialogFragment;
 
 /**
  * Created by noktigula on 09.10.13.

@@ -50,8 +50,6 @@ public class MainActivity extends ListActivity implements OnItemClickListener, O
         registerForContextMenu(this.lv);
     	
     	this.menuListener = new MenuListener(this);
-		ActionBar actionBar = getActionBar();
-
     } // onCreate
 
     @Override

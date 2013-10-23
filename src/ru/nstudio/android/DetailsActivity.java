@@ -7,7 +7,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
-import android.app.DialogFragment;
+import android.support.v4.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +15,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -29,7 +30,7 @@ import android.widget.Toast;
 
 import ru.nstudio.android.dialogs.AddCategoryDialog;
 
-public class DetailsActivity extends Activity 
+public class DetailsActivity extends FragmentActivity
 implements OnClickListener, android.content.DialogInterface.OnClickListener, IDialogListener
 {
 	private EditText 			_etExplain;
@@ -287,8 +288,8 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 	@TargetApi( Build.VERSION_CODES.HONEYCOMB )
 	private void showDialogAddCategory()
 	{
-		DialogFragment dialog = new AddCategoryDialog();
-		dialog.show( getFragmentManager(), "add_category" );
+		AddCategoryDialog dialog = new AddCategoryDialog();
+		dialog.show( getSupportFragmentManager(), "add_category" );
 	}
 
 	public void onClick(DialogInterface dialog, int which) 
