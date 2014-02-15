@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <LinearLayout 
+        android:id = "@+id/llMonthActivityDescription"
+        android:orientation="horizontal"
+        style="@style/llChild">
+        
+        <TextView 
+            android:id = "@+id/tvMonthDescription"
+            style = "@style/delimiter" 
+        	android:text = "test_test_ololo"
+        />
+    </LinearLayout>
+        
+    <ListView
+        android:id = "@+id/listOperations"
+        style="@style/match" 
+        android:layout_weight="4.5"/>
+</LinearLayout>

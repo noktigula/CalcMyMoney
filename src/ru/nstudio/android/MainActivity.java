@@ -1,7 +1,6 @@
 package ru.nstudio.android;
 
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -218,9 +217,6 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		{
 			TextView tvMonth = (TextView)target.findViewById(R.id.tvMainMonthTitle);
 			intent = this.getIntentForChange((int)id, tvMonth.getText().toString());
-//                    new Intent("ru.nstudio.android.changeMonth");
-//			intent.putExtra("ru.nstudio.android.selectedItem", (int)id);
-//			intent.putExtra("ru.nstudio.android.monthTitle", tvMonth.getText().toString());
 		} //if
 		
         runChangeActivity(intent);

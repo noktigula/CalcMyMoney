@@ -1,26 +1,15 @@
 package ru.nstudio.android;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.Toast;
 
 public class MonthDetailsAdapter extends BaseAdapter //implements OnItemClickListener
 {
@@ -104,7 +93,7 @@ public class MonthDetailsAdapter extends BaseAdapter //implements OnItemClickLis
 								
 				int color = (isIncome) ? Color.GREEN : Color.RED;
 							
-				View v = this.li.inflate(R.layout.list_item_month_details, null);
+				View v = this.li.inflate(R.layout.list_item_month_details_operations, null);
 								
 				TextView tvExplain = (TextView) v.findViewById(R.id.tvFinanceOperationDetails1);
 				tvExplain.setText(explain);
@@ -118,7 +107,7 @@ public class MonthDetailsAdapter extends BaseAdapter //implements OnItemClickLis
 				tvQuant.setTextColor(color);
 				
 				TextView tvBalance = (TextView) v.findViewById(R.id.tvShowTotalCost1);
-				tvBalance.setText(String.format(this.moneyFormat, price * quant));
+				tvBalance.setText(String.format(this.moneyFormat, price * quant) );
 				tvBalance.setTextColor(color);
 				
 				TextView tvDate = (TextView) v.findViewById(R.id.tvShowDate1);

@@ -1,45 +1,33 @@
 package ru.nstudio.android;
 
 //import android.R;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 
-import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.*;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.Spinner;
-import android.widget.TableLayout.LayoutParams;
 import android.widget.TextView;
-import android.widget.Toast;
-import ru.nstudio.android.FinanceOperation;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
-public class ChangeMonthActivity extends ListActivity implements /*OnClickListener,*/ OnItemClickListener
+public class ChangeMonthActivity extends ActionBarActivity implements OnItemClickListener
 {
-	private Button 						btnOk;
-	private ListView 					lvAddFinances;
-	private View						vFooter;
-	private View						vHeader;
-	//private ArrayList<FinanceOperation> alOperations;
-	private DBHelper					dbHelper;
-	private SQLiteDatabase				db;
-	private int							month;
-	private int							year;
-	public  boolean 					wasChanges;
-	private TextView					tvMonthDescription;
+	private Button 			_btnOk;
+	private ListView 		_lvAddFinances;
+	private View 			_vFooter;
+	private View 			_vHeader;
+	private DBHelper 		_dbHelper;
+	private SQLiteDatabase 	_db;
+	private int 			_month;
+	private int 			_year;
+	public  boolean 		_wasChanges;
+	private TextView 		_tvMonthDescription;
+
     private final String INTENT_ACTION_SHOW_DETAILS = "ru.nstudio.android.showDetails";
 		
 	private static int RESULT_FIRST_USER_DETAIL = 11;
@@ -48,30 +36,30 @@ public class ChangeMonthActivity extends ListActivity implements /*OnClickListen
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.add_new_month);
+		setContentView(R.layout.month_operations );
 	
 		Intent parentIntent = getIntent();
 		int idItem = parentIntent.getIntExtra("ru.nstudio.android.selectedItem", -1);
 
-		if(idItem == -1) throw new IllegalArgumentException("ERROR: can`t load month details - can`t get month ID");
+		if(idItem == -1) throw new IllegalArgumentException("ERROR: can`t load _month details - can`t get _month ID");
 		
-		this.month = idItem % 100;
-		this.year = idItem / 100;
+		this._month = idItem % 100;
+		this._year = idItem / 100;
 		
-		String monthTitle = new String(parentIntent.getStringExtra("ru.nstudio.android.monthTitle") + " " + Integer.toString(year));
+		String monthTitle = new String(parentIntent.getStringExtra("ru.nstudio.android.monthTitle") + " " + Integer.toString( _year ));
 
-		this.tvMonthDescription = (TextView)findViewById(R.id.tvMonthDescription);
-		this.tvMonthDescription.setText(monthTitle);
+		this._tvMonthDescription = (TextView)findViewById(R.id.tvMonthDescription);
+		this._tvMonthDescription.setText( monthTitle );
 		
 		this.initDatabase();
 
-		this.vFooter = getLayoutInflater().inflate(R.layout.tip_add_new_details, null);
+		this._vFooter = getLayoutInflater().inflate(R.layout.tip_add_new_details, null);
 		
 		createListView();
 		
-		this.wasChanges = false;
+		this._wasChanges = false;
 
-        registerForContextMenu(this.lvAddFinances);
+        registerForContextMenu(this._lvAddFinances );
 	} // onCreate
 
     @Override
@@ -79,7 +67,7 @@ public class ChangeMonthActivity extends ListActivity implements /*OnClickListen
     {
         ContextMenuInitializer initializer = new ContextMenuInitializer(menu, v, menuInfo);
         menu = initializer.getMenu();
-    } // onCreateContextMenu
+    }
 
     @Override
     public boolean onContextItemSelected(MenuItem item)
@@ -93,22 +81,22 @@ public class ChangeMonthActivity extends ListActivity implements /*OnClickListen
             {
                 this.showOperationDetails(id);
                 break;
-            } // change
+            }
 
             case ContextMenuInitializer.CONTEXT_MENU_DELETE:
             {
                 this.deleteOperation(id);
                 break;
-            } // delete
+            }
 
             default:
             {
                 break;
-            } // def
-        } //switch
+            }
+        }
 
         return true;
-    } // onContextItemSelected
+    }
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)
@@ -116,72 +104,72 @@ public class ChangeMonthActivity extends ListActivity implements /*OnClickListen
 		if (keyCode == KeyEvent.KEYCODE_BACK)
 		{
 			Intent intent = new Intent();
-			intent.putExtra("ru.nstudio.android.changes", this.wasChanges);
+			intent.putExtra("ru.nstudio.android.changes", this._wasChanges );
 			setResult(RESULT_OK, intent);
-		} // if
+		}
 		return super.onKeyDown(keyCode, event);
-	} // onKeyDow
+	}
 	
 	public void initDatabase()
 	{
-		if(this.dbHelper == null)
+		if(this._dbHelper == null)
 		{
-			this.dbHelper = new DBHelper(this, DBHelper.CURRENT_DATABASE_VERSION);
-		} // if
-		if(this.db == null)
+			this._dbHelper = new DBHelper(this, DBHelper.CURRENT_DATABASE_VERSION);
+		}
+		if(this._db == null)
 		{
-			this.db = this.dbHelper.getWritableDatabase();
-		} // if
+			this._db = this._dbHelper.getWritableDatabase();
+		}
 		
-		if(!this.db.isOpen())
-			this.db = this.dbHelper.getWritableDatabase();
-	} // initDatabase
+		if(!this._db.isOpen())
+			this._db = this._dbHelper.getWritableDatabase();
+	}
 
 	public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) 
 	{
 		this.showOperationDetails((int) id);
-	} // OnItemClick
+	}
 
     public void showOperationDetails(int id)
     {
         Intent intent = new Intent(this.INTENT_ACTION_SHOW_DETAILS);
         intent.putExtra("ru.nstudio.android.idFinance", id);
 
-        intent.putExtra("ru.nstudio.android.month", this.month);
-        intent.putExtra("ru.nstudio.android.year", this.year);
+        intent.putExtra("ru.nstudio.android._month", this._month );
+        intent.putExtra("ru.nstudio.android._year", this._year );
 
         startActivityForResult(intent, RESULT_FIRST_USER_DETAIL);
-    } // showOperationDetails
+    }
 
     public void deleteOperation(int id)
     {
         DeleteDialog deleteDialog = new DeleteDialog(this, id);
         deleteDialog.show();
-    } // deleteOperation
+    }
 	
 	public void createListView()
 	{
 		this.initDatabase();
-		if (this.lvAddFinances != null)
+		if (this._lvAddFinances != null)
 		{
-			this.lvAddFinances.removeFooterView(this.vFooter);		
-		} // if
-		this.lvAddFinances = null;
-		this.lvAddFinances = getListView();
+			this._lvAddFinances.removeFooterView( this._vFooter );
+		}
+		this._lvAddFinances = null;
+		this._lvAddFinances = (ListView)findViewById( R.id.listOperations );//getListView();
 				
-		this.lvAddFinances.addFooterView(this.vFooter, null, true);
+		this._lvAddFinances.addFooterView(this._vFooter, null, true);
 
 		String monthWithLeadingZero;
-		if ((this.month / 10) == 0)
+		if ((this._month / 10) == 0)
 		{
-			monthWithLeadingZero = new String("0" + Integer.toString(this.month));
+			monthWithLeadingZero = new String("0" + Integer.toString(this._month ));
 		}
 		else
 		{
-			monthWithLeadingZero = new String(Integer.toString(this.month));
+			monthWithLeadingZero = new String(Integer.toString(this._month ));
 		}
 
-		String[] whereArgs = new String[] {Integer.toString(this.year), monthWithLeadingZero};
+		String[] whereArgs = new String[] {Integer.toString(this._year ), monthWithLeadingZero};
 
 		String query = " SELECT " +
 					   "f." + DBHelper.Finance.ID 		+ ", " +
@@ -199,27 +187,26 @@ public class ChangeMonthActivity extends ListActivity implements /*OnClickListen
 					   " ORDER BY strftime('%d', " + DBHelper.Finance.DATE + "), " + DBHelper.Finance.ID;
 
 
-		Cursor c = this.db.rawQuery(query, whereArgs);
+		Cursor c = this._db.rawQuery(query, whereArgs);
 		
 		MonthDetailsAdapter mda = new MonthDetailsAdapter(this, this.getLayoutInflater(), c);
 		
-		lvAddFinances.setAdapter(mda);				
-		lvAddFinances.setOnItemClickListener(this);
+		_lvAddFinances.setAdapter(mda);
+		_lvAddFinances.setOnItemClickListener( this );
 		
 		c.close();
-		this.db.close();
-	} // createListView
+		this._db.close();
+	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent outputIntent)
 	{
 		if (resultCode == RESULT_FIRST_USER_DETAIL)
 		{
-			this.wasChanges = outputIntent.getBooleanExtra("ru.nstudio.android.success", false);
-			if (this.wasChanges)
+			this._wasChanges = outputIntent.getBooleanExtra("ru.nstudio.android.success", false);
+			if (this._wasChanges )
 			{
 				this.createListView();
-			} // if
-		} //if result_code ok
-	} // onActivityResult
-		
-} // Activity
+			}
+		}
+	}
+}

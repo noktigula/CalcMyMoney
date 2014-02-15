@@ -60,6 +60,15 @@
     <string name="dialogOK">ОК</string>
     <string name="dialogCancel">Отмена</string>
     <string name="deleteDialogFinalAsk">Вы уверены, что хотите удалить запись?</string>
+
+    <!-- Stubs -->
+    <string name="stubCategory">Категория</string>
+    <string name="stubSumm">Сумма</string>
+    <string name="stubDate">Дата</string>
+    <string name="stubExplain">Описание</string>
+    <string name="stubCost">0.0</string>
+    <string name="stubQuant">0</string>
+    <string name="stubTotal">0</string>
 	    
     <string-array name="strArrayMonths">
         <item>Январь</item>

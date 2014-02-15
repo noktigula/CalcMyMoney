@@ -4,9 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
-import ru.nstudio.android.DBHelper;
 
-import android.content.Intent;
 /**
  * Created with IntelliJ IDEA.
  * User: noktigula
@@ -98,7 +96,7 @@ public class DeleteDialog implements DialogInterface.OnClickListener
 
         ChangeMonthActivity activity = (ChangeMonthActivity) this.context;
         activity.createListView();
-        activity.wasChanges = true;
+        activity._wasChanges = true;
     } // deleteOperation
 
 }
