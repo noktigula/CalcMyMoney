@@ -25,9 +25,9 @@ public class MonthDetailsFragment extends Fragment
 {
 	private ListView 		_lvAddFinances;
 	private View 			_vFooter;
-
 	private DBHelper 		_dbHelper;
 	private SQLiteDatabase 	_db;
+
 	private int 			_month;
 	private int 			_year;
 	public  boolean 		_wasChanges;
