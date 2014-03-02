@@ -1,4 +1,4 @@
-package ru.nstudio.android;
+package ru.nstudio.android.MonthDetails.Adapters;
 
 import java.util.ArrayList;
 
@@ -10,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.BaseAdapter;
+
+import ru.nstudio.android.DBHelper;
+import ru.nstudio.android.DateParser;
+import ru.nstudio.android.R;
 
 public class MonthDetailsAdapter extends BaseAdapter //implements OnItemClickListener
 {
@@ -28,7 +32,7 @@ public class MonthDetailsAdapter extends BaseAdapter //implements OnItemClickLis
 		this.c = c;
 		this.li = inflater;
 		this.alView = new ArrayList<View>();
-		this.moneyFormat = this.context.getString(R.string.money_format);
+		this.moneyFormat = this.context.getString( R.string.money_format);
 		this.parseCursor();
 	} // MonthDetailsAdapter
 	
@@ -80,7 +84,7 @@ public class MonthDetailsAdapter extends BaseAdapter //implements OnItemClickLis
 		{
 			do
 			{
-				boolean isIncome = (c.getInt(c.getColumnIndex(DBHelper.Finance.TYPE)) == 1);
+				boolean isIncome = (c.getInt(c.getColumnIndex( DBHelper.Finance.TYPE)) == 1);
 				String explain = new String(c.getString(c.getColumnIndex(DBHelper.Finance.REASON)));
 				Double price = c.getDouble(c.getColumnIndex(DBHelper.Finance.PRICE));
 				Integer quant = c.getInt(c.getColumnIndex(DBHelper.Finance.QUANTITY));
@@ -89,7 +93,7 @@ public class MonthDetailsAdapter extends BaseAdapter //implements OnItemClickLis
 				String category = new String(c.getString(c.getColumnIndex(DBHelper.Category.NAME)));
 				
 				String dateDescript = 
-					DateParser.format(this.context, date, DateParser.CALCMONEY_FORMAT);
+					DateParser.format( this.context, date, DateParser.CALCMONEY_FORMAT );
 								
 				int color = (isIncome) ? Color.GREEN : Color.RED;
 							

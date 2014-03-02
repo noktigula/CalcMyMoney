@@ -10,9 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import ru.nstudio.android.DBHelper;
-import ru.nstudio.android.MonthDetailsAdapter;
+import ru.nstudio.android.MonthDetails.Adapters.MonthCategoryAdapter;
 import ru.nstudio.android.R;
 
 /**
@@ -31,6 +32,7 @@ public class MonthCategoryFragment extends Fragment
 	public boolean _wasChanges;
 
 	private String _monthTitle;
+	private TextView _tvMonthDescription;
 
 	private Context _context;
 	private AdapterView.OnItemClickListener _listener;
@@ -38,7 +40,22 @@ public class MonthCategoryFragment extends Fragment
 	@Override
 	public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
-		return null;
+		View v = (View)inflater.inflate( R.layout.month_operations, container, false );
+
+		String monthTitle = new String(_monthTitle + " " + Integer.toString( _year ));
+
+		this._tvMonthDescription = (TextView )v.findViewById( R.id.tvMonthDescription );
+		this._tvMonthDescription.setText( monthTitle );
+
+		this.initDatabase();
+
+		this._vFooter = inflater.inflate(R.layout.tip_add_new_details, null);
+
+		createListView( v, inflater );
+
+		this._wasChanges = false;
+
+		return v;
 	}
 
 	private void initDatabase()
@@ -94,29 +111,21 @@ public class MonthCategoryFragment extends Fragment
 
 		String[] whereArgs = new String[] {Integer.toString(this._year ), monthWithLeadingZero};
 
-		//TODO implement correct query
-
-//		String query = " SELECT " +
-//				"f." + DBHelper.Finance.ID 		+ ", " +
-//				"f." + DBHelper.Finance.REASON 	+ ", " +
-//				"f." + DBHelper.Finance.PRICE 	+ ", " +
-//				"f." + DBHelper.Finance.QUANTITY + ", " +
-//				"f." + DBHelper.Finance.DATE 	+ ", " +
-//				"f." + DBHelper.Finance.TYPE 	+ ", " +
-//				"c." + DBHelper.Category.NAME    +
-//				" FROM " + DBHelper.Finance.TABLE_NAME + " AS f " +
-//				" INNER JOIN " + DBHelper.Category.TABLE_NAME +  " AS c " +
-//				"ON f." + DBHelper.Finance.CATEGORY + " = c." + DBHelper.Category.ID +
-//				" WHERE strftime('%Y', " + DBHelper.Finance.DATE + ") = ? " +
-//				"AND strftime('%m', " + DBHelper.Finance.DATE + ") = ? " +
-//				" ORDER BY strftime('%d', " + DBHelper.Finance.DATE + "), " + DBHelper.Finance.ID;
-
+		String query = "SELECT " +
+				"c." + DBHelper.Category.NAME + ", " +
+				"SUM( " + DBHelper.Finance.PRICE + " * " + DBHelper.Finance.QUANTITY + " ) AS cost " +
+				"FROM " + DBHelper.Finance.TABLE_NAME + " AS f " +
+				"INNER JOIN " + DBHelper.Category.TABLE_NAME + " AS c " +
+				"WHERE strfrime( '%Y', " + DBHelper.Finance.DATE + ") = ? " +
+				"AND strftime( '%m', " + DBHelper.Finance.DATE + ") = ?" +
+				"GROUP BY c." + DBHelper.Category.NAME +
+				"ORDER BY c." + DBHelper.Category.ID;
 
 		Cursor c = this._db.rawQuery(query, whereArgs);
 
-		MonthDetailsAdapter mda = new MonthDetailsAdapter(_context, inflater, c);
+		MonthCategoryAdapter mca = new MonthCategoryAdapter(_context, inflater, c);
 
-		_lv.setAdapter(mda);
+		_lv.setAdapter(mca);
 		_lv.setOnItemClickListener( _listener );
 
 		c.close();

@@ -1,6 +1,5 @@
 package ru.nstudio.android.MonthDetails;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,12 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import ru.nstudio.android.DBHelper;
-import ru.nstudio.android.MonthDetailsAdapter;
+import ru.nstudio.android.MonthDetails.Adapters.MonthDetailsAdapter;
 import ru.nstudio.android.R;
 
 /**
@@ -56,7 +54,7 @@ public class MonthDetailsFragment extends Fragment
 
 		this._wasChanges = false;
 
-		return null;
+		return v;
 	}
 
 	public MonthDetailsFragment getInstance( Context context, int idItem, String monthTitle )

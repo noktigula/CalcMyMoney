@@ -15,6 +15,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
+import ru.nstudio.android.MonthDetails.Adapters.MonthDetailsAdapter;
+
 public class ChangeMonthActivity extends ActionBarActivity implements OnItemClickListener
 {
 	private Button 			_btnOk;

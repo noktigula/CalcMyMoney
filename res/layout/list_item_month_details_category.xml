@@ -5,7 +5,7 @@
              android:layout_height="match_parent">
     <TableRow>
         <TextView
-            android:id="@+id/tvCategorySummary"
+            android:id="@+id/tvCategoryName"
             style="@style/list_item_2_items"
             android:layout_gravity="left"
             android:gravity="left"
