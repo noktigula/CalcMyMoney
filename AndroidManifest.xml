@@ -30,7 +30,7 @@
                 <action android:name="ru.nstudio.android.showDetails"/>
             </intent-filter>
         </activity>
-        <activity android:name="ChangeMonthActivity">
+        <activity android:name=".MonthDetails.ChangeMonthActivity">
             <intent-filter android:label="ru.nstudio.android.changeMonth">
                 <category android:name="android.intent.category.DEFAULT"/>
                 <action android:name="ru.nstudio.android.changeMonth"/>

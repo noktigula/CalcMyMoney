@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 
+import ru.nstudio.android.MonthDetails.ChangeMonthActivity;
+
 /**
  * Created with IntelliJ IDEA.
  * User: noktigula

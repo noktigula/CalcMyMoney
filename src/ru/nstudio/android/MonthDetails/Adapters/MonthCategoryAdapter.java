@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import ru.nstudio.android.DBHelper;
-import ru.nstudio.android.MonthDetails.MonthCategoryFragment;
 import ru.nstudio.android.R;
 
 /**

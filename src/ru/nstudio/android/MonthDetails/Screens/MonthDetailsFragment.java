@@ -1,4 +1,4 @@
-package ru.nstudio.android.MonthDetails;
+package ru.nstudio.android.MonthDetails.Screens;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -57,9 +57,12 @@ public class MonthDetailsFragment extends Fragment
 		return v;
 	}
 
-	public MonthDetailsFragment getInstance( Context context, int idItem, String monthTitle )
+	public static MonthDetailsFragment getInstance( Context context, int idItem, String monthTitle )
 	{
 		MonthDetailsFragment fragment = new MonthDetailsFragment();
+
+		Bundle arguments = new Bundle(  );
+
 
 		_context = context;
 		_listener = ( AdapterView.OnItemClickListener)context;

@@ -1,4 +1,4 @@
-package ru.nstudio.android.MonthDetails;
+package ru.nstudio.android.MonthDetails.Screens;
 
 import android.content.Context;
 import android.database.Cursor;
