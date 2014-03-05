@@ -97,7 +97,7 @@ public class DeleteDialog implements DialogInterface.OnClickListener
         db.close();
 
         ChangeMonthActivity activity = (ChangeMonthActivity) this.context;
-        activity.createListView();
+        //activity.createListView();
         activity._wasChanges = true;
     } // deleteOperation
 

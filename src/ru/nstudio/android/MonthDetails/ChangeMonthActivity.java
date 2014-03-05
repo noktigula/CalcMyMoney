@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.*;
 import android.widget.AdapterView;
@@ -18,20 +19,22 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import ru.nstudio.android.ContextMenuInitializer;
 import ru.nstudio.android.DBHelper;
 import ru.nstudio.android.MonthDetails.Adapters.MonthDetailsAdapter;
+import ru.nstudio.android.MonthDetails.Adapters.MonthOverviewPagerAdapter;
 import ru.nstudio.android.R;
 
 public class ChangeMonthActivity extends ActionBarActivity //implements OnItemClickListener
 {
-	private Button 			_btnOk;
-	private ListView 		_lvAddFinances;
-	private View 			_vFooter;
-	private View 			_vHeader;
+	//private Button 			_btnOk;
+	//private ListView 		_lvAddFinances;
+	//private View 			_vFooter;
+	//private View 			_vHeader;
 	private DBHelper _dbHelper;
 	private SQLiteDatabase 	_db;
-	private int 			_month;
-	private int 			_year;
+	//private int 			_month;
+	//private int 			_year;
 	public  boolean 		_wasChanges;
-	private TextView 		_tvMonthDescription;
+	//private TextView 		_tvMonthDescription;
+	private ViewPager		_pager;
 
     private final String INTENT_ACTION_SHOW_DETAILS = "ru.nstudio.android.showDetails";
 		
@@ -45,12 +48,13 @@ public class ChangeMonthActivity extends ActionBarActivity //implements OnItemCl
 	
 		Intent parentIntent = getIntent();
 		int idItem = parentIntent.getIntExtra("ru.nstudio.android.selectedItem", -1);
+		String monthTitle = parentIntent.getStringExtra( "ru.nstudio.android.monthTitle" );
 
 		if(idItem == -1) throw new IllegalArgumentException("ERROR: can`t load _month details - can`t get _month ID");
-		
 
-
-        registerForContextMenu(this._lvAddFinances );
+		_pager = (ViewPager)findViewById( R.id.pagerMonth );
+		_pager.setAdapter( new MonthOverviewPagerAdapter( idItem, monthTitle, getSupportFragmentManager() ) );
+        //registerForContextMenu(this._lvAddFinances );
 	} // onCreate
 
     @Override

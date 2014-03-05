@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import ru.nstudio.android.MonthDetails.Screens.MonthCategoryFragment;
 import ru.nstudio.android.MonthDetails.Screens.MonthDetailsFragment;
 
 /**
@@ -14,14 +15,12 @@ public class MonthOverviewPagerAdapter extends FragmentStatePagerAdapter
 {
 	public static final int PAGES_COUNT = 2;
 
-	private Context _context;
 	private int _idItem;
 	private String _monthTitle;
 
-	public MonthOverviewPagerAdapter( Context context, int idItem, String monthTitle, FragmentManager fm )
+	public MonthOverviewPagerAdapter( int idItem, String monthTitle, FragmentManager fm )
 	{
 		super(fm);
-		_context = context;
 		_idItem = idItem;
 		_monthTitle = monthTitle;
 	}
@@ -31,8 +30,9 @@ public class MonthOverviewPagerAdapter extends FragmentStatePagerAdapter
 	{
 		switch(i)
 		{
-			//case 0: return MonthDetailsFragment.
-
+			case 0: return MonthDetailsFragment.getInstance( _idItem, _monthTitle );
+			case 1: return MonthCategoryFragment.getInstance( _idItem, _monthTitle );
+			default: throw new RuntimeException( "Unexpected index" );
 		}
 	}
 

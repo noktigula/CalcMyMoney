@@ -177,15 +177,15 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 	
 	private void displayDate(String strDate)
 	{
-		_gcDate = DateParser.parseStringToDate(this, strDate);
-		String dateDesc = DateParser.format(this, strDate, DateParser.CALCMONEY_FORMAT);
-		_tvDateExplain.setText(dateDesc);
+		//_gcDate = DateParser.parseStringToDate(this, strDate);
+		//String dateDesc = DateParser.format(this, strDate, DateParser.CALCMONEY_FORMAT);
+		//_tvDateExplain.setText(dateDesc);
 	} // displayDate
 	
 	private void displayDate()
 	{
-		String dateDesc = DateParser.format(this, _gcDate, DateParser.CALCMONEY_FORMAT);
-		_tvDateExplain.setText(dateDesc);
+		//String dateDesc = DateParser.format(this, _gcDate, DateParser.CALCMONEY_FORMAT);
+		//_tvDateExplain.setText(dateDesc);
 	} // displayDate
 
 	//TODO - replace this shit to fragments
@@ -258,7 +258,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 			cv.put( DBHelper.Finance.QUANTITY, Double.parseDouble(quant) );
 			cv.put( DBHelper.Finance.PRICE, Double.parseDouble(price) );
 			cv.put( DBHelper.Finance.TYPE, _rbIncome.isChecked() );
-			cv.put( DBHelper.Finance.DATE, DateParser.format( this, _gcDate, DateParser.SQLITE_FORMAT ) );
+			//cv.put( DBHelper.Finance.DATE, DateParser.format( this, _gcDate, DateParser.SQLITE_FORMAT ) );
 			cv.put( DBHelper.Category.ID, categoryID );
 								
 			if (_idFinance == -1)

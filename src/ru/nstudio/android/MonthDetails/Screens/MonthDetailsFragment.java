@@ -1,9 +1,5 @@
 package ru.nstudio.android.MonthDetails.Screens;
 
-import android.app.LoaderManager;
-import android.content.Context;
-import android.content.CursorLoader;
-import android.content.Loader;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -12,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,7 +18,8 @@ import ru.nstudio.android.R;
 /**
  * Created by noktigula on 16.02.14.
  */
-public class MonthDetailsFragment extends Fragment implements AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<Cursor>
+public class MonthDetailsFragment extends Fragment
+		implements AdapterView.OnItemClickListener, android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor>
 {
 	private ListView 		_lvAddFinances;
 	private View 			_vFooter;
@@ -44,12 +40,12 @@ public class MonthDetailsFragment extends Fragment implements AdapterView.OnItem
 	{
 		View v = inflater.inflate( R.layout.month_operations, container, false );
 
-		int idItem = savedInstanceState.getInt( KEY_ID_ITEM );
+		int idItem = getArguments().getInt( KEY_ID_ITEM );
 		_month = idItem % 100;
 		_year = idItem / 100;
 
 		StringBuilder monthTitleBuilder = new StringBuilder(  );
-		monthTitleBuilder.append( savedInstanceState.getString( KEY_MONTH_TITLE ) );
+		monthTitleBuilder.append( getArguments().getString( KEY_MONTH_TITLE ) );
 		monthTitleBuilder.append( " " );
 		monthTitleBuilder.append( Integer.toString( _year ) );
 
@@ -60,7 +56,7 @@ public class MonthDetailsFragment extends Fragment implements AdapterView.OnItem
 
 		this._vFooter = inflater.inflate(R.layout.tip_add_new_details, null);
 
-		createListView( v, inflater );
+		createListView( v );
 
 		this._wasChanges = false;
 
@@ -94,7 +90,7 @@ public class MonthDetailsFragment extends Fragment implements AdapterView.OnItem
 			this._db = this._dbHelper.getWritableDatabase();
 	}
 
-	private void createListView(View v, LayoutInflater inflater)
+	private void createListView(View v)
 	{
 		this.initDatabase();
 		if (this._lvAddFinances != null)
@@ -136,7 +132,7 @@ public class MonthDetailsFragment extends Fragment implements AdapterView.OnItem
 
 		Cursor c = this._db.rawQuery(query, whereArgs);
 
-		_adapter = new MonthDetailsAdapter( getActivity(), c, R.layout.list_item_month_details_operations, 0 );
+		_adapter = new MonthDetailsAdapter( getActivity(), c, R.layout.list_item_month_details_operations );
 
 		_lvAddFinances.setAdapter(_adapter);
 		_lvAddFinances.setOnItemClickListener( this );
@@ -146,19 +142,19 @@ public class MonthDetailsFragment extends Fragment implements AdapterView.OnItem
 	}
 
 	@Override
-	public Loader<Cursor> onCreateLoader( int i, Bundle bundle )
+	public android.support.v4.content.Loader<Cursor> onCreateLoader( int i, Bundle bundle )
 	{
-		return new CursorLoader( getActivity() );
+		return new android.support.v4.content.CursorLoader( getActivity() );
 	}
 
 	@Override
-	public void onLoadFinished( Loader<Cursor> cursorLoader, Cursor cursor )
+	public void onLoadFinished( android.support.v4.content.Loader<Cursor> cursorLoader, Cursor cursor )
 	{
-		_adapter.swapCursor(cursor);
+		_adapter.swapCursor( cursor );
 	}
 
 	@Override
-	public void onLoaderReset( Loader<Cursor> cursorLoader )
+	public void onLoaderReset( android.support.v4.content.Loader<Cursor> cursorLoader )
 	{
 		_adapter.swapCursor( null );
 	}

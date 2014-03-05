@@ -5,6 +5,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +23,7 @@ import ru.nstudio.android.R;
  * Created by noktigula on 26.02.14.
  */
 public class MonthCategoryFragment extends Fragment
+		implements AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks
 {
 	private ListView _lv;
 	private View _vFooter;
@@ -30,28 +34,35 @@ public class MonthCategoryFragment extends Fragment
 	private int _year;
 	private int _month;
 	public boolean _wasChanges;
+	private MonthCategoryAdapter _adapter;
 
-	private String _monthTitle;
 	private TextView _tvMonthDescription;
 
-	private Context _context;
-	private AdapterView.OnItemClickListener _listener;
+	private static final String KEY_ITEM_ID = "IdItem";
+	private static final String KEY_MONTH_TITLE = "MonthTitle";
 
 	@Override
 	public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
 		View v = (View)inflater.inflate( R.layout.month_operations, container, false );
 
-		String monthTitle = new String(_monthTitle + " " + Integer.toString( _year ));
+		int itemId = getArguments().getInt( KEY_ITEM_ID );
+		_month = itemId % 100;
+		_year = itemId / 100;
+
+		StringBuilder stringBuilder = new StringBuilder(  );
+		stringBuilder.append( getArguments().getString( KEY_MONTH_TITLE ) );
+		stringBuilder.append( " " );
+		stringBuilder.append( Integer.toString( _year ) );
 
 		this._tvMonthDescription = (TextView )v.findViewById( R.id.tvMonthDescription );
-		this._tvMonthDescription.setText( monthTitle );
+		this._tvMonthDescription.setText( stringBuilder.toString() );
 
 		this.initDatabase();
 
 		this._vFooter = inflater.inflate(R.layout.tip_add_new_details, null);
 
-		createListView( v, inflater );
+		createListView( v );
 
 		this._wasChanges = false;
 
@@ -62,7 +73,7 @@ public class MonthCategoryFragment extends Fragment
 	{
 		if(this._dbHelper == null)
 		{
-			this._dbHelper = new DBHelper( _context, DBHelper.CURRENT_DATABASE_VERSION);
+			this._dbHelper = new DBHelper( getActivity(), DBHelper.CURRENT_DATABASE_VERSION);
 		}
 		if(this._db == null)
 		{
@@ -73,21 +84,19 @@ public class MonthCategoryFragment extends Fragment
 			this._db = this._dbHelper.getWritableDatabase();
 	}
 
-	public MonthCategoryFragment getInstance( Context context, int idItem, String monthTitle )
+	public static MonthCategoryFragment getInstance( int idItem, String monthTitle )
 	{
 		MonthCategoryFragment mc = new MonthCategoryFragment();
-		_context = context;
-		_listener = (AdapterView.OnItemClickListener)context;
 
-		_month = idItem % 100;
-		_year = idItem / 100;
-
-		_monthTitle = monthTitle;
+		Bundle args = new Bundle();
+		args.putInt( KEY_ITEM_ID, idItem );
+		args.putString( KEY_MONTH_TITLE, monthTitle );
+		mc.setArguments( args );;
 
 		return mc;
 	}
 
-	private void createListView( View parent, LayoutInflater inflater )
+	private void createListView( View parent )
 	{
 		this.initDatabase();
 		if (this._lv != null)
@@ -123,12 +132,37 @@ public class MonthCategoryFragment extends Fragment
 
 		Cursor c = this._db.rawQuery(query, whereArgs);
 
-		MonthCategoryAdapter mca = new MonthCategoryAdapter(_context, inflater, c);
+		MonthCategoryAdapter mca = new MonthCategoryAdapter(getActivity(), c, R.layout.list_item_month_details_category);
 
 		_lv.setAdapter(mca);
-		_lv.setOnItemClickListener( _listener );
+		_lv.setOnItemClickListener( this );
 
 		c.close();
 		this._db.close();
+	}
+
+	@Override
+	public Loader onCreateLoader( int i, Bundle bundle )
+	{
+		return new CursorLoader( getActivity() );
+	}
+
+	@Override
+	public void onLoadFinished( Loader loader, Object o )
+	{
+		Cursor c = (Cursor) o;
+		_adapter.swapCursor( c );
+	}
+
+	@Override
+	public void onLoaderReset( Loader loader )
+	{
+		_adapter.swapCursor( null );
+	}
+
+	@Override
+	public void onItemClick( AdapterView<?> adapterView, View view, int i, long l )
+	{
+
 	}
 }

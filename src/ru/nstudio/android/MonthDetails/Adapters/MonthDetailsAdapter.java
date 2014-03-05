@@ -20,9 +20,9 @@ public class MonthDetailsAdapter extends CursorAdapter //implements OnItemClickL
 	private String	_moneyFormat;
 	private int 	_layout;
 
-	public MonthDetailsAdapter( Context context, Cursor cursor, int layout, int flags )
+	public MonthDetailsAdapter( Context context, Cursor cursor, int layout )
 	{
-		super( context, cursor, flags );
+		super( context, cursor, 0 );
 		_moneyFormat = context.getString( R.string.money_format);
 		_layout = layout;
 	} // MonthDetailsAdapter
