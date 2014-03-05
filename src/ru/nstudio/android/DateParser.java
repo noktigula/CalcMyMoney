@@ -17,7 +17,7 @@ public class DateParser
 	{
 	} // GregorianCalendarParser
 	
-	public static GregorianCalendar parseStringToDate(Context context, String strDate)
+	public static GregorianCalendar parseStringToDate( String strDate )
 	{
 		GregorianCalendar gc;
 		try
@@ -28,21 +28,21 @@ public class DateParser
 		} // try
 		catch (ParseException pExcept)
 		{
-			Toast.makeText(context, pExcept.getMessage(), 10000).show();
+			pExcept.printStackTrace();
 			gc = new GregorianCalendar();
 		} // catch
 		
 		return gc;
 	} // parseGregorianCalendar
 	
-	public static String format(Context context, String strDate, String formatType)
+	public static String format( String strDate, String formatType)
 	{
-		GregorianCalendar gc = parseStringToDate(context, strDate);		
+		GregorianCalendar gc = parseStringToDate(strDate);
 		SimpleDateFormat sdf = new SimpleDateFormat(formatType);
 		return sdf.format(gc.getTime()).toString();
 	} // static format
 	
-	public static String format(Context context, GregorianCalendar date, String formatType)
+	public static String format( GregorianCalendar date, String formatType)
 	{
 		GregorianCalendar gc = date;
 		SimpleDateFormat sdf = new SimpleDateFormat(formatType);

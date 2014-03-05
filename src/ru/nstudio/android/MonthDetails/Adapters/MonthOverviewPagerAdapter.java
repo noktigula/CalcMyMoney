@@ -31,7 +31,7 @@ public class MonthOverviewPagerAdapter extends FragmentStatePagerAdapter
 	{
 		switch(i)
 		{
-			case 0: return MonthDetailsFragment.
+			//case 0: return MonthDetailsFragment.
 
 		}
 	}

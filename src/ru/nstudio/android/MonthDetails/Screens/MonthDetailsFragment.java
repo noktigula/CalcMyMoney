@@ -1,6 +1,9 @@
 package ru.nstudio.android.MonthDetails.Screens;
 
+import android.app.LoaderManager;
 import android.content.Context;
+import android.content.CursorLoader;
+import android.content.Loader;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -9,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -19,7 +23,7 @@ import ru.nstudio.android.R;
 /**
  * Created by noktigula on 16.02.14.
  */
-public class MonthDetailsFragment extends Fragment
+public class MonthDetailsFragment extends Fragment implements AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks<Cursor>
 {
 	private ListView 		_lvAddFinances;
 	private View 			_vFooter;
@@ -27,24 +31,30 @@ public class MonthDetailsFragment extends Fragment
 	private SQLiteDatabase 	_db;
 
 	private int 			_month;
-	private int 			_year;
+	private int				_year;
 	public  boolean 		_wasChanges;
 	private TextView 		_tvMonthDescription;
+	private MonthDetailsAdapter _adapter;
 
-	private String			_monthTitle;
-
-	private Context			_context;
-	private AdapterView.OnItemClickListener _listener;
+	private static final String KEY_MONTH_TITLE = "MonthTitle";
+	private static final String KEY_ID_ITEM = "IdItem";
 
 	@Override
 	public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
-		View v = (View)inflater.inflate( R.layout.month_operations, container, false );
+		View v = inflater.inflate( R.layout.month_operations, container, false );
 
-		String monthTitle = new String(_monthTitle + " " + Integer.toString( _year ));
+		int idItem = savedInstanceState.getInt( KEY_ID_ITEM );
+		_month = idItem % 100;
+		_year = idItem / 100;
+
+		StringBuilder monthTitleBuilder = new StringBuilder(  );
+		monthTitleBuilder.append( savedInstanceState.getString( KEY_MONTH_TITLE ) );
+		monthTitleBuilder.append( " " );
+		monthTitleBuilder.append( Integer.toString( _year ) );
 
 		this._tvMonthDescription = (TextView)v.findViewById( R.id.tvMonthDescription );
-		this._tvMonthDescription.setText( monthTitle );
+		this._tvMonthDescription.setText( monthTitleBuilder.toString() );
 
 		this.initDatabase();
 
@@ -57,20 +67,14 @@ public class MonthDetailsFragment extends Fragment
 		return v;
 	}
 
-	public static MonthDetailsFragment getInstance( Context context, int idItem, String monthTitle )
+	public static MonthDetailsFragment getInstance( int idItem, String monthTitle )
 	{
 		MonthDetailsFragment fragment = new MonthDetailsFragment();
 
-		Bundle arguments = new Bundle(  );
-
-
-		_context = context;
-		_listener = ( AdapterView.OnItemClickListener)context;
-
-		_month = idItem % 100;
-		_year = idItem / 100;
-
-		_monthTitle = monthTitle;
+		Bundle arguments = new Bundle();
+		arguments.putInt( KEY_ID_ITEM, idItem );
+		arguments.putString( KEY_MONTH_TITLE, monthTitle );
+		fragment.setArguments( arguments );
 
 		return fragment;
 	}
@@ -79,7 +83,7 @@ public class MonthDetailsFragment extends Fragment
 	{
 		if(this._dbHelper == null)
 		{
-			this._dbHelper = new DBHelper( _context, DBHelper.CURRENT_DATABASE_VERSION);
+			this._dbHelper = new DBHelper( getActivity(), DBHelper.CURRENT_DATABASE_VERSION );
 		}
 		if(this._db == null)
 		{
@@ -132,12 +136,36 @@ public class MonthDetailsFragment extends Fragment
 
 		Cursor c = this._db.rawQuery(query, whereArgs);
 
-		MonthDetailsAdapter mda = new MonthDetailsAdapter(_context, inflater, c);
+		_adapter = new MonthDetailsAdapter( getActivity(), c, R.layout.list_item_month_details_operations, 0 );
 
-		_lvAddFinances.setAdapter(mda);
-		_lvAddFinances.setOnItemClickListener( _listener );
+		_lvAddFinances.setAdapter(_adapter);
+		_lvAddFinances.setOnItemClickListener( this );
 
 		c.close();
 		this._db.close();
+	}
+
+	@Override
+	public Loader<Cursor> onCreateLoader( int i, Bundle bundle )
+	{
+		return new CursorLoader( getActivity() );
+	}
+
+	@Override
+	public void onLoadFinished( Loader<Cursor> cursorLoader, Cursor cursor )
+	{
+		_adapter.swapCursor(cursor);
+	}
+
+	@Override
+	public void onLoaderReset( Loader<Cursor> cursorLoader )
+	{
+		_adapter.swapCursor( null );
+	}
+
+	@Override
+	public void onItemClick( AdapterView<?> adapterView, View view, int i, long l )
+	{
+
 	}
 }

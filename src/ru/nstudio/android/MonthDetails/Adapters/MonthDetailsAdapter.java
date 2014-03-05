@@ -5,127 +5,77 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.BaseAdapter;
 
 import ru.nstudio.android.DBHelper;
 import ru.nstudio.android.DateParser;
 import ru.nstudio.android.R;
 
-public class MonthDetailsAdapter extends BaseAdapter //implements OnItemClickListener
+public class MonthDetailsAdapter extends CursorAdapter //implements OnItemClickListener
 {
-	public static final int ITEM_TYPE = 1;
-	public static final int TYPE_COUNT = 1;
-	
-	private Cursor 			c;
-	private LayoutInflater 	li;
-	private Context 		context;
-	private ArrayList<View> alView;
-	private String			moneyFormat;
-	
-	public MonthDetailsAdapter(Context context, LayoutInflater inflater, Cursor c)
+	private String	_moneyFormat;
+	private int 	_layout;
+
+	public MonthDetailsAdapter( Context context, Cursor cursor, int layout, int flags )
 	{
-		this.context = context;
-		this.c = c;
-		this.li = inflater;
-		this.alView = new ArrayList<View>();
-		this.moneyFormat = this.context.getString( R.string.money_format);
-		this.parseCursor();
+		super( context, cursor, flags );
+		_moneyFormat = context.getString( R.string.money_format);
+		_layout = layout;
 	} // MonthDetailsAdapter
-	
-	public int getCount() 
-	{
-		return this.alView.size();
-	} // getCount
-	
-	public int getViewTypeCount()
-	{
-		return this.TYPE_COUNT;
-	} // getViewTypeCount
-	
-	public int getItemViewType(int position)
-	{		
-		return this.ITEM_TYPE;
-	} // getItemViewType
 
 	public Object getItem(int position) 
 	{
 		return null;
 	} // getItem
-	
-	public long getItemId(int position) 
-	{
-		return this.alView.get(position).getId();
-	} // getItemId
-	
-	public boolean isEnabled(int position)
-	{
-		return (this.getItemViewType(position) == this.ITEM_TYPE);
-	} // isEnabled
-	
-	public View getView(int position, View convertView, ViewGroup parent) 
-	{
-		convertView = this.alView.get(position);
-		return convertView;
-	} // getView
 
-	private void parseCursor()
+	@Override
+	public View newView( Context context, Cursor cursor, ViewGroup parentGroup )
 	{
-		if (this.c == null)
-		{
-			String err = this.context.getString(R.string.errNoCursor);
-			throw new IllegalArgumentException(err);
-		} // if
-		
-		if (c.moveToFirst())
-		{
-			do
-			{
-				boolean isIncome = (c.getInt(c.getColumnIndex( DBHelper.Finance.TYPE)) == 1);
-				String explain = new String(c.getString(c.getColumnIndex(DBHelper.Finance.REASON)));
-				Double price = c.getDouble(c.getColumnIndex(DBHelper.Finance.PRICE));
-				Integer quant = c.getInt(c.getColumnIndex(DBHelper.Finance.QUANTITY));
-				int id = c.getInt(c.getColumnIndex(DBHelper.Finance.ID));
-				String date = new String(c.getString(c.getColumnIndex(DBHelper.Finance.DATE)));
-				String category = new String(c.getString(c.getColumnIndex(DBHelper.Category.NAME)));
-				
-				String dateDescript = 
-					DateParser.format( this.context, date, DateParser.CALCMONEY_FORMAT );
-								
-				int color = (isIncome) ? Color.GREEN : Color.RED;
-							
-				View v = this.li.inflate(R.layout.list_item_month_details_operations, null);
-								
-				TextView tvExplain = (TextView) v.findViewById(R.id.tvFinanceOperationDetails1);
-				tvExplain.setText(explain);
-				
-				TextView tvPrice = (TextView) v.findViewById(R.id.tvShowPrice1);
-				tvPrice.setText(String.format(this.moneyFormat, price) );
-				tvPrice.setTextColor(color);
-						
-				TextView tvQuant = (TextView) v.findViewById(R.id.tvShowQuant1);
-				tvQuant.setText(quant.toString());
-				tvQuant.setTextColor(color);
-				
-				TextView tvBalance = (TextView) v.findViewById(R.id.tvShowTotalCost1);
-				tvBalance.setText(String.format(this.moneyFormat, price * quant) );
-				tvBalance.setTextColor(color);
-				
-				TextView tvDate = (TextView) v.findViewById(R.id.tvShowDate1);
-				tvDate.setText(dateDescript);
+		LayoutInflater inflater = LayoutInflater.from( context );
+		return inflater.inflate( _layout, parentGroup, false );
+	}
 
-				TextView tvCategory = (TextView) v.findViewById(R.id.tvShowCategory);
-				tvCategory.setText(category);
-				
-				v.setId(id);
-				
-				this.alView.add(v);
-			} while(c.moveToNext());
-			
-			this.c.close();
-		} // if cursor isn`t empty
-	} // parseCursor
+	@Override
+	public void bindView( View v, Context context, Cursor c )
+	{
+		boolean isIncome = (c.getInt(c.getColumnIndex( DBHelper.Finance.TYPE)) == 1);
+		String explain = new String(c.getString(c.getColumnIndex(DBHelper.Finance.REASON)));
+		Double price = c.getDouble(c.getColumnIndex(DBHelper.Finance.PRICE));
+		Integer quant = c.getInt(c.getColumnIndex(DBHelper.Finance.QUANTITY));
+		int id = c.getInt(c.getColumnIndex(DBHelper.Finance.ID));
+		String date = new String(c.getString(c.getColumnIndex(DBHelper.Finance.DATE)));
+		String category = new String(c.getString(c.getColumnIndex(DBHelper.Category.NAME)));
+
+		String dateDescript =
+				DateParser.format( date, DateParser.CALCMONEY_FORMAT );
+
+		int color = (isIncome) ? Color.GREEN : Color.RED;
+
+		TextView tvExplain = (TextView) v.findViewById(R.id.tvFinanceOperationDetails1);
+		tvExplain.setText(explain);
+
+		TextView tvPrice = (TextView) v.findViewById(R.id.tvShowPrice1);
+		tvPrice.setText(String.format( _moneyFormat, price ) );
+		tvPrice.setTextColor(color);
+
+		TextView tvQuant = (TextView) v.findViewById(R.id.tvShowQuant1);
+		tvQuant.setText(quant.toString());
+		tvQuant.setTextColor(color);
+
+		TextView tvBalance = (TextView) v.findViewById(R.id.tvShowTotalCost1);
+		tvBalance.setText(String.format( _moneyFormat, price * quant ) );
+		tvBalance.setTextColor(color);
+
+		TextView tvDate = (TextView) v.findViewById(R.id.tvShowDate1);
+		tvDate.setText(dateDescript);
+
+		TextView tvCategory = (TextView) v.findViewById(R.id.tvShowCategory);
+		tvCategory.setText(category);
+
+		v.setId(id);
+	}
 } // class MonthDetailsAdapter
