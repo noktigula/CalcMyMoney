@@ -1,5 +1,6 @@
 package ru.nstudio.android.MonthDetails.Screens;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -34,6 +35,9 @@ public class MonthDetailsFragment extends Fragment
 
 	private static final String KEY_MONTH_TITLE = "MonthTitle";
 	private static final String KEY_ID_ITEM = "IdItem";
+
+	private final String INTENT_ACTION_SHOW_DETAILS = "ru.nstudio.android.showDetails";
+	private static int RESULT_FIRST_USER_DETAIL = 11;
 
 	@Override
 	public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
@@ -136,9 +140,6 @@ public class MonthDetailsFragment extends Fragment
 
 		_lvAddFinances.setAdapter(_adapter);
 		_lvAddFinances.setOnItemClickListener( this );
-
-		//c.close();
-		//this._db.close();
 	}
 
 	@Override
@@ -160,8 +161,19 @@ public class MonthDetailsFragment extends Fragment
 	}
 
 	@Override
-	public void onItemClick( AdapterView<?> adapterView, View view, int i, long l )
+	public void onItemClick( AdapterView<?> adapterView, View view, int position, long id )
 	{
+		showOperationDetails( id );
+	}
 
+	private void showOperationDetails( long id )
+	{
+		Intent intent = new Intent(this.INTENT_ACTION_SHOW_DETAILS);
+        intent.putExtra("ru.nstudio.android.idFinance", id);
+
+        intent.putExtra("ru.nstudio.android._month", this._month );
+        intent.putExtra("ru.nstudio.android._year", this._year );
+
+        startActivityForResult(intent, RESULT_FIRST_USER_DETAIL);
 	}
 }

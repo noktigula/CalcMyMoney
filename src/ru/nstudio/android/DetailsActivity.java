@@ -52,7 +52,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 	private SQLiteDatabase 		_db;
 	private DBHelper 			_dbHelper;
 	
-	private int 				_idFinance;
+	private long 				_idFinance;
 		
 	private final int DIALOG_DATE_EXPLAIN = 1;
 	private final int RESULT_FIRST_USER_DETAIL = 11;
@@ -83,7 +83,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 		fillSpinnerWithCategories();
 
 		Intent intent = getIntent();
-		_idFinance = intent.getIntExtra("ru.nstudio.android.idFinance", -1);
+		_idFinance = intent.getLongExtra("ru.nstudio.android.idFinance", -1);
 		if (_idFinance != -1)
 		{
 			getOperationValues(_idFinance);
@@ -93,7 +93,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 			String action = intent.getAction();
 			if(action.equalsIgnoreCase("ru.nstudio.android.showDetails"))
 			{
-				int year = intent.getIntExtra("ru.nstudio.android.year", 2013); // set dynamic year
+				int year = intent.getIntExtra("ru.nstudio.android.year", 2013); // TODO set current date
 				int month = intent.getIntExtra("ru.nstudio.android.month", 1);
 				_gcDate = new GregorianCalendar(year, month-1, 1);
 			} // if
@@ -138,7 +138,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 			_db = _dbHelper.getWritableDatabase();
 	} // initDataBase
 	
-	private void getOperationValues(int idFinance)
+	private void getOperationValues(long idFinance)
 	{
 		initDatabase();
 		
@@ -149,7 +149,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 								   " ON " + DBHelper.Category.TABLE_NAME+"."+DBHelper.Category.ID +
 								   "=" + DBHelper.Finance.TABLE_NAME + "." + DBHelper.Finance.CATEGORY +
 								   " WHERE " + DBHelper.Finance.ID + " = ?");
-		Cursor c = _db.rawQuery(query, new String[]{Integer.toString(idFinance)});
+		Cursor c = _db.rawQuery(query, new String[]{Long.toString(idFinance)});
 		
 		if (c.moveToFirst())
 		{
@@ -270,7 +270,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 				_db.update( DBHelper.Finance.TABLE_NAME,
 						cv,
 						DBHelper.Finance.ID + "= ?",
-						new String[]{Integer.toString(_idFinance)});
+						new String[]{Long.toString(_idFinance)});
 			} // else
 			_db.close();
 			Intent intent = new Intent();

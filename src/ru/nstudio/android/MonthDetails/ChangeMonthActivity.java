@@ -36,7 +36,7 @@ public class ChangeMonthActivity extends ActionBarActivity //implements OnItemCl
 	//private TextView 		_tvMonthDescription;
 	private ViewPager		_pager;
 
-    private final String INTENT_ACTION_SHOW_DETAILS = "ru.nstudio.android.showDetails";
+
 		
 	private static int RESULT_FIRST_USER_DETAIL = 11;
 	

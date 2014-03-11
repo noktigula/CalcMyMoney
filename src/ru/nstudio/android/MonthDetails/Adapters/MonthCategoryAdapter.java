@@ -34,7 +34,6 @@ public class MonthCategoryAdapter extends CursorAdapter
 	@Override
 	public View newView( Context context, Cursor cursor, ViewGroup parentGroup )
 	{
-		Log.d( "nTag", "MonthCategoryAdapter - new view" );
 		LayoutInflater inflater = LayoutInflater.from( context );
 		return inflater.inflate( _layoutId, parentGroup, false );
 	}
@@ -42,8 +41,6 @@ public class MonthCategoryAdapter extends CursorAdapter
 	@Override
 	public void bindView( View view, Context context, Cursor cursor )
 	{
-		Log.d( "nTag", "MonthCategoryAdapter - new view" );
-
 		String title = cursor.getString( cursor.getColumnIndex( DBHelper.Category.NAME ) );
 		BigDecimal cost = BigDecimal.valueOf( cursor.getDouble( cursor.getColumnIndex( "cost" ) ) );
 
@@ -52,5 +49,8 @@ public class MonthCategoryAdapter extends CursorAdapter
 
 		TextView tvCategoryCost = (TextView)view.findViewById( R.id.tvCategoryTotal );
 		tvCategoryCost.setText( String.format( _moneyFormat, cost ) );
+
+		int id = cursor.getInt( cursor.getColumnIndex( "_id" ) );
+		view.setId( id );
 	}
 }

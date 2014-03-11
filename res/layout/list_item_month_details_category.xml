@@ -8,14 +8,14 @@
             android:id="@+id/tvCategoryName"
             style="@style/list_item_2_items"
             android:layout_gravity="left"
-            android:gravity="left"
+            android:gravity="left|center_vertical"
             android:text="@string/stubCategory"
         />
         <TextView
             android:id="@+id/tvCategoryTotal"
             style="@style/list_item_2_items"
             android:layout_gravity="right"
-            android:gravity="right"
+            android:gravity="right|center_vertical"
             android:text="@string/stubCost"
         />
     </TableRow>

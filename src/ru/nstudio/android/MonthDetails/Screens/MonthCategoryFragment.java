@@ -137,9 +137,6 @@ public class MonthCategoryFragment extends Fragment
 
 		_lv.setAdapter(mca);
 		_lv.setOnItemClickListener( this );
-
-		//c.close();
-		//this._db.close();
 	}
 
 	@Override
