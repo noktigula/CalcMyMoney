@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.support.v4.widget.CursorAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,7 @@ public class MonthDetailsAdapter extends CursorAdapter //implements OnItemClickL
 	@Override
 	public View newView( Context context, Cursor cursor, ViewGroup parentGroup )
 	{
+		Log.d("nTag", "MonthDetailsAdapter - new view");
 		LayoutInflater inflater = LayoutInflater.from( context );
 		return inflater.inflate( _layout, parentGroup, false );
 	}
@@ -42,11 +44,12 @@ public class MonthDetailsAdapter extends CursorAdapter //implements OnItemClickL
 	@Override
 	public void bindView( View v, Context context, Cursor c )
 	{
+		Log.d("nTag", "MonthDetailsAdapter - bind view");
 		boolean isIncome = (c.getInt(c.getColumnIndex( DBHelper.Finance.TYPE)) == 1);
 		String explain = new String(c.getString(c.getColumnIndex(DBHelper.Finance.REASON)));
 		Double price = c.getDouble(c.getColumnIndex(DBHelper.Finance.PRICE));
 		Integer quant = c.getInt(c.getColumnIndex(DBHelper.Finance.QUANTITY));
-		int id = c.getInt(c.getColumnIndex(DBHelper.Finance.ID));
+		int id = c.getInt(c.getColumnIndex("_id"));
 		String date = new String(c.getString(c.getColumnIndex(DBHelper.Finance.DATE)));
 		String category = new String(c.getString(c.getColumnIndex(DBHelper.Category.NAME)));
 

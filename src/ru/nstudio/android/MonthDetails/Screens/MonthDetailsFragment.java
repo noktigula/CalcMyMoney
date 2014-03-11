@@ -115,7 +115,7 @@ public class MonthDetailsFragment extends Fragment
 		String[] whereArgs = new String[] {Integer.toString(this._year ), monthWithLeadingZero};
 
 		String query = " SELECT " +
-				"f." + DBHelper.Finance.ID 		+ ", " +
+				"f." + DBHelper.Finance.ID 		+ " AS _id, " +
 				"f." + DBHelper.Finance.REASON 	+ ", " +
 				"f." + DBHelper.Finance.PRICE 	+ ", " +
 				"f." + DBHelper.Finance.QUANTITY + ", " +
@@ -137,8 +137,8 @@ public class MonthDetailsFragment extends Fragment
 		_lvAddFinances.setAdapter(_adapter);
 		_lvAddFinances.setOnItemClickListener( this );
 
-		c.close();
-		this._db.close();
+		//c.close();
+		//this._db.close();
 	}
 
 	@Override

@@ -120,14 +120,15 @@ public class MonthCategoryFragment extends Fragment
 
 		String[] whereArgs = new String[] {Integer.toString(this._year ), monthWithLeadingZero};
 
-		String query = "SELECT " +
+		String query = "SELECT c." + DBHelper.Category.ID + " AS _id, " +
 				"c." + DBHelper.Category.NAME + ", " +
 				"SUM( " + DBHelper.Finance.PRICE + " * " + DBHelper.Finance.QUANTITY + " ) AS cost " +
 				"FROM " + DBHelper.Finance.TABLE_NAME + " AS f " +
 				"INNER JOIN " + DBHelper.Category.TABLE_NAME + " AS c " +
-				"WHERE strfrime( '%Y', " + DBHelper.Finance.DATE + ") = ? " +
-				"AND strftime( '%m', " + DBHelper.Finance.DATE + ") = ?" +
-				"GROUP BY c." + DBHelper.Category.NAME +
+				"ON f." + DBHelper.Finance.CATEGORY + " = c." + DBHelper.Category.ID + " " +
+				"WHERE strftime( '%Y', " + DBHelper.Finance.DATE + ") = ? " +
+				"AND strftime( '%m', " + DBHelper.Finance.DATE + ") = ? " +
+				"GROUP BY c." + DBHelper.Category.NAME + " " +
 				"ORDER BY c." + DBHelper.Category.ID;
 
 		Cursor c = this._db.rawQuery(query, whereArgs);
@@ -137,8 +138,8 @@ public class MonthCategoryFragment extends Fragment
 		_lv.setAdapter(mca);
 		_lv.setOnItemClickListener( this );
 
-		c.close();
-		this._db.close();
+		//c.close();
+		//this._db.close();
 	}
 
 	@Override

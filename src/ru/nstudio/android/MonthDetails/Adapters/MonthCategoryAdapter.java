@@ -3,6 +3,7 @@ package ru.nstudio.android.MonthDetails.Adapters;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class MonthCategoryAdapter extends CursorAdapter
 	@Override
 	public View newView( Context context, Cursor cursor, ViewGroup parentGroup )
 	{
+		Log.d( "nTag", "MonthCategoryAdapter - new view" );
 		LayoutInflater inflater = LayoutInflater.from( context );
 		return inflater.inflate( _layoutId, parentGroup, false );
 	}
@@ -40,9 +42,10 @@ public class MonthCategoryAdapter extends CursorAdapter
 	@Override
 	public void bindView( View view, Context context, Cursor cursor )
 	{
+		Log.d( "nTag", "MonthCategoryAdapter - new view" );
+
 		String title = cursor.getString( cursor.getColumnIndex( DBHelper.Category.NAME ) );
 		BigDecimal cost = BigDecimal.valueOf( cursor.getDouble( cursor.getColumnIndex( "cost" ) ) );
-
 
 		TextView tvCategoryName = (TextView)view.findViewById( R.id.tvCategoryName );
 		tvCategoryName.setText( title );
