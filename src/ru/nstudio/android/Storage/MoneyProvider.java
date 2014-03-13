@@ -48,6 +48,8 @@ public class MoneyProvider extends ContentProvider
 	private static final int INCOMING_OPERATION_ITEM_INDICATOR = 2;
 	private static final int INCOMING_CATEGORY_COLLECTION_INDICATOR = 3;
 	private static final int INCOMING_CATEGORY_ITEM_INDICATOR = 4;
+	private static final int INCOMING_MONTH_OVERVIEW_COLLECTION_INDICATOR = 5;
+	private static final int INCOMING_MONTH_OVERVIEW_ITEM_INDICATOR = 6;
 	static
 	{
 		_uriMatcher = new UriMatcher( UriMatcher.NO_MATCH );
@@ -98,9 +100,35 @@ public class MoneyProvider extends ContentProvider
 					MoneyContract.Category._ID    + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 					MoneyContract.Category.NAME  + " TEXT NOT NULL)");
 
+			String queryCreateYearOperationsView = new String( "CREATE VIEW IF NOT EXISTS " + MoneyContract.ViewYear.VIEW_NAME + " AS" +
+					"SELECT " +
+					MoneyContract.Finance._ID +
+					"strftime('%Y', " + MoneyContract.Finance.DATE + ") AS " + MoneyContract.ViewYear.YEAR +", " +
+					"strftime('%m', " + MoneyContract.Finance.DATE + ") AS " + MoneyContract.ViewYear.MONTH +", " +
+					"mt.title, IFNULL(tmp1.plus, 0) AS " + MoneyContract.ViewYear.INCOME +", " +
+					"IFNULL(tmp2.minus, 0) AS " + MoneyContract.ViewYear.EXPEND +", " +
+					"(IFNULL(tmp1.plus, 0) - IFNULL(tmp2.minus, 0)) AS " + MoneyContract.ViewYear.TOTAL + " " +
+					"FROM " + MoneyContract.Finance.TABLE_NAME + " AS f " +
+					"INNER JOIN MonthTitle AS mt ON mt.idMonthTitle = " + MoneyContract.ViewYear.MONTH + " " +
+					"LEFT JOIN (SELECT strftime('%m', " + MoneyContract.Finance.DATE + ") AS month, strftime('%Y', " +
+						MoneyContract.Finance.DATE + ") AS year, " +
+					"SUM( " + MoneyContract.Finance.PRICE + "*" + MoneyContract.Finance.QUANTITY + ") AS plus " +
+					"FROM " + MoneyContract.Finance.TABLE_NAME + " " +
+					"WHERE " + MoneyContract.Finance.TYPE + " = 1 " +
+					"GROUP BY year, month) AS tmp1 ON tmp1.month = fmonth AND tmp1.year = fyear " +
+					"LEFT JOIN (SELECT strftime('%m', " + MoneyContract.Finance.DATE +") AS month, strftime('%Y',"+ MoneyContract.Finance.DATE +") AS year, " +
+					"SUM("+MoneyContract.Finance.PRICE+"*"+MoneyContract.Finance.QUANTITY + ") AS minus " +
+					"FROM "+MoneyContract.Finance.TABLE_NAME+" " +
+					"WHERE " + MoneyContract.Finance.TYPE + " = 0 " +
+					"GROUP BY year, month) AS tmp2 ON tmp2.month = fmonth AND tmp2.year = fyear " +
+					"GROUP BY strftime('%Y', " + MoneyContract.Finance.DATE+"), strftime('%m', " + MoneyContract.Finance.DATE + "), mt.title, " +
+					"tmp1.plus, tmp2.minus, (IFNULL(tmp1.plus, 0) - IFNULL(tmp2.minus, 0)) " +
+					"ORDER BY fyear, fmonth" );
+
 			db.execSQL(queryCreateFinance);
 			db.execSQL(queryCreateMonthTitle);
 			db.execSQL(queryCreateCategoryTable);
+			db.execSQL( queryCreateYearOperationsView );
 
 			ContentValues cv = new ContentValues();
 			for (String month : strArrMonth)

@@ -38,4 +38,18 @@ public final class MoneyContract
 		public static final String TABLE_NAME = "Category";
 		public static final String NAME 	  = "CategoryTitle";
 	}
+
+	public static final class ViewYear implements BaseColumns
+	{
+		public static final Uri CONTENT_URI = Uri.parse( "content://" + AUTHORITY + "/monthOverview" );
+		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.nstudio.monthOverviews";
+		public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.nstudio.monthOverview";
+
+		public static final String VIEW_NAME = "YearOperationsView";
+		public static final String YEAR = "fyear";
+		public static final String MONTH = "fmonth";
+		public static final String INCOME = "plus";
+		public static final String EXPEND = "minus";
+		public static final String TOTAL = "diff";
+	}
 }

@@ -24,8 +24,6 @@ import ru.nstudio.android.Storage.DBHelper;
 
 public class MainActivity extends ActionBarActivity implements OnItemClickListener, OnClickListener
 {
-	private DBHelper _dbHelper;
-	private SQLiteDatabase _db;
 	private ListView _lv;
 	private View _vFooter;
 	private FinanceAdapter _fAdapter;
@@ -148,27 +146,7 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		
 		String [] args = new String[]{};
 	        
-		Cursor c = _db.rawQuery("SELECT " +
-							   "f.idFinance, " +
-							   "strftime('%Y', f.financeDate) AS fyear, " + 
-							   "strftime('%m', f.financeDate) AS fmonth, " + 
-							   "mt.title, IFNULL(tmp1.plus, 0) AS plus, IFNULL(tmp2.minus, 0) AS minus, " + 
-							   "(IFNULL(tmp1.plus, 0) - IFNULL(tmp2.minus, 0)) AS diff " +
-							   "FROM Finance AS f " +
-							   "INNER JOIN MonthTitle AS mt ON mt.idMonthTitle = fmonth " +
-							   "LEFT JOIN (SELECT strftime('%m', financeDate) AS month, strftime('%Y', financeDate) AS year, " +
-							   "SUM(price*quantity) AS plus " +
-							   "FROM Finance " + 
-							   "WHERE type = 1 " + 
-							   "GROUP BY year, month) AS tmp1 ON tmp1.month = fmonth AND tmp1.year = fyear " +
-							   "LEFT JOIN (SELECT strftime('%m', financeDate) AS month, strftime('%Y', financeDate) AS year, " +
-							   "SUM(price*quantity) AS minus " +
-							   "FROM Finance " + 
-							   "WHERE type = 0 " +
-							   "GROUP BY year, month) AS tmp2 ON tmp2.month = fmonth AND tmp2.year = fyear " +
-							   "GROUP BY strftime('%Y', f.financeDate), strftime('%m', f.financeDate), mt.title, " + 
-							   "tmp1.plus, tmp2.minus, (IFNULL(tmp1.plus, 0) - IFNULL(tmp2.minus, 0)) " +
-							   "ORDER BY fyear, fmonth", args);
+		Cursor c = _
 	
 		_lv.addFooterView( this._vFooter, null, true );
 		
