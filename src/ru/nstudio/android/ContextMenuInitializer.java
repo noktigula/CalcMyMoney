@@ -3,7 +3,6 @@ package ru.nstudio.android;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
-import android.widget.AdapterView;
 
 /**
  * Created with IntelliJ IDEA.

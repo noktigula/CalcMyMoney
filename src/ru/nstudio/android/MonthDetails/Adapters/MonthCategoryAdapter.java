@@ -3,17 +3,14 @@ package ru.nstudio.android.MonthDetails.Adapters;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
-import ru.nstudio.android.DBHelper;
+import ru.nstudio.android.Storage.DBHelper;
 import ru.nstudio.android.R;
 
 /**

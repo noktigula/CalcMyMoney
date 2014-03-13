@@ -1,18 +1,13 @@
 package ru.nstudio.android;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 
 public class FinanceAdapter extends BaseAdapter //implements OnItemClickListener 

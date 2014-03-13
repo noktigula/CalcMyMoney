@@ -1,7 +1,5 @@
 package ru.nstudio.android.MonthDetails.Adapters;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -12,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import ru.nstudio.android.DBHelper;
+import ru.nstudio.android.Storage.DBHelper;
 import ru.nstudio.android.DateParser;
 import ru.nstudio.android.R;
 

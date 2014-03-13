@@ -27,6 +27,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ru.nstudio.android.Storage.DBHelper;
 import ru.nstudio.android.dialogs.AddCategoryDialog;
 
 public class DetailsActivity extends FragmentActivity
@@ -50,7 +51,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 	private GregorianCalendar 	_gcDate;
 	
 	private SQLiteDatabase 		_db;
-	private DBHelper 			_dbHelper;
+	private DBHelper _dbHelper;
 	
 	private long 				_idFinance;
 		

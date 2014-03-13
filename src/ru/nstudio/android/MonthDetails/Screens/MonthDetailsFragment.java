@@ -12,7 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import ru.nstudio.android.DBHelper;
+import ru.nstudio.android.Storage.DBHelper;
 import ru.nstudio.android.MonthDetails.Adapters.MonthDetailsAdapter;
 import ru.nstudio.android.R;
 

@@ -1,6 +1,5 @@
 package ru.nstudio.android.MonthDetails.Screens;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -15,7 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import ru.nstudio.android.DBHelper;
+import ru.nstudio.android.Storage.DBHelper;
 import ru.nstudio.android.MonthDetails.Adapters.MonthCategoryAdapter;
 import ru.nstudio.android.R;
 

@@ -3,22 +3,16 @@ package ru.nstudio.android.MonthDetails;
 //import android.R;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.*;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import ru.nstudio.android.ContextMenuInitializer;
-import ru.nstudio.android.DBHelper;
-import ru.nstudio.android.MonthDetails.Adapters.MonthDetailsAdapter;
+import ru.nstudio.android.Storage.DBHelper;
 import ru.nstudio.android.MonthDetails.Adapters.MonthOverviewPagerAdapter;
 import ru.nstudio.android.R;
 

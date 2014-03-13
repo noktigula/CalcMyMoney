@@ -5,9 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import android.content.Context;
-import android.widget.Toast;
-
 public class DateParser 
 {
 	public static final String 		CALCMONEY_FORMAT = new String("dd MMMM yyyy");

@@ -20,6 +20,8 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ru.nstudio.android.Storage.DBHelper;
+
 public class MainActivity extends ActionBarActivity implements OnItemClickListener, OnClickListener
 {
 	private DBHelper _dbHelper;
