@@ -10,9 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import ru.nstudio.android.Storage.DBHelper;
 import ru.nstudio.android.DateParser;
 import ru.nstudio.android.R;
+import ru.nstudio.android.Storage.MoneyContract;
 
 public class MonthDetailsAdapter extends CursorAdapter //implements OnItemClickListener
 {
@@ -43,13 +43,13 @@ public class MonthDetailsAdapter extends CursorAdapter //implements OnItemClickL
 	public void bindView( View v, Context context, Cursor c )
 	{
 		Log.d("nTag", "MonthDetailsAdapter - bind view");
-		boolean isIncome = (c.getInt(c.getColumnIndex( DBHelper.Finance.TYPE)) == 1);
-		String explain = new String(c.getString(c.getColumnIndex(DBHelper.Finance.REASON)));
-		Double price = c.getDouble(c.getColumnIndex(DBHelper.Finance.PRICE));
-		Integer quant = c.getInt(c.getColumnIndex(DBHelper.Finance.QUANTITY));
+		boolean isIncome = (c.getInt(c.getColumnIndex( MoneyContract.Finance.TYPE)) == 1);
+		String explain = new String(c.getString(c.getColumnIndex(MoneyContract.Finance.REASON)));
+		Double price = c.getDouble( c.getColumnIndex( MoneyContract.Finance.PRICE ) );
+		Integer quant = c.getInt(c.getColumnIndex(MoneyContract.Finance.QUANTITY));
 		int id = c.getInt(c.getColumnIndex("_id"));
-		String date = new String(c.getString(c.getColumnIndex(DBHelper.Finance.DATE)));
-		String category = new String(c.getString(c.getColumnIndex(DBHelper.Category.NAME)));
+		String date = new String(c.getString(c.getColumnIndex(MoneyContract.Finance.DATE)));
+		String category = new String(c.getString(c.getColumnIndex(MoneyContract.Category.NAME)));
 
 		String dateDescript =
 				DateParser.format( date, DateParser.CALCMONEY_FORMAT );

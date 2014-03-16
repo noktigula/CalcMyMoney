@@ -12,26 +12,15 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import ru.nstudio.android.ContextMenuInitializer;
-import ru.nstudio.android.Storage.DBHelper;
 import ru.nstudio.android.MonthDetails.Adapters.MonthOverviewPagerAdapter;
 import ru.nstudio.android.R;
 
 public class ChangeMonthActivity extends ActionBarActivity //implements OnItemClickListener
 {
-	//private Button 			_btnOk;
-	//private ListView 		_lvAddFinances;
-	//private View 			_vFooter;
-	//private View 			_vHeader;
-	private DBHelper _dbHelper;
 	private SQLiteDatabase 	_db;
-	//private int 			_month;
-	//private int 			_year;
 	public  boolean 		_wasChanges;
-	//private TextView 		_tvMonthDescription;
 	private ViewPager		_pager;
 
-
-		
 	private static int RESULT_FIRST_USER_DETAIL = 11;
 	
 	@Override
@@ -99,20 +88,6 @@ public class ChangeMonthActivity extends ActionBarActivity //implements OnItemCl
 		return super.onKeyDown(keyCode, event);
 	}
 
-	public void initDatabase()
-	{
-		if(this._dbHelper == null)
-		{
-			this._dbHelper = new DBHelper(this, DBHelper.CURRENT_DATABASE_VERSION);
-		}
-		if(this._db == null)
-		{
-			this._db = this._dbHelper.getWritableDatabase();
-		}
-
-		if(!this._db.isOpen())
-			this._db = this._dbHelper.getWritableDatabase();
-	}
 
 //	public void onItemClick(AdapterView<?> adapterView, View view, int position, long id)
 //	{

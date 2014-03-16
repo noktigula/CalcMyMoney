@@ -1,12 +1,11 @@
-package ru.nstudio.android;
+package ru.nstudio.android.main;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -15,20 +14,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import ru.nstudio.android.Storage.DBHelper;
+import ru.nstudio.android.ContextMenuInitializer;
+import ru.nstudio.android.DeleteDialog;
+import ru.nstudio.android.MenuListener;
+import ru.nstudio.android.R;
 
 public class MainActivity extends ActionBarActivity implements OnItemClickListener, OnClickListener
 {
-	private ListView _lv;
-	private View _vFooter;
-	private FinanceAdapter _fAdapter;
+	private ViewPager _pager;
+
 	private Menu			menu;
-	private MenuListener	menuListener;
+	private MenuListener menuListener;
 	
 	public static final int 	RESULT_FIRST_USER_MAIN = 10;
 	public static final int		RESULT_FIRST_USER_DETAIL = 11;
@@ -40,19 +40,12 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);
-		setContentView( R.layout.main );
+		setContentView( R.layout.activity_total_overview );
 
-        initDatabase();
-
-		_lv = (ListView) findViewById( R.id.lvMain );
-    	_vFooter = getLayoutInflater().inflate(R.layout.tip_add_new_details, null);
-        
-    	makeListCalculations();
-        registerForContextMenu( _lv );
+		_pager = (ViewPager)findViewById( R.id.pagerTotalOverview );
+		_pager.setAdapter( new FinancePagerAdapter( getSupportFragmentManager() ) );
     	
     	menuListener = new MenuListener( this );
-
-		//ActionBar actionBar = getSupportActionB
     } // onCreate
 
     @Override
@@ -131,60 +124,6 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 		return super.onCreateOptionsMenu(menu);
 	} // onCreateOptionsMenu
 
-	
-	void makeListCalculations()
-	{
-		this.initDatabase();
-		
-		if (this._lv != null)
-		{
-			this._lv.removeFooterView( this._vFooter );
-		} // if
-		
-		this._lv = null;
-		this._lv = (ListView) findViewById( R.id.lvMain );
-		
-		String [] args = new String[]{};
-	        
-		Cursor c = _
-	
-		_lv.addFooterView( this._vFooter, null, true );
-		
-		this._fAdapter = new FinanceAdapter(this, this.getLayoutInflater(), c);
-		
-		try
-		{
-			_lv.setAdapter( this._fAdapter );
-			_lv.setOnItemClickListener( this );
-		} // try
-		catch (IllegalStateException e)
-		{
-			Toast.makeText(this,"IllegalStateException", 10000000).show();
-		} // catch
-		catch(Exception exc)
-		{
-			
-			Toast.makeText(this, exc.getMessage(), 10000000).show();
-		} // catch*/
-		
-		c.close();
-		this._db.close();
-	} // makeListCalculations
-	
-	public void initDatabase()
-	{
-		if(this._dbHelper == null)
-		{
-			this._dbHelper = new DBHelper(this, DBHelper.CURRENT_DATABASE_VERSION);
-		} // if
-		if(this._db == null)
-		{
-			this._db = this._dbHelper.getWritableDatabase();
-		} // if
-		
-		if(!this._db.isOpen())
-			this._db = this._dbHelper.getWritableDatabase();
-	} // initDatabase
 	  
 	public void onItemClick(AdapterView<?> adView, View target, int position, long id)
 	{
@@ -222,22 +161,22 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
         return intent;
     } // getIntentForChange
 	  
-	  public void onActivityResult(int requestCode, int resultCode, Intent outputIntent)
-	  {
-		  boolean refresh = false;
-		  
-		  if (resultCode == RESULT_OK)
-		  {
-			  refresh = outputIntent.getBooleanExtra("ru.nstudio.android.changes", false);
-		  } // if
-		  else if (resultCode == RESULT_FIRST_USER_DETAIL)
-		  {
-			  refresh = outputIntent.getBooleanExtra("ru.nstudio.android.success", false);
-		  } // else if
-		  
-		  if (refresh)
-		  {
-			  this.makeListCalculations();
-		  } // if
-	  } // onActivityResult
+//	  public void onActivityResult(int requestCode, int resultCode, Intent outputIntent)
+//	  {
+//		  boolean refresh = false;
+//
+//		  if (resultCode == RESULT_OK)
+//		  {
+//			  refresh = outputIntent.getBooleanExtra("ru.nstudio.android.changes", false);
+//		  } // if
+//		  else if (resultCode == RESULT_FIRST_USER_DETAIL)
+//		  {
+//			  refresh = outputIntent.getBooleanExtra("ru.nstudio.android.success", false);
+//		  } // else if
+//
+//		  if (refresh)
+//		  {
+//			  this.makeListCalculations();
+//		  } // if
+//	  } // onActivityResult
 } // class MainActivity

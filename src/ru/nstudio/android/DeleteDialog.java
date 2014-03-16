@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 
 import ru.nstudio.android.MonthDetails.ChangeMonthActivity;
+import ru.nstudio.android.main.MainActivity;
 import ru.nstudio.android.Storage.DBHelper;
 
 /**

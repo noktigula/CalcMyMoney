@@ -42,7 +42,7 @@ public class MonthDetailsFragment extends Fragment
 	@Override
 	public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
-		View v = inflater.inflate( R.layout.month_operations, container, false );
+		View v = inflater.inflate( R.layout.list_month_operations, container, false );
 
 		int idItem = getArguments().getInt( KEY_ID_ITEM );
 		_month = idItem % 100;

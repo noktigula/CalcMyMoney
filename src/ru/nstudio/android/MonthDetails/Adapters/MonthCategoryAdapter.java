@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import java.math.BigDecimal;
 
-import ru.nstudio.android.Storage.DBHelper;
 import ru.nstudio.android.R;
+import ru.nstudio.android.Storage.MoneyContract;
 
 /**
  * Created by noktigula on 02.03.14.
@@ -38,7 +38,7 @@ public class MonthCategoryAdapter extends CursorAdapter
 	@Override
 	public void bindView( View view, Context context, Cursor cursor )
 	{
-		String title = cursor.getString( cursor.getColumnIndex( DBHelper.Category.NAME ) );
+		String title = cursor.getString( cursor.getColumnIndex( MoneyContract.Category.NAME ) );
 		BigDecimal cost = BigDecimal.valueOf( cursor.getDouble( cursor.getColumnIndex( "cost" ) ) );
 
 		TextView tvCategoryName = (TextView)view.findViewById( R.id.tvCategoryName );
