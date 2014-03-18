@@ -27,7 +27,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import ru.nstudio.android.Storage.DBHelper;
 import ru.nstudio.android.dialogs.AddCategoryDialog;
 
 public class DetailsActivity extends FragmentActivity
@@ -49,9 +48,6 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 	private Button 				_btnExplainOk;
 	
 	private GregorianCalendar 	_gcDate;
-	
-	private SQLiteDatabase 		_db;
-	private DBHelper _dbHelper;
 	
 	private long 				_idFinance;
 		
@@ -114,7 +110,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 	@TargetApi( Build.VERSION_CODES.HONEYCOMB )
 	private void fillSpinnerWithCategories()
 	{
-		initDatabase();
+		/*initDatabase();
 
 		String query = "SELECT " + DBHelper.Category.ID + " AS _id, " + DBHelper.Category.NAME + " FROM " + DBHelper.Category.TABLE_NAME;
 
@@ -127,22 +123,12 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 										 SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER );
 
 		categoryAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
-		_spinner.setAdapter( categoryAdapter );
+		_spinner.setAdapter( categoryAdapter );*/
 	}
-
-	private void initDatabase()
-	{
-		if (_dbHelper == null)
-			_dbHelper = new DBHelper(this, DBHelper.CURRENT_DATABASE_VERSION);
-		
-		if (_db == null)
-			_db = _dbHelper.getWritableDatabase();
-	} // initDataBase
 	
 	private void getOperationValues(long idFinance)
 	{
-		initDatabase();
-		
+	/*
 		String query = new String (" SELECT " + DBHelper.Finance.TABLE_NAME + ".*, " +
 								   DBHelper.Category.TABLE_NAME + "." + DBHelper.Category.NAME +
 								   " FROM " + DBHelper.Finance.TABLE_NAME +
@@ -174,6 +160,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 		} // if
 		
 		c.close();
+		*/
 	} // getOperationValues
 	
 	private void displayDate(String strDate)
@@ -228,6 +215,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 
 	public void onClick(View v) 
 	{
+		/*
 		if ( v.getId() == R.id.btnExplainOK )
 		{
 			if (_etExplain.getText().toString().isEmpty() ||
@@ -237,8 +225,6 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 				Toast.makeText(this, R.string.errEmptyField, 10000).show();
 				return;
 			}
-			
-			initDatabase();
 			
 			ContentValues cv = new ContentValues();
 
@@ -283,6 +269,7 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 		{
 			showDialogAddCategory();
 		}
+		*/
 	} //onClick
 
 	@TargetApi( Build.VERSION_CODES.HONEYCOMB )
@@ -303,11 +290,13 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 	@Override
 	public void onDialogPositiveClick( DialogFragment dialog )
 	{
+		/*
 		AddCategoryDialog addCategoryDialog = (AddCategoryDialog)dialog;
 		String category = addCategoryDialog.getCategory();
 
 		_dbHelper.insertDistinct( DBHelper.Category.TABLE_NAME, DBHelper.Category.NAME, category );
 		fillSpinnerWithCategories();
+		*/
 	}
 
 	@Override

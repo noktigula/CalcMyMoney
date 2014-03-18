@@ -12,9 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.List;
 
 import ru.nstudio.android.R;
 import ru.nstudio.android.Storage.MoneyContract;
@@ -34,10 +37,11 @@ public class MainOverviewFragment extends Fragment
 	@Override
 	public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
-		View v = (View)inflater.inflate( R.layout.list_total_operation_overview, container, false );
+		View v = inflater.inflate( R.layout.list_total_operation_overview, container, false );
 
 		_lv = ( ListView) v.findViewById( R.id.lvMain );
-		_vFooter = (View)inflater.inflate( R.layout.tip_add_new_details, container, false );
+		_vFooter = inflater.inflate( R.layout.tip_add_new_details, container, false );
+		_vFooter.setLayoutParams( new ListView.LayoutParams( ListView.LayoutParams.MATCH_PARENT, 48 ) );
 
 		createListView();
 

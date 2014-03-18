@@ -1,5 +1,6 @@
 package ru.nstudio.android.MonthDetails.Screens;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,9 +13,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import ru.nstudio.android.Storage.DBHelper;
 import ru.nstudio.android.MonthDetails.Adapters.MonthDetailsAdapter;
 import ru.nstudio.android.R;
+import ru.nstudio.android.Storage.MoneyContract;
 
 /**
  * Created by noktigula on 16.02.14.
@@ -24,8 +25,6 @@ public class MonthDetailsFragment extends Fragment
 {
 	private ListView 		_lvAddFinances;
 	private View 			_vFooter;
-	private DBHelper 		_dbHelper;
-	private SQLiteDatabase 	_db;
 
 	private int 			_month;
 	private int				_year;
@@ -56,8 +55,6 @@ public class MonthDetailsFragment extends Fragment
 		this._tvMonthDescription = (TextView)v.findViewById( R.id.tvMonthDescription );
 		this._tvMonthDescription.setText( monthTitleBuilder.toString() );
 
-		this.initDatabase();
-
 		this._vFooter = inflater.inflate(R.layout.tip_add_new_details, null);
 
 		createListView( v );
@@ -79,33 +76,8 @@ public class MonthDetailsFragment extends Fragment
 		return fragment;
 	}
 
-	private void initDatabase()
+	private String getMonthWithLeadingZero()
 	{
-		if(this._dbHelper == null)
-		{
-			this._dbHelper = new DBHelper( getActivity(), DBHelper.CURRENT_DATABASE_VERSION );
-		}
-		if(this._db == null)
-		{
-			this._db = this._dbHelper.getWritableDatabase();
-		}
-
-		if(!this._db.isOpen())
-			this._db = this._dbHelper.getWritableDatabase();
-	}
-
-	private void createListView(View v)
-	{
-		this.initDatabase();
-		if (this._lvAddFinances != null)
-		{
-			this._lvAddFinances.removeFooterView( this._vFooter );
-		}
-		this._lvAddFinances = null;
-		this._lvAddFinances = (ListView)v.findViewById( R.id.listOperations );
-
-		this._lvAddFinances.addFooterView(this._vFooter, null, true);
-
 		String monthWithLeadingZero;
 		if ((this._month / 10) == 0)
 		{
@@ -115,26 +87,27 @@ public class MonthDetailsFragment extends Fragment
 		{
 			monthWithLeadingZero = new String(Integer.toString(this._month ));
 		}
+		return monthWithLeadingZero;
+	}
 
-		String[] whereArgs = new String[] {Integer.toString(this._year ), monthWithLeadingZero};
+	private void createListView(View v)
+	{
+		if (this._lvAddFinances != null)
+		{
+			this._lvAddFinances.removeFooterView( this._vFooter );
+		}
+		this._lvAddFinances = null;
+		this._lvAddFinances = (ListView)v.findViewById( R.id.listOperations );
 
-		String query = " SELECT " +
-				"f." + DBHelper.Finance.ID 		+ " AS _id, " +
-				"f." + DBHelper.Finance.REASON 	+ ", " +
-				"f." + DBHelper.Finance.PRICE 	+ ", " +
-				"f." + DBHelper.Finance.QUANTITY + ", " +
-				"f." + DBHelper.Finance.DATE 	+ ", " +
-				"f." + DBHelper.Finance.TYPE 	+ ", " +
-				"c." + DBHelper.Category.NAME    +
-				" FROM " + DBHelper.Finance.TABLE_NAME + " AS f " +
-				" INNER JOIN " + DBHelper.Category.TABLE_NAME +  " AS c " +
-				"ON f." + DBHelper.Finance.CATEGORY + " = c." + DBHelper.Category.ID +
-				" WHERE strftime('%Y', " + DBHelper.Finance.DATE + ") = ? " +
-				"AND strftime('%m', " + DBHelper.Finance.DATE + ") = ? " +
-				" ORDER BY strftime('%d', " + DBHelper.Finance.DATE + "), " + DBHelper.Finance.ID;
+		this._lvAddFinances.addFooterView(this._vFooter, null, true);
 
+		String[] whereArgs = new String[] { Integer.toString(this._year ), getMonthWithLeadingZero() };
+		String where = new String("strftime('%Y', " + MoneyContract.ViewMonthOperations.DATE + ") = ? " +
+				"AND strftime('%m', " + MoneyContract.ViewMonthOperations.DATE + ") = ? ");
 
-		Cursor c = this._db.rawQuery(query, whereArgs);
+		ContentResolver cr = getActivity().getContentResolver();
+		Cursor c = cr.query( MoneyContract.ViewMonthOperations.CONTENT_URI,
+				null, where, whereArgs, null );
 
 		_adapter = new MonthDetailsAdapter( getActivity(), c, R.layout.list_item_month_details_operations );
 
@@ -145,7 +118,13 @@ public class MonthDetailsFragment extends Fragment
 	@Override
 	public android.support.v4.content.Loader<Cursor> onCreateLoader( int i, Bundle bundle )
 	{
-		return new android.support.v4.content.CursorLoader( getActivity() );
+		String[] whereArgs = new String[] { Integer.toString(this._year ), getMonthWithLeadingZero() };
+		String where = new String("strftime('%Y', " + MoneyContract.ViewMonthOperations.DATE + ") = ? " +
+				"AND strftime('%m', " + MoneyContract.ViewMonthOperations.DATE + ") = ? ");
+
+		return new android.support.v4.content.CursorLoader(
+				getActivity(), MoneyContract.ViewMonthOperations.CONTENT_URI, null,
+				where, whereArgs, null );
 	}
 
 	@Override

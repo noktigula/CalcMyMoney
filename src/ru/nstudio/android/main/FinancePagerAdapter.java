@@ -11,7 +11,7 @@ import android.view.View;
  */
 public class FinancePagerAdapter extends FragmentStatePagerAdapter
 {
-	private static final int PAGES_COUNT = 2;
+	private static final int PAGES_COUNT = 1;
 
 	public FinancePagerAdapter( FragmentManager fm )
 	{

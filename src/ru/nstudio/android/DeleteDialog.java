@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import ru.nstudio.android.MonthDetails.ChangeMonthActivity;
 import ru.nstudio.android.main.MainActivity;
-import ru.nstudio.android.Storage.DBHelper;
 
 /**
  * Created with IntelliJ IDEA.
@@ -69,7 +68,7 @@ public class DeleteDialog implements DialogInterface.OnClickListener
 
     private void deleteMonth()
     {
-        DBHelper dbHelper = new DBHelper(context, DBHelper.CURRENT_DATABASE_VERSION);
+        /*DBHelper dbHelper = new DBHelper(context, DBHelper.CURRENT_DATABASE_VERSION);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         String whereClause = "CAST (strftime('%Y', " + DBHelper.Finance.DATE + " ) AS INTEGER) = ? AND " +
@@ -84,12 +83,12 @@ public class DeleteDialog implements DialogInterface.OnClickListener
         db.close();
        //Intent intent = new Intent();
         MainActivity activity = (MainActivity) this.context;
-        activity.makeListCalculations();
+        activity.makeListCalculations();*/
     } // deleteItem
 
     private void deleteOperation()
     {
-        DBHelper dbHelper = new DBHelper(context, DBHelper.CURRENT_DATABASE_VERSION);
+       /* DBHelper dbHelper = new DBHelper(context, DBHelper.CURRENT_DATABASE_VERSION);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         String whereClause = DBHelper.Finance.ID + " = ?";
@@ -100,7 +99,7 @@ public class DeleteDialog implements DialogInterface.OnClickListener
 
         ChangeMonthActivity activity = (ChangeMonthActivity) this.context;
         //activity.createListView();
-        activity._wasChanges = true;
+        activity._wasChanges = true;*/
     } // deleteOperation
 
 }

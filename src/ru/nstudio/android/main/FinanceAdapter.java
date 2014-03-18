@@ -10,12 +10,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CursorAdapter;
 import android.widget.TextView;
 import android.widget.BaseAdapter;
 import android.database.ContentObserver;
 
 import ru.nstudio.android.R;
+import ru.nstudio.android.Storage.MoneyContract;
 
 public class FinanceAdapter extends BaseAdapter //implements OnItemClickListener 
 {
@@ -110,13 +110,15 @@ public class FinanceAdapter extends BaseAdapter //implements OnItemClickListener
 			int checkYear = -1;
 			do
 			{
-				String monthTitle = new String( _cursor.getString( _cursor.getColumnIndex("title")));
-				Double income = _cursor.getDouble( _cursor.getColumnIndex("plus"));
-				Double expend = _cursor.getDouble( _cursor.getColumnIndex("minus"));
-				Double diff = _cursor.getDouble( _cursor.getColumnIndex("diff"));
+				String monthTitle = new String( _cursor.getString( _cursor.getColumnIndex(
+						MoneyContract.ViewYear.MONTH_TITLE )));
+				Double income = _cursor.getDouble( _cursor.getColumnIndex(MoneyContract.ViewYear.INCOME));
+				Double expend = _cursor.getDouble( _cursor.getColumnIndex(MoneyContract.ViewYear.EXPEND));
+				Double diff = _cursor.getDouble( _cursor.getColumnIndex(MoneyContract.ViewYear.TOTAL));
 					
-				Integer curYear = _cursor.getInt( _cursor.getColumnIndex("fyear"));
-				Integer curMonth = Integer.parseInt( _cursor.getString( _cursor.getColumnIndex("fmonth")));
+				Integer curYear = _cursor.getInt( _cursor.getColumnIndex( MoneyContract.ViewYear.YEAR ));
+				Integer curMonth = Integer.parseInt( _cursor.getString( _cursor.getColumnIndex(
+						MoneyContract.ViewYear.MONTH )));
 				int idItem = (curYear*100) + curMonth;
 				
 				if (curYear != checkYear)

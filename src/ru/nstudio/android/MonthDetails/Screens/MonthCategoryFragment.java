@@ -1,7 +1,6 @@
 package ru.nstudio.android.MonthDetails.Screens;
 
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -16,6 +15,7 @@ import android.widget.TextView;
 
 import ru.nstudio.android.MonthDetails.Adapters.MonthCategoryAdapter;
 import ru.nstudio.android.R;
+import ru.nstudio.android.Storage.MoneyContract;
 
 /**
  * Created by noktigula on 26.02.14.
@@ -74,6 +74,20 @@ public class MonthCategoryFragment extends Fragment
 		return mc;
 	}
 
+	private String getMonthWithLeadingZero()
+	{
+		String monthWithLeadingZero;
+		if ((this._month / 10) == 0)
+		{
+			monthWithLeadingZero = new String("0" + Integer.toString(this._month ));
+		}
+		else
+		{
+			monthWithLeadingZero = new String(Integer.toString(this._month ));
+		}
+		return monthWithLeadingZero;
+	}
+
 	private void createListView( View parent )
 	{
 		if (this._lv != null)
@@ -85,42 +99,28 @@ public class MonthCategoryFragment extends Fragment
 
 		this._lv.addFooterView(this._vFooter, null, true);
 
-		String monthWithLeadingZero;
-		if ((this._month / 10) == 0)
-		{
-			monthWithLeadingZero = new String("0" + Integer.toString(this._month ));
-		}
-		else
-		{
-			monthWithLeadingZero = new String(Integer.toString(this._month ));
-		}
+		String where = new String("strftime( '%Y', " + MoneyContract.Finance.DATE + ") = ? " +
+				"AND strftime( '%m', " + MoneyContract.Finance.DATE + ") = ? " );
+		String[] whereArgs = new String[] {Integer.toString(this._year ), getMonthWithLeadingZero()};
 
-		String where = new String("WHERE strftime( '%Y', " + DBHelper.Finance.DATE + ") = ? " +
-				"AND strftime( '%m', " + DBHelper.Finance.DATE + ") = ? " +)
-		String[] whereArgs = new String[] {Integer.toString(this._year ), monthWithLeadingZero};
+		Cursor c = getActivity().getContentResolver().query(
+				MoneyContract.ViewMonthCategories.CONTENT_URI, null, where, whereArgs, null );
 
-		String query = "SELECT c." + DBHelper.Category.ID + " AS _id, " +
-				"c." + DBHelper.Category.NAME + ", " +
-				"SUM( " + DBHelper.Finance.PRICE + " * " + DBHelper.Finance.QUANTITY + " ) AS cost " +
-				"FROM " + DBHelper.Finance.TABLE_NAME + " AS f " +
-				"INNER JOIN " + DBHelper.Category.TABLE_NAME + " AS c " +
-				"ON f." + DBHelper.Finance.CATEGORY + " = c." + DBHelper.Category.ID + " " +
+		_adapter = new MonthCategoryAdapter(getActivity(), c, R.layout.list_item_month_details_category);
 
-				"GROUP BY c." + DBHelper.Category.NAME + " " +
-				"ORDER BY c." + DBHelper.Category.ID;
-
-		Cursor c = this._db.rawQuery(query, whereArgs);
-
-		MonthCategoryAdapter mca = new MonthCategoryAdapter(getActivity(), c, R.layout.list_item_month_details_category);
-
-		_lv.setAdapter(mca);
+		_lv.setAdapter( _adapter );
 		_lv.setOnItemClickListener( this );
 	}
 
 	@Override
 	public Loader onCreateLoader( int i, Bundle bundle )
 	{
-		return new CursorLoader( getActivity() );
+		String where = new String("strftime( '%Y', " + MoneyContract.Finance.DATE + ") = ? " +
+				"AND strftime( '%m', " + MoneyContract.Finance.DATE + ") = ? ");
+		String[] whereArgs = new String[] {Integer.toString(this._year ), getMonthWithLeadingZero()};
+
+		return new CursorLoader( getActivity(), MoneyContract.ViewMonthCategories.CONTENT_URI, null,
+				where, whereArgs, null );
 	}
 
 	@Override

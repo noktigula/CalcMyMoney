@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import ru.nstudio.android.Storage.DBHelper;
+import ru.nstudio.android.Storage.MoneyContract;
 
 /**
  * Created with IntelliJ IDEA.
@@ -86,7 +86,7 @@ public class CategoryAdapter extends BaseAdapter
 		{
 			do
 			{
-				String category = _cursor.getString( _cursor.getColumnIndex( DBHelper.Category.NAME ) );
+				String category = _cursor.getString( _cursor.getColumnIndex( MoneyContract.Category.NAME ) );
 
 				_alView.add( getViewWithText( category ) );
 			} while(_cursor.moveToNext());

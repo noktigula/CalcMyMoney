@@ -51,5 +51,36 @@ public final class MoneyContract
 		public static final String INCOME = "plus";
 		public static final String EXPEND = "minus";
 		public static final String TOTAL = "diff";
+		public static final String MONTH_TITLE = "title";
+	}
+
+	//this isn't a real view in database, it uses only for creating complex query
+	public static final class ViewMonthCategories implements BaseColumns
+	{
+		public static final Uri CONTENT_URI = Uri.parse( "content://" + AUTHORITY + "/monthCategory" );
+		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.nstudio.monthCategories";
+		public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.nstudio.monthCategory";
+
+		public static final String VIEW_NAME = "ViewMonthCategories";
+
+		public static final String CATEGORY_TITLE = Category.NAME;
+		public static final String CATEGORY_SUM = "cost";
+	}
+
+	//this isn't a real view in database, it uses only for creating complex query
+	public static final class ViewMonthOperations implements BaseColumns
+	{
+		public static final Uri CONTENT_URI = Uri.parse( "content://" + AUTHORITY + "/monthOperation" );
+		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.android.nstudio.monthOperations";
+		public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.dir/vnd.android.nstudio.monthOperation";
+
+		public static final String VIEW_NAME = "ViewMonthOperations";
+
+		public static final String REASON = Finance.REASON;
+		public static final String PRICE = Finance.PRICE;
+		public static final String QUANTITY = Finance.QUANTITY;
+		public static final String DATE = Finance.DATE;
+		public static final String TYPE = Finance.TYPE;
+		public static final String NAME = Category.NAME;
 	}
 }
