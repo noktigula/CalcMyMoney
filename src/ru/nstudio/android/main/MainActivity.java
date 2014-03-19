@@ -3,27 +3,20 @@ package ru.nstudio.android.main;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.TableLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import ru.nstudio.android.ContextMenuInitializer;
 import ru.nstudio.android.DeleteDialog;
 import ru.nstudio.android.MenuListener;
 import ru.nstudio.android.R;
 
-public class MainActivity extends ActionBarActivity implements OnItemClickListener, OnClickListener
+public class MainActivity extends ActionBarActivity implements OnClickListener
 {
 	private ViewPager _pager;
 
@@ -32,9 +25,6 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	
 	public static final int 	RESULT_FIRST_USER_MAIN = 10;
 	public static final int		RESULT_FIRST_USER_DETAIL = 11;
-
-    private static String INTENT_ACTION_CHANGE = "ru.nstudio.android.changeMonth";
-    private static String INTENT_ACTION_ADD    = "ru.nstudio.android.addDetails";
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) 
@@ -55,45 +45,45 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
         menu = initializer.getMenu();
     } // onCreateContextMenu
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item)
-    {
-        AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        TableLayout tl = (TableLayout) acmi.targetView;
-
-        if(tl.getChildCount() <= 0)
-        {
-            return false;
-        } // if
-
-        TextView tvMonth = (TextView) tl.getChildAt(0);
-        String monthTitle = tvMonth.getText().toString();
-
-        Intent intent;
-
-        switch (item.getGroupId())
-        {
-            case ContextMenuInitializer.CONTEXT_MENU_CHANGE:
-            {
-                intent = this.getIntentForChange((int)acmi.id, monthTitle);
-                runChangeActivity(intent);
-                break;
-            }  // case change
-
-            case ContextMenuInitializer.CONTEXT_MENU_DELETE:
-            {
-                deleteMonthInfo((int)acmi.id);
-                break;
-            }  // case delete
-
-            default:
-            {
-                break;
-            } // default
-        } // switch
-
-        return super.onContextItemSelected(item);
-    }   // onContextItemSelected
+//    @Override
+//    public boolean onContextItemSelected(MenuItem item)
+//    {
+//        AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+//        TableLayout tl = (TableLayout) acmi.targetView;
+//
+//        if(tl.getChildCount() <= 0)
+//        {
+//            return false;
+//        } // if
+//
+//        TextView tvMonth = (TextView) tl.getChildAt(0);
+//        String monthTitle = tvMonth.getText().toString();
+//
+//        Intent intent;
+//
+//        switch (item.getGroupId())
+//        {
+//            case ContextMenuInitializer.CONTEXT_MENU_CHANGE:
+//            {
+//                intent = this.getIntentForChange((int)acmi.id, monthTitle);
+//                runChangeActivity(intent);
+//                break;
+//            }  // case change
+//
+//            case ContextMenuInitializer.CONTEXT_MENU_DELETE:
+//            {
+//                deleteMonthInfo((int)acmi.id);
+//                break;
+//            }  // case delete
+//
+//            default:
+//            {
+//                break;
+//            } // default
+//        } // switch
+//
+//        return super.onContextItemSelected(item);
+//    }   // onContextItemSelected
 
     public void deleteMonthInfo(int monthYearCode)
     {
@@ -125,41 +115,41 @@ public class MainActivity extends ActionBarActivity implements OnItemClickListen
 	} // onCreateOptionsMenu
 
 	  
-	public void onItemClick(AdapterView<?> adView, View target, int position, long id)
-	{
-		Intent intent;
-		if (id == -1)
-		{
-			intent = new Intent(INTENT_ACTION_ADD);
-		} // if
-		else
-		{
-			TextView tvMonth = (TextView)target.findViewById(R.id.tvMainMonthTitle);
-			intent = this.getIntentForChange((int)id, tvMonth.getText().toString());
-		} //if
-		
-        runChangeActivity(intent);
-	} // onItemCLick
+//	public void onItemClick(AdapterView<?> adView, View target, int position, long id)
+//	{
+//		Intent intent;
+//		if (id == -1)
+//		{
+//			intent = new Intent(INTENT_ACTION_ADD);
+//		} // if
+//		else
+//		{
+//			TextView tvMonth = (TextView)target.findViewById(R.id.tvMainMonthTitle);
+//			intent = this.getIntentForChange((int)id, tvMonth.getText().toString());
+//		} //if
+//
+//        runChangeActivity(intent);
+//	} // onItemCLick
 
-    public void runChangeActivity(Intent intent)
-    {
-        try
-        {
-            startActivityForResult(intent, RESULT_FIRST_USER_MAIN);
-        } // try
-        catch(IllegalArgumentException iae)
-        {
-            Toast.makeText(this, iae.getMessage(), 10000).show();
-        } // catch
-    } // runChangeActivity
+//    public void runChangeActivity(Intent intent)
+//    {
+//        try
+//        {
+//            startActivityForResult( intent, RESULT_FIRST_USER_MAIN );
+//        } // try
+//        catch(IllegalArgumentException iae)
+//        {
+//            Toast.makeText(this, iae.getMessage(), 10000).show();
+//        } // catch
+//    } // runChangeActivity
 
-    public Intent getIntentForChange(int id, String monthTitle)
-    {
-        Intent intent = new Intent(INTENT_ACTION_CHANGE);
-        intent.putExtra("ru.nstudio.android.selectedItem", id);
-        intent.putExtra("ru.nstudio.android.monthTitle", monthTitle);
-        return intent;
-    } // getIntentForChange
+//    public Intent getIntentForChange(int id, String monthTitle)
+//    {
+//        Intent intent = new Intent(INTENT_ACTION_CHANGE);
+//        intent.putExtra("ru.nstudio.android.selectedItem", id);
+//        intent.putExtra("ru.nstudio.android.monthTitle", monthTitle);
+//        return intent;
+//    } // getIntentForChange
 	  
 //	  public void onActivityResult(int requestCode, int resultCode, Intent outputIntent)
 //	  {

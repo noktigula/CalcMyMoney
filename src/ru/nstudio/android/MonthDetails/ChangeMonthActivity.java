@@ -142,7 +142,7 @@ public class ChangeMonthActivity extends ActionBarActivity //implements OnItemCl
 //					   "f." + DBHelper.Finance.QUANTITY + ", " +
 //					   "f." + DBHelper.Finance.DATE 	+ ", " +
 //					   "f." + DBHelper.Finance.TYPE 	+ ", " +
-//					   "c." + DBHelper.Category.NAME    +
+//					   "c." + DBHelper.Category.CATEGORY_NAME    +
 //					   " FROM " + DBHelper.Finance.TABLE_NAME + " AS f " +
 //					   " INNER JOIN " + DBHelper.Category.TABLE_NAME +  " AS c " +
 //					   		"ON f." + DBHelper.Finance.CATEGORY + " = c." + DBHelper.Category.ID +

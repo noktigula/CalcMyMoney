@@ -6,15 +6,17 @@ import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
+import android.content.ContentResolver;
+import android.net.Uri;
 import android.support.v4.app.DialogFragment;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -27,6 +29,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ru.nstudio.android.Storage.MoneyContract;
 import ru.nstudio.android.dialogs.AddCategoryDialog;
 
 public class DetailsActivity extends FragmentActivity
@@ -110,71 +113,73 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 	@TargetApi( Build.VERSION_CODES.HONEYCOMB )
 	private void fillSpinnerWithCategories()
 	{
-		/*initDatabase();
-
-		String query = "SELECT " + DBHelper.Category.ID + " AS _id, " + DBHelper.Category.NAME + " FROM " + DBHelper.Category.TABLE_NAME;
-
-		Cursor c = _db.rawQuery(query, null);
+		ContentResolver cr = getContentResolver();
+		Cursor c = cr.query( MoneyContract.Category.CONTENT_URI, null, null, null, null );
 
 		SimpleCursorAdapter categoryAdapter =
 				new SimpleCursorAdapter( this, android.R.layout.simple_spinner_item, c,
-										 new String[]{ DBHelper.Category.NAME },
+										 new String[]{ MoneyContract.Category.NAME },
 										 new int[]{ android.R.id.text1 },
 										 SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER );
 
 		categoryAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
-		_spinner.setAdapter( categoryAdapter );*/
+		_spinner.setAdapter( categoryAdapter );
 	}
 	
 	private void getOperationValues(long idFinance)
 	{
-	/*
-		String query = new String (" SELECT " + DBHelper.Finance.TABLE_NAME + ".*, " +
-								   DBHelper.Category.TABLE_NAME + "." + DBHelper.Category.NAME +
-								   " FROM " + DBHelper.Finance.TABLE_NAME +
-								   " INNER JOIN  " + DBHelper.Category.TABLE_NAME +
-								   " ON " + DBHelper.Category.TABLE_NAME+"."+DBHelper.Category.ID +
-								   "=" + DBHelper.Finance.TABLE_NAME + "." + DBHelper.Finance.CATEGORY +
-								   " WHERE " + DBHelper.Finance.ID + " = ?");
-		Cursor c = _db.rawQuery(query, new String[]{Long.toString(idFinance)});
+//		String query = new String (" SELECT " + DBHelper.Finance.TABLE_NAME + ".*, " +
+//								   DBHelper.Category.TABLE_NAME + "." + DBHelper.Category.CATEGORY_NAME +
+//								   " FROM " + DBHelper.Finance.TABLE_NAME +
+//								   " INNER JOIN  " + DBHelper.Category.TABLE_NAME +
+//								   " ON " + DBHelper.Category.TABLE_NAME+"."+DBHelper.Category.ID +
+//								   "=" + DBHelper.Finance.TABLE_NAME + "." + DBHelper.Finance.CATEGORY +
+//								   " WHERE " + DBHelper.Finance.ID + " = ?");
+
+
+		//Cursor c = _db.rawQuery(query, new String[]{Long.toString(idFinance)});
+		ContentResolver cr = getContentResolver();
+		Uri itemUri = Uri.withAppendedPath( MoneyContract.Finance.CONTENT_URI, Long.toString( idFinance ));
+		Cursor c = cr.query( itemUri, null, null, null, null );
 		
 		if (c.moveToFirst())
 		{
-			_etExplain.setText(c.getString(c.getColumnIndex( DBHelper.Finance.REASON ) ));
+			_etExplain.setText(c.getString(c.getColumnIndex( MoneyContract.Finance.REASON ) ));
 			
-			Double price = c.getDouble(c.getColumnIndex(DBHelper.Finance.PRICE));
+			Double price = c.getDouble(c.getColumnIndex(MoneyContract.Finance.PRICE));
 			_etPrice.setText(String.format(getString(R.string.money_format), price));
 			
-			int quant = c.getInt(c.getColumnIndex(DBHelper.Finance.QUANTITY));
+			int quant = c.getInt(c.getColumnIndex(MoneyContract.Finance.QUANTITY));
 			_etQuantity.setText(Integer.toString(quant));
 			
-			String strDate = c.getString(c.getColumnIndex(DBHelper.Finance.DATE));
+			String strDate = c.getString(c.getColumnIndex(MoneyContract.Finance.DATE));
 			
 			displayDate(strDate);		
 			
-			boolean type = (c.getInt(c.getColumnIndex(DBHelper.Finance.TYPE)) == 1);
+			boolean type = (c.getInt(c.getColumnIndex(MoneyContract.Finance.TYPE)) == 1);
 			_rbIncome.setChecked(type);
 			_rbExpend.setChecked(!type);
 
-			_spinner.setSelection( c.getInt( c.getColumnIndex( DBHelper.Finance.CATEGORY ) ) - 1 );
+			int selection = c.getInt( c.getColumnIndex( MoneyContract.Finance.CATEGORY ) )-1;
+			_spinner.setSelection( selection );
 		} // if
 		
 		c.close();
-		*/
-	} // getOperationValues
+
+	}
 	
 	private void displayDate(String strDate)
 	{
-		//_gcDate = DateParser.parseStringToDate(this, strDate);
-		//String dateDesc = DateParser.format(this, strDate, DateParser.CALCMONEY_FORMAT);
-		//_tvDateExplain.setText(dateDesc);
-	} // displayDate
+		_gcDate = DateParser.parseStringToDate( strDate );
+		String dateDesc = DateParser.format( strDate, DateParser.CALCMONEY_FORMAT );
+		_tvDateExplain.setText( dateDesc );
+	}
 	
 	private void displayDate()
 	{
-		//String dateDesc = DateParser.format(this, _gcDate, DateParser.CALCMONEY_FORMAT);
-		//_tvDateExplain.setText(dateDesc);
-	} // displayDate
+		String dateDesc = DateParser.format( _gcDate, DateParser.CALCMONEY_FORMAT );
+		_tvDateExplain.setText(dateDesc);
+	}
 
 	//TODO - replace this shit to fragments
 	@SuppressWarnings("deprecation")
@@ -211,18 +216,17 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 			_gcDate = new GregorianCalendar(resYear, resMonthOfYear, resDay);
 			displayDate();
 		} // onDateSet
-	}; // new OnDateSetListener*/
+	};
 
 	public void onClick(View v) 
 	{
-		/*
 		if ( v.getId() == R.id.btnExplainOK )
 		{
-			if (_etExplain.getText().toString().isEmpty() ||
-				_etQuantity.getText().toString().isEmpty() ||
-				_etPrice.getText().toString().isEmpty())
+			if ( TextUtils.isEmpty( _etExplain.getText().toString() ) ||
+				 TextUtils.isEmpty( _etQuantity.getText().toString() ) ||
+				 TextUtils.isEmpty( _etPrice.getText().toString() ))
 			{
-				Toast.makeText(this, R.string.errEmptyField, 10000).show();
+				Toast.makeText( this, R.string.errEmptyField, 10000 ).show();
 				return;
 			}
 			
@@ -241,25 +245,25 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
                 price = price.replace(",", ".");
             }
 
-			cv.put( DBHelper.Finance.REASON, _etExplain.getText().toString() );
-			cv.put( DBHelper.Finance.QUANTITY, Double.parseDouble(quant) );
-			cv.put( DBHelper.Finance.PRICE, Double.parseDouble(price) );
-			cv.put( DBHelper.Finance.TYPE, _rbIncome.isChecked() );
-			//cv.put( DBHelper.Finance.DATE, DateParser.format( this, _gcDate, DateParser.SQLITE_FORMAT ) );
-			cv.put( DBHelper.Category.ID, categoryID );
-								
+			cv.put( MoneyContract.Finance.REASON, _etExplain.getText().toString() );
+			cv.put( MoneyContract.Finance.QUANTITY, Double.parseDouble(quant) );
+			cv.put( MoneyContract.Finance.PRICE, Double.parseDouble(price) );
+			cv.put( MoneyContract.Finance.TYPE, _rbIncome.isChecked() );
+			cv.put( MoneyContract.Finance.DATE, DateParser.format(_gcDate, DateParser.SQLITE_FORMAT ) );
+			cv.put( MoneyContract.Finance.CATEGORY, categoryID );
+
+			ContentResolver cr = getContentResolver();
 			if (_idFinance == -1)
 			{
-				_db.insert( DBHelper.Finance.TABLE_NAME, null, cv);
+				cr.insert( MoneyContract.Finance.CONTENT_URI, cv );
 			} // if adding new
 			else
 			{
-				_db.update( DBHelper.Finance.TABLE_NAME,
-						cv,
-						DBHelper.Finance.ID + "= ?",
-						new String[]{Long.toString(_idFinance)});
+				Uri updateUri = Uri.withAppendedPath( MoneyContract.Finance.CONTENT_URI, Long.toString( _idFinance) );
+				cr.update( updateUri,
+						cv, null, null );
 			} // else
-			_db.close();
+
 			Intent intent = new Intent();
 			intent.putExtra("ru.nstudio.android.success", true);
 			setResult(RESULT_FIRST_USER_DETAIL, intent);
@@ -269,7 +273,6 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 		{
 			showDialogAddCategory();
 		}
-		*/
 	} //onClick
 
 	@TargetApi( Build.VERSION_CODES.HONEYCOMB )
@@ -290,13 +293,17 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 	@Override
 	public void onDialogPositiveClick( DialogFragment dialog )
 	{
-		/*
 		AddCategoryDialog addCategoryDialog = (AddCategoryDialog)dialog;
 		String category = addCategoryDialog.getCategory();
 
-		_dbHelper.insertDistinct( DBHelper.Category.TABLE_NAME, DBHelper.Category.NAME, category );
+		ContentValues values = new ContentValues(  );
+		values.put( MoneyContract.Category.NAME, category );
+
+		ContentResolver cr = getContentResolver();
+		cr.insert( MoneyContract.Category.CONTENT_URI, values );
+
+		//_dbHelper.insertDistinct( DBHelper.Category.TABLE_NAME, DBHelper.Category.CATEGORY_NAME, category );
 		fillSpinnerWithCategories();
-		*/
 	}
 
 	@Override

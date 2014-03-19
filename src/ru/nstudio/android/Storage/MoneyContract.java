@@ -17,7 +17,7 @@ public final class MoneyContract
 		public static final Uri CONTENT_URI = Uri.parse( "content://" + AUTHORITY + "/finance" );
 		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.nstudio.operations";
 		public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.nstudio.operation";
-		public static final String DEFAULT_SORT_ORDER = "_id DESC";
+		public static final String DEFAULT_SORT_ORDER = "_id ASC";
 
 		public static final String TABLE_NAME    = "Finance";
 		public static final String REASON   = "reason";
@@ -33,7 +33,7 @@ public final class MoneyContract
 		public static final Uri CONTENT_URI = Uri.parse( "content://" + AUTHORITY + "/category" );
 		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.nstudio.categories";
 		public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.nstudio.category";
-		public static final String DEFAULT_SORT_ORDER = "_id DESC";
+		public static final String DEFAULT_SORT_ORDER = "_id ASC";
 
 		public static final String TABLE_NAME = "Category";
 		public static final String NAME 	  = "CategoryTitle";
@@ -44,6 +44,7 @@ public final class MoneyContract
 		public static final Uri CONTENT_URI = Uri.parse( "content://" + AUTHORITY + "/monthOverview" );
 		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.nstudio.monthOverviews";
 		public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.nstudio.monthOverview";
+		public static final String DEFAULT_SORT_ORDER = " fyear, fmonth ASC";
 
 		public static final String VIEW_NAME = "YearOperationsView";
 		public static final String YEAR = "fyear";
@@ -81,6 +82,6 @@ public final class MoneyContract
 		public static final String QUANTITY = Finance.QUANTITY;
 		public static final String DATE = Finance.DATE;
 		public static final String TYPE = Finance.TYPE;
-		public static final String NAME = Category.NAME;
+		public static final String CATEGORY_NAME = Category.NAME;
 	}
 }

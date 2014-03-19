@@ -1,6 +1,7 @@
 package ru.nstudio.android.main;
 
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,12 +10,14 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -37,11 +40,15 @@ public class MainOverviewFragment extends Fragment
 	@Override
 	public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
+		Log.d(getActivity().getResources().getString( R.string.TAG ), container.getClass().getName());
 		View v = inflater.inflate( R.layout.list_total_operation_overview, container, false );
 
 		_lv = ( ListView) v.findViewById( R.id.lvMain );
 		_vFooter = inflater.inflate( R.layout.tip_add_new_details, container, false );
-		_vFooter.setLayoutParams( new ListView.LayoutParams( ListView.LayoutParams.MATCH_PARENT, 48 ) );
+		int viewHeight = (int)TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_DIP, 48, getActivity().getResources().getDisplayMetrics() );
+		_vFooter.setLayoutParams( new ListView.LayoutParams( ListView.LayoutParams.MATCH_PARENT, viewHeight ) );
+		_vFooter.setId( -1 );
 
 		createListView();
 
@@ -72,10 +79,41 @@ public class MainOverviewFragment extends Fragment
 	}
 
 	@Override
-	public void onItemClick( AdapterView<?> adapterView, View view, int i, long l )
+	public void onItemClick( AdapterView<?> adapterView, View target, int position, long id )
 	{
+		Intent intent;
+		if (id == -1)
+		{
+			intent = new Intent( getActivity().getResources().getString( R.string.INTENT_ACTION_ADD ) );
+		} // if
+		else
+		{
+			TextView tvMonth = (TextView)target.findViewById(R.id.tvMainMonthTitle);
+			intent = getIntentForChange((int)id, tvMonth.getText().toString());
+		} //if
 
+		runChangeActivity(intent);
 	}
+
+	public void runChangeActivity(Intent intent)
+	{
+		try
+		{
+			startActivityForResult( intent, ((MainActivity)getActivity()).RESULT_FIRST_USER_MAIN );
+		} // try
+		catch(IllegalArgumentException iae)
+		{
+			Toast.makeText( getActivity(), iae.getMessage(), 10000).show();
+		} // catch
+	}
+
+	public Intent getIntentForChange(int id, String monthTitle)
+	{
+		Intent intent = new Intent( getActivity().getResources().getString( R.string.INTENT_ACTION_CHANGE ) );
+		intent.putExtra("ru.nstudio.android.selectedItem", id);
+		intent.putExtra("ru.nstudio.android.monthTitle", monthTitle);
+		return intent;
+	} // getIntentForChange
 
 	@Override
 	public Loader onCreateLoader( int i, Bundle bundle )

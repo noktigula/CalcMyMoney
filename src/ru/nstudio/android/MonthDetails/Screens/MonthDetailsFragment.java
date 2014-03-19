@@ -2,10 +2,13 @@ package ru.nstudio.android.MonthDetails.Screens;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.ContentObserver;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,11 +35,14 @@ public class MonthDetailsFragment extends Fragment
 	private TextView 		_tvMonthDescription;
 	private MonthDetailsAdapter _adapter;
 
+	ContentObserver _observer;
+
 	private static final String KEY_MONTH_TITLE = "MonthTitle";
 	private static final String KEY_ID_ITEM = "IdItem";
 
-	private final String INTENT_ACTION_SHOW_DETAILS = "ru.nstudio.android.showDetails";
-	private static int RESULT_FIRST_USER_DETAIL = 11;
+	private static final String INTENT_ACTION_SHOW_DETAILS = "ru.nstudio.android.showDetails";
+	private static final int RESULT_FIRST_USER_DETAIL = 11;
+	private static final int LOADER_ID = 0;
 
 	@Override
 	public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
@@ -61,7 +67,34 @@ public class MonthDetailsFragment extends Fragment
 
 		this._wasChanges = false;
 
+		getLoaderManager().initLoader( LOADER_ID, null, this );
+		_observer = new ContentObserver(new Handler())
+		{
+			@Override
+			public void onChange( boolean selfChange )
+			{
+				Log.d(getActivity().getResources().getString( R.string.TAG ), "Was changes!");
+				getActivity().getSupportLoaderManager().restartLoader( LOADER_ID, null, MonthDetailsFragment.this );
+			}
+		};
+
 		return v;
+	}
+
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+
+		getActivity().getContentResolver()
+				.registerContentObserver( MoneyContract.ViewMonthOperations.CONTENT_URI, true, _observer );
+	}
+
+	@Override
+	public void onPause()
+	{
+		super.onPause();
+		getActivity().getContentResolver().unregisterContentObserver( _observer );
 	}
 
 	public static MonthDetailsFragment getInstance( int idItem, String monthTitle )

@@ -70,6 +70,10 @@
     <string name="stubQuant">0</string>
     <string name="stubTotal">0</string>
 
+    <!-- intents -->
+    <string name="INTENT_ACTION_ADD">ru.nstudio.android.addDetails</string>
+    <string name="INTENT_ACTION_CHANGE">ru.nstudio.android.changeMonth</string>
+
     <string name="TAG">CalcMoney</string>
 	    
     <string-array name="strArrayMonths">
