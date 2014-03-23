@@ -73,6 +73,7 @@
     <!-- intents -->
     <string name="INTENT_ACTION_ADD">ru.nstudio.android.addDetails</string>
     <string name="INTENT_ACTION_CHANGE">ru.nstudio.android.changeMonth</string>
+    <string name="INTENT_ACTION_SHOW_DETAILS">ru.nstudio.android.showDetails</string>
 
     <string name="TAG">CalcMoney</string>
 	    

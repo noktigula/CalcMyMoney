@@ -17,7 +17,7 @@ import android.database.ContentObserver;
 import ru.nstudio.android.R;
 import ru.nstudio.android.Storage.MoneyContract;
 
-public class FinanceAdapter extends BaseAdapter //implements OnItemClickListener 
+public class FinanceAdapter extends BaseAdapter
 {
 	public static final int MONTH_VIEW_TYPE = 0;
 	public static final int YEAR_VIEW_TYPE 	= 1;
@@ -104,6 +104,11 @@ public class FinanceAdapter extends BaseAdapter //implements OnItemClickListener
 			String err = this._context.getString(R.string.errNoCursor);
 			throw new IllegalArgumentException(err);
 		} // if
+
+		if( _alView.size() > 0 )
+		{
+			_alView.clear();
+		}
 		
 		if( _cursor.moveToFirst())
 		{
@@ -148,7 +153,7 @@ public class FinanceAdapter extends BaseAdapter //implements OnItemClickListener
 				monthDetails.setId(idItem);
 				this._alView.add( monthDetails );
 			} while( _cursor.moveToNext());
-			
+
 			this._cursor.close();
 		} // if cursor not empty
 	} // parseCursorToView
@@ -178,6 +183,7 @@ public class FinanceAdapter extends BaseAdapter //implements OnItemClickListener
 			// notify the observers about the lack of a data set
 			notifyDataSetInvalidated();
 		}
+		parseCursorToView();
 		return oldCursor;
 	}
 

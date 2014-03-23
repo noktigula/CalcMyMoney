@@ -1,11 +1,15 @@
 package ru.nstudio.android.MonthDetails.Screens;
 
+import android.content.Intent;
+import android.database.ContentObserver;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,18 +32,21 @@ public class MonthCategoryFragment extends Fragment
 
 	private int _year;
 	private int _month;
-	public boolean _wasChanges;
+
 	private MonthCategoryAdapter _adapter;
+	private ContentObserver _observer;
 
 	private TextView _tvMonthDescription;
 
 	private static final String KEY_ITEM_ID = "IdItem";
 	private static final String KEY_MONTH_TITLE = "MonthTitle";
+	private static final int LOADER_ID = 1;
+	private static final int RESULT_FIRST_USER_DETAIL = 11;
 
 	@Override
 	public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
-		View v = (View)inflater.inflate( R.layout.list_month_operations, container, false );
+		View v = inflater.inflate( R.layout.list_month_operations, container, false );
 
 		int itemId = getArguments().getInt( KEY_ITEM_ID );
 		_month = itemId % 100;
@@ -51,15 +58,40 @@ public class MonthCategoryFragment extends Fragment
 		stringBuilder.append( Integer.toString( _year ) );
 
 		this._tvMonthDescription = (TextView )v.findViewById( R.id.tvMonthDescription );
-		this._tvMonthDescription.setText( stringBuilder.toString() );
+		_tvMonthDescription.setText( stringBuilder.toString() );
 
-		this._vFooter = inflater.inflate(R.layout.tip_add_new_details, null);
+		_vFooter = inflater.inflate(R.layout.tip_add_new_details, null);
+		_vFooter.setId( -1 );
+
+		getLoaderManager().initLoader( LOADER_ID, null, this );
+		_observer = new ContentObserver(new Handler())
+		{
+			@Override
+			public void onChange( boolean selfChange )
+			{
+				getActivity().getSupportLoaderManager().restartLoader( LOADER_ID, null, MonthCategoryFragment.this );
+			}
+		};
 
 		createListView( v );
 
-		this._wasChanges = false;
-
 		return v;
+	}
+
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+		getActivity().getContentResolver()
+				.registerContentObserver( MoneyContract.ViewMonthCategories.CONTENT_URI, true, _observer );
+	}
+
+	@Override
+	public void onPause()
+	{
+		super.onPause();
+		getActivity().getContentResolver()
+				.unregisterContentObserver( _observer );
 	}
 
 	public static MonthCategoryFragment getInstance( int idItem, String monthTitle )
@@ -137,8 +169,19 @@ public class MonthCategoryFragment extends Fragment
 	}
 
 	@Override
-	public void onItemClick( AdapterView<?> adapterView, View view, int i, long l )
+	public void onItemClick( AdapterView<?> adapterView, View view, int position, long id )
 	{
+		if( id == -1 )
+		{
+			Intent intent = new Intent( getActivity().getResources().getString( R.string.INTENT_ACTION_SHOW_DETAILS ) );
+			intent.putExtra("ru.nstudio.android.idFinance", id);
 
+			intent.putExtra("ru.nstudio.android._month", this._month );
+			intent.putExtra("ru.nstudio.android._year", this._year );
+
+			startActivityForResult( intent, RESULT_FIRST_USER_DETAIL );
+		}
 	}
+
+
 }

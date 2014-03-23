@@ -14,13 +14,10 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.List;
 
 import ru.nstudio.android.R;
 import ru.nstudio.android.Storage.MoneyContract;
@@ -31,6 +28,8 @@ public class MainOverviewFragment extends Fragment
 	private ListView _lv;
 	private View _vFooter;
 	private FinanceAdapter _fAdapter;
+
+	private static final int LOADER_ID = 2;
 
 	public static MainOverviewFragment getInstance()
 	{
@@ -50,15 +49,22 @@ public class MainOverviewFragment extends Fragment
 		_vFooter.setLayoutParams( new ListView.LayoutParams( ListView.LayoutParams.MATCH_PARENT, viewHeight ) );
 		_vFooter.setId( -1 );
 
+		getLoaderManager().initLoader( LOADER_ID, null, this );
+
 		createListView();
 
 		return v;
 	}
 
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+		getActivity().getSupportLoaderManager().restartLoader( LOADER_ID, null, MainOverviewFragment.this );
+	}
+
 	private void createListView()
 	{
-		String [] args = new String[]{};
-
 		ContentResolver cr = getActivity().getContentResolver();
 		Cursor c = cr.query( MoneyContract.ViewYear.CONTENT_URI, null, null, null, null );
 
@@ -75,7 +81,7 @@ public class MainOverviewFragment extends Fragment
 		{
 			Log.d( getActivity().getResources().getString( R.string.TAG ), e.getMessage() );
 			Toast.makeText( getActivity(), "Что-то пошло не так", 10000000 ).show();
-		} // catch
+		}
 	}
 
 	@Override
@@ -85,12 +91,12 @@ public class MainOverviewFragment extends Fragment
 		if (id == -1)
 		{
 			intent = new Intent( getActivity().getResources().getString( R.string.INTENT_ACTION_ADD ) );
-		} // if
+		}
 		else
 		{
 			TextView tvMonth = (TextView)target.findViewById(R.id.tvMainMonthTitle);
 			intent = getIntentForChange((int)id, tvMonth.getText().toString());
-		} //if
+		}
 
 		runChangeActivity(intent);
 	}
@@ -100,11 +106,11 @@ public class MainOverviewFragment extends Fragment
 		try
 		{
 			startActivityForResult( intent, ((MainActivity)getActivity()).RESULT_FIRST_USER_MAIN );
-		} // try
+		}
 		catch(IllegalArgumentException iae)
 		{
 			Toast.makeText( getActivity(), iae.getMessage(), 10000).show();
-		} // catch
+		}
 	}
 
 	public Intent getIntentForChange(int id, String monthTitle)
@@ -113,7 +119,7 @@ public class MainOverviewFragment extends Fragment
 		intent.putExtra("ru.nstudio.android.selectedItem", id);
 		intent.putExtra("ru.nstudio.android.monthTitle", monthTitle);
 		return intent;
-	} // getIntentForChange
+	}
 
 	@Override
 	public Loader onCreateLoader( int i, Bundle bundle )
@@ -125,6 +131,7 @@ public class MainOverviewFragment extends Fragment
 	@Override
 	public void onLoadFinished( Loader loader, Object o )
 	{
+		Log.d( getActivity().getResources().getString( R.string.TAG ), this.getClass().getName() + ": onLoadFinished" );
 		_fAdapter.swapCursor( (Cursor)o );
 	}
 

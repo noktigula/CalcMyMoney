@@ -7,7 +7,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.LoaderManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +30,6 @@ public class MonthDetailsFragment extends Fragment
 
 	private int 			_month;
 	private int				_year;
-	public  boolean 		_wasChanges;
 	private TextView 		_tvMonthDescription;
 	private MonthDetailsAdapter _adapter;
 
@@ -40,7 +38,6 @@ public class MonthDetailsFragment extends Fragment
 	private static final String KEY_MONTH_TITLE = "MonthTitle";
 	private static final String KEY_ID_ITEM = "IdItem";
 
-	private static final String INTENT_ACTION_SHOW_DETAILS = "ru.nstudio.android.showDetails";
 	private static final int RESULT_FIRST_USER_DETAIL = 11;
 	private static final int LOADER_ID = 0;
 
@@ -65,15 +62,13 @@ public class MonthDetailsFragment extends Fragment
 
 		createListView( v );
 
-		this._wasChanges = false;
-
 		getLoaderManager().initLoader( LOADER_ID, null, this );
 		_observer = new ContentObserver(new Handler())
 		{
 			@Override
 			public void onChange( boolean selfChange )
 			{
-				Log.d(getActivity().getResources().getString( R.string.TAG ), "Was changes!");
+				Log.d(getActivity().getResources().getString( R.string.TAG ), "MonthDetailsView was changed");
 				getActivity().getSupportLoaderManager().restartLoader( LOADER_ID, null, MonthDetailsFragment.this );
 			}
 		};
@@ -180,7 +175,7 @@ public class MonthDetailsFragment extends Fragment
 
 	private void showOperationDetails( long id )
 	{
-		Intent intent = new Intent(this.INTENT_ACTION_SHOW_DETAILS);
+		Intent intent = new Intent(getActivity().getResources().getString( R.string.INTENT_ACTION_SHOW_DETAILS ));
         intent.putExtra("ru.nstudio.android.idFinance", id);
 
         intent.putExtra("ru.nstudio.android._month", this._month );
