@@ -36,8 +36,8 @@
     <string name="menuQuantityTitle">Единицы измерения</string>
     <string name="menuDeveloperHelp">Помощь разработчикам</string>
     <string name="menuPreferences">Настройки</string>
-    <string name="menuChangeRequest">Изменить</string>
-    <string name="menuDeleteRequest">Удалить</string>
+    <string name="menuEdit">Изменить</string>
+    <string name="menuDelete">Удалить</string>
     <string name="menuNewItem">Добавить</string>
     <string name="menuCategory">Категории</string>
     

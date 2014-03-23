@@ -31,8 +31,8 @@ public class ContextMenuInitializer
     {
         int id = this.view.getId();
 
-        this.contextMenu.add(CONTEXT_MENU_CHANGE, id, 1, R.string.menuChangeRequest);
-        this.contextMenu.add(CONTEXT_MENU_DELETE, id, 2, R.string.menuDeleteRequest);
+        this.contextMenu.add(CONTEXT_MENU_CHANGE, id, 1, R.string.menuEdit);
+        this.contextMenu.add(CONTEXT_MENU_DELETE, id, 2, R.string.menuDelete);
 
         return  this.contextMenu;
     } // getMenu

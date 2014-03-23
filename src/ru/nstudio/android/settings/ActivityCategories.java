@@ -9,8 +9,11 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.view.ActionMode;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
@@ -22,11 +25,14 @@ import ru.nstudio.android.R;
 import ru.nstudio.android.Storage.MoneyContract;
 import ru.nstudio.android.dialogs.AddCategoryDialog;
 
+
 public class ActivityCategories extends ActionBarActivity implements LoaderManager.LoaderCallbacks, IDialogListener
 {
 	private ListView _lv;
 	private SimpleCursorAdapter _adapter;
 	private int LOADER_ID = 3;
+	private ActionMode _actionMode;
+	private ActionMode.Callback _actionModeCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -41,6 +47,23 @@ public class ActivityCategories extends ActionBarActivity implements LoaderManag
 		int[] views = new int[] {android.R.id.text1};
 		_adapter = new SimpleCursorAdapter( this, android.R.layout.simple_list_item_1, c, cols, views, 0 );
 		_lv.setAdapter( _adapter );
+
+		_actionModeCallback = new MyActionModeCallback();
+		_lv.setOnLongClickListener( new View.OnLongClickListener()
+		{
+			@Override
+			public boolean onLongClick( View view )
+			{
+				Log.d( getResources().getString( R.string.TAG ), "Long click!" );
+				if( _actionMode != null )
+				{
+					return false;
+				}
+				_actionMode = startSupportActionMode( _actionModeCallback );
+				_lv.setSelected( true );
+				return true;
+			}
+		} );
 
 		getSupportLoaderManager().initLoader( LOADER_ID, null, this );
     }
@@ -117,5 +140,49 @@ public class ActivityCategories extends ActionBarActivity implements LoaderManag
 	public void onDialogNegativeClick( DialogFragment dialog )
 	{
 		return;
+	}
+
+	private class MyActionModeCallback implements ActionMode.Callback
+	{
+
+		@Override
+		public boolean onCreateActionMode( ActionMode actionMode, Menu menu )
+		{
+			Log.d( getString( R.string.TAG ), "onCreateActionMode" );
+			MenuInflater menuInflater = actionMode.getMenuInflater();
+			menuInflater.inflate( R.menu.menu_context, menu );
+			return true;
+		}
+
+		@Override
+		public boolean onPrepareActionMode( ActionMode actionMode, Menu menu )
+		{
+			return false;
+		}
+
+		@Override
+		public boolean onActionItemClicked( ActionMode actionMode, MenuItem menuItem )
+		{
+			switch( menuItem.getItemId() )
+			{
+				case R.id.menuEdit:
+				{
+					actionMode.finish();
+					return true;
+				}
+				case R.id.menuDelete:
+				{
+					actionMode.finish();
+					return true;
+				}
+				default: return false;
+			}
+		}
+
+		@Override
+		public void onDestroyActionMode( ActionMode actionMode )
+		{
+			_actionMode = null;
+		}
 	}
 }
