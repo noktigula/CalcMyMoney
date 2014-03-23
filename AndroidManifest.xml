@@ -41,6 +41,12 @@
                 <action android:name="ru.nstudio.android.changeMonth"/>
             </intent-filter>
         </activity>
+        <activity android:name=".settings.ActivityCategories">
+            <intent-filter android:label="ru.nstudio.android.showAllCategories" >
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="ru.nstudio.android.showAllCategories"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

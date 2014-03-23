@@ -3,12 +3,14 @@ package ru.nstudio.android.main;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import ru.nstudio.android.ContextMenuInitializer;
@@ -113,6 +115,27 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
 		//return true;
 		return super.onCreateOptionsMenu(menu);
 	} // onCreateOptionsMenu
+
+	@Override
+	public boolean onOptionsItemSelected( MenuItem menuItem )
+	{
+		switch( menuItem.getItemId() )
+		{
+			case R.id.menuNewItem:
+			{
+				Intent intent = new Intent( getResources().getString( R.string.INTENT_ACTION_ADD ) );
+				startActivityForResult( intent, RESULT_FIRST_USER_MAIN );
+				return true;
+			}
+			case R.id.menuCategories:
+			{
+				Intent intent = new Intent( getResources().getString( R.string.INTENT_ACTION_SHOW_ALL_CATEGORIES ) );
+				startActivity( intent );
+				return true;
+			}
+			default: return super.onOptionsItemSelected( menuItem );
+		}
+	}
 
 	  
 //	public void onItemClick(AdapterView<?> adView, View target, int position, long id)

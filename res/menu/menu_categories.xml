@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:CalcMyMoney="http://schemas.android.com/apk/res-auto" >
+    <item android:id = "@+id/menuNewItem"
+          android:orderInCategory="0"
+          android:title="@string/menuNewItem"
+          android:icon="@drawable/ic_action_new"
+          CalcMyMoney:showAsAction="ifRoom"/>
+</menu>

@@ -39,6 +39,7 @@
     <string name="menuChangeRequest">Изменить</string>
     <string name="menuDeleteRequest">Удалить</string>
     <string name="menuNewItem">Добавить</string>
+    <string name="menuCategory">Категории</string>
     
     <!-- Preferences -->
     <string name="preferenceTitle">Настройки</string>
@@ -74,6 +75,7 @@
     <string name="INTENT_ACTION_ADD">ru.nstudio.android.addDetails</string>
     <string name="INTENT_ACTION_CHANGE">ru.nstudio.android.changeMonth</string>
     <string name="INTENT_ACTION_SHOW_DETAILS">ru.nstudio.android.showDetails</string>
+    <string name="INTENT_ACTION_SHOW_ALL_CATEGORIES">ru.nstudio.android.showAllCategories</string>
 
     <string name="TAG">CalcMoney</string>
 	    

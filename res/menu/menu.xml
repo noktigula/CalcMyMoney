@@ -19,10 +19,17 @@
           android:title="@string/menuNewItem"
           android:icon="@drawable/ic_action_new"
           CalcMyMoney:showAsAction="ifRoom"/>
- 	<item 
- 	    android:id = "@+id/menuPreferences"
- 	    android:orderInCategory="1"
- 	    android:title="@string/menuPreferences"
- 	    />
+
+    <item android:id = "@+id/menuCategories"
+          android:orderInCategory="1"
+          android:title="@string/menuCategory"
+          android:icon="@drawable/ic_action_labels"
+          CalcMyMoney:showAsAction="ifRoom"/>
+
+ 	<!--<item -->
+ 	    <!--android:id = "@+id/menuPreferences"-->
+ 	    <!--android:orderInCategory="2"-->
+ 	    <!--android:title="@string/menuPreferences"-->
+ 	    <!--/>-->
 
 </menu>
