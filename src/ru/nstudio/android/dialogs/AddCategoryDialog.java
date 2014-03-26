@@ -23,6 +23,18 @@ public class AddCategoryDialog extends DialogFragment implements DialogInterface
 {
 	private IDialogListener _listener;
 	private EditText		_etCategory;
+	private boolean _isUpdate;
+	private long _itemId;
+
+	public static AddCategoryDialog getInstance( String category, Long itemId )
+	{
+		Bundle args = new Bundle();
+		args.putString( "category", category );
+		args.putLong( "itemId", itemId );
+		AddCategoryDialog dialog = new AddCategoryDialog();
+		dialog.setArguments( args );
+		return dialog;
+	}
 
 	@Override
 	public void onAttach( Activity activity )
@@ -47,6 +59,15 @@ public class AddCategoryDialog extends DialogFragment implements DialogInterface
 		View v = inflater.inflate( R.layout.dialog_add_category, null );
 
 		_etCategory = (EditText)v.findViewById( R.id.etAddCategory );
+		Bundle args = getArguments();
+		String inputCategory = args.getString( "category" );
+		if( inputCategory != null )
+		{
+			_etCategory.setText( inputCategory);
+			_etCategory.setSelection( inputCategory.length() );
+			_itemId = args.getLong( "itemId" );
+		}
+		_isUpdate = inputCategory != null;
 
 		builder.setView( v )
 				.setTitle( getActivity().getResources().getString( R.string.dialog_category_title ) )
@@ -59,6 +80,16 @@ public class AddCategoryDialog extends DialogFragment implements DialogInterface
 	public String getCategory()
 	{
 		return _etCategory.getText().toString();
+	}
+
+	public boolean isUpdate()
+	{
+		return _isUpdate;
+	}
+
+	public long getItemId()
+	{
+		return _itemId;
 	}
 
 	@Override

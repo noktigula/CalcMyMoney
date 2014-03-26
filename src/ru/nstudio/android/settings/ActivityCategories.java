@@ -3,6 +3,7 @@ package ru.nstudio.android.settings;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.LoaderManager;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.support.v4.widget.SimpleCursorAdapter;
 
@@ -49,21 +51,25 @@ public class ActivityCategories extends ActionBarActivity implements LoaderManag
 		_lv.setAdapter( _adapter );
 
 		_actionModeCallback = new MyActionModeCallback();
-		_lv.setOnLongClickListener( new View.OnLongClickListener()
+		_lv.setLongClickable( true );
+		_lv.setChoiceMode( ListView.CHOICE_MODE_SINGLE );
+		_lv.setOnItemLongClickListener( new AdapterView.OnItemLongClickListener()
 		{
 			@Override
-			public boolean onLongClick( View view )
+			public boolean onItemLongClick( AdapterView<?> adapterView, View view, int position, long id )
 			{
-				Log.d( getResources().getString( R.string.TAG ), "Long click!" );
+				//Log.d( getString( R.string.TAG ), "Long click on " + Long.toString( id ) );
 				if( _actionMode != null )
 				{
 					return false;
 				}
 				_actionMode = startSupportActionMode( _actionModeCallback );
-				_lv.setSelected( true );
+				_actionMode.setTag( position );
+				view.setSelected( true );
+				_lv.setItemChecked( position, true );
 				return true;
 			}
-		} );
+		});
 
 		getSupportLoaderManager().initLoader( LOADER_ID, null, this );
     }
@@ -76,9 +82,9 @@ public class ActivityCategories extends ActionBarActivity implements LoaderManag
         return true;
     }
 
-	private void showDialogAddCategory()
+	private void showEditCategoryDialog( String category, Long itemId )
 	{
-		AddCategoryDialog dialog = new AddCategoryDialog();
+		AddCategoryDialog dialog = AddCategoryDialog.getInstance( category, itemId );
 		dialog.show( getSupportFragmentManager(), "add_category" );
 	}
 
@@ -89,7 +95,7 @@ public class ActivityCategories extends ActionBarActivity implements LoaderManag
 		{
 			case R.id.menuNewItem:
 			{
-				showDialogAddCategory();
+				showEditCategoryDialog( null, -1L );
 				return true;
 			}
 			default: return super.onOptionsItemSelected( menuItem );
@@ -102,8 +108,6 @@ public class ActivityCategories extends ActionBarActivity implements LoaderManag
 		ContextMenuInitializer initializer = new ContextMenuInitializer(menu, v, menuInfo);
 		menu = initializer.getMenu();
 	}
-
-
 
 	@Override
 	public Loader onCreateLoader( int i, Bundle bundle )
@@ -133,7 +137,15 @@ public class ActivityCategories extends ActionBarActivity implements LoaderManag
 		values.put( MoneyContract.Category.NAME, category );
 
 		ContentResolver cr = getContentResolver();
-		cr.insert( MoneyContract.Category.CONTENT_URI, values );
+		if( !addCategoryDialog.isUpdate() )
+		{
+			cr.insert( MoneyContract.Category.CONTENT_URI, values );
+		}
+		else
+		{
+			Uri uri = Uri.withAppendedPath( MoneyContract.Category.CONTENT_URI, Long.toString( addCategoryDialog.getItemId() ));
+			cr.update( uri, values, null, null );
+		}
 	}
 
 	@Override
@@ -163,10 +175,24 @@ public class ActivityCategories extends ActionBarActivity implements LoaderManag
 		@Override
 		public boolean onActionItemClicked( ActionMode actionMode, MenuItem menuItem )
 		{
+			int position = Integer.parseInt( actionMode.getTag().toString() );
+			long itemId = _lv.getAdapter().getItemId( position );
+
+			ContentResolver cr = getContentResolver();
+			Uri uri = Uri.withAppendedPath( MoneyContract.Category.CONTENT_URI, Long.toString( itemId ) );
+			Cursor c = cr.query( uri, null, null, null, null );
+
+			if( !c.moveToFirst() )
+			{
+				throw new RuntimeException("Can't load category data");
+			}
+			String cat = c.getString( c.getColumnIndex( MoneyContract.Category.NAME ) );
+
 			switch( menuItem.getItemId() )
 			{
 				case R.id.menuEdit:
 				{
+					showEditCategoryDialog( cat, itemId );
 					actionMode.finish();
 					return true;
 				}
