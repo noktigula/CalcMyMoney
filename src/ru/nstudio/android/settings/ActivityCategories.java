@@ -91,6 +91,13 @@ public class ActivityCategories extends ActionBarActivity implements LoaderManag
 		dialog.show( getSupportFragmentManager(), "add_category" );
 	}
 
+	private void removeItem( long itemId )
+	{
+		ContentResolver cr = getContentResolver();
+		Uri uri = Uri.withAppendedPath( MoneyContract.Category.CONTENT_URI, Long.toString( itemId ) );
+		cr.delete( uri, null, null );
+	}
+
 	@Override
 	public boolean onOptionsItemSelected( MenuItem menuItem )
 	{
@@ -199,6 +206,7 @@ public class ActivityCategories extends ActionBarActivity implements LoaderManag
 				}
 				case R.id.menuDelete:
 				{
+					removeItem( itemId );
 					actionMode.finish();
 					return true;
 				}
@@ -209,7 +217,10 @@ public class ActivityCategories extends ActionBarActivity implements LoaderManag
 		@Override
 		public void onDestroyActionMode( ActionMode actionMode )
 		{
-			_lv.getChildAt( ActivityCategories.this._selectedPos ).setBackgroundResource( Color.TRANSPARENT );
+			if( _lv.getChildCount() > _selectedPos )
+			{
+				_lv.getChildAt( ActivityCategories.this._selectedPos ).setBackgroundResource( Color.TRANSPARENT );
+			}
 			_actionMode = null;
 		}
 	}
