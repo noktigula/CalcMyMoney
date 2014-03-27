@@ -3,6 +3,7 @@ package ru.nstudio.android.settings;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -35,6 +36,7 @@ public class ActivityCategories extends ActionBarActivity implements LoaderManag
 	private int LOADER_ID = 3;
 	private ActionMode _actionMode;
 	private ActionMode.Callback _actionModeCallback;
+	private int _selectedPos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -64,8 +66,9 @@ public class ActivityCategories extends ActionBarActivity implements LoaderManag
 					return false;
 				}
 				_actionMode = startSupportActionMode( _actionModeCallback );
-				_actionMode.setTag( position );
+				_selectedPos = position;
 				view.setSelected( true );
+				view.setBackgroundResource( android.R.color.holo_blue_light );
 				_lv.setItemChecked( position, true );
 				return true;
 			}
@@ -143,7 +146,7 @@ public class ActivityCategories extends ActionBarActivity implements LoaderManag
 		}
 		else
 		{
-			Uri uri = Uri.withAppendedPath( MoneyContract.Category.CONTENT_URI, Long.toString( addCategoryDialog.getItemId() ));
+			Uri uri = Uri.withAppendedPath( MoneyContract.Category.CONTENT_URI, Long.toString( addCategoryDialog.getItemId() ) );
 			cr.update( uri, values, null, null );
 		}
 	}
@@ -156,11 +159,9 @@ public class ActivityCategories extends ActionBarActivity implements LoaderManag
 
 	private class MyActionModeCallback implements ActionMode.Callback
 	{
-
 		@Override
 		public boolean onCreateActionMode( ActionMode actionMode, Menu menu )
 		{
-			Log.d( getString( R.string.TAG ), "onCreateActionMode" );
 			MenuInflater menuInflater = actionMode.getMenuInflater();
 			menuInflater.inflate( R.menu.menu_context, menu );
 			return true;
@@ -175,8 +176,8 @@ public class ActivityCategories extends ActionBarActivity implements LoaderManag
 		@Override
 		public boolean onActionItemClicked( ActionMode actionMode, MenuItem menuItem )
 		{
-			int position = Integer.parseInt( actionMode.getTag().toString() );
-			long itemId = _lv.getAdapter().getItemId( position );
+			int itemPos = ActivityCategories.this._selectedPos;
+			long itemId = _lv.getAdapter().getItemId( itemPos );
 
 			ContentResolver cr = getContentResolver();
 			Uri uri = Uri.withAppendedPath( MoneyContract.Category.CONTENT_URI, Long.toString( itemId ) );
@@ -208,6 +209,7 @@ public class ActivityCategories extends ActionBarActivity implements LoaderManag
 		@Override
 		public void onDestroyActionMode( ActionMode actionMode )
 		{
+			_lv.getChildAt( ActivityCategories.this._selectedPos ).setBackgroundResource( Color.TRANSPARENT );
 			_actionMode = null;
 		}
 	}
