@@ -28,7 +28,9 @@
     <string name="date_main_hint">Дата</string>
     <string name="new_category">Новая категория</string>
 
-    <string name="dialog_category_title">Добавление категории</string>
+    <!-- Dialog items -->
+    <string name="dialog_category_title_add">Добавление категории</string>
+    <string name="dialog_category_title_edit">Изменение категории</string>
     <string name="dialog_category_hint">Введите название категории</string>
     
     <!-- Menu items -->

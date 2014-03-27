@@ -4,12 +4,15 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.support.v4.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import ru.nstudio.android.IDialogListener;
@@ -61,20 +64,32 @@ public class AddCategoryDialog extends DialogFragment implements DialogInterface
 		_etCategory = (EditText)v.findViewById( R.id.etAddCategory );
 		Bundle args = getArguments();
 		String inputCategory = args.getString( "category" );
+
 		if( inputCategory != null )
 		{
 			_etCategory.setText( inputCategory);
 			_etCategory.setSelection( inputCategory.length() );
+			_etCategory.setFocusable( true );
 			_itemId = args.getLong( "itemId" );
 		}
+
 		_isUpdate = inputCategory != null;
 
+		String title = _isUpdate ? getString( R.string.dialog_category_title_edit )
+								 : getString( R.string.dialog_category_title_add );
+
 		builder.setView( v )
-				.setTitle( getActivity().getResources().getString( R.string.dialog_category_title ) )
+				.setTitle( title )
 				.setPositiveButton(  R.string.button_ok , this )
 				.setNegativeButton(  R.string.button_cancel , this );
 
-		return builder.create();
+		AlertDialog dialog = builder.create();
+
+		if(_etCategory.requestFocus()) {
+			dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+		}
+
+		return dialog;
 	}
 
 	public String getCategory()
