@@ -7,14 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
-import android.view.ContextMenu;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-
-import ru.nstudio.android.ContextMenuInitializer;
-import ru.nstudio.android.DeleteDialog;
 import ru.nstudio.android.MenuListener;
 import ru.nstudio.android.R;
 
@@ -40,58 +34,14 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
     	menuListener = new MenuListener( this );
     } // onCreate
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
-    {
-        ContextMenuInitializer initializer = new ContextMenuInitializer(menu, v, menuInfo);
-        menu = initializer.getMenu();
-    } // onCreateContextMenu
+	@Override
+	public boolean onCreateOptionsMenu( Menu menu )
+	{
+		getMenuInflater().inflate( R.menu.menu, menu );
+		return true;
+	}
 
-//    @Override
-//    public boolean onContextItemSelected(MenuItem item)
-//    {
-//        AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-//        TableLayout tl = (TableLayout) acmi.targetView;
-//
-//        if(tl.getChildCount() <= 0)
-//        {
-//            return false;
-//        } // if
-//
-//        TextView tvMonth = (TextView) tl.getChildAt(0);
-//        String monthTitle = tvMonth.getText().toString();
-//
-//        Intent intent;
-//
-//        switch (item.getGroupId())
-//        {
-//            case ContextMenuInitializer.CONTEXT_MENU_CHANGE:
-//            {
-//                intent = this.getIntentForChange((int)acmi.id, monthTitle);
-//                runChangeActivity(intent);
-//                break;
-//            }  // case change
-//
-//            case ContextMenuInitializer.CONTEXT_MENU_DELETE:
-//            {
-//                deleteMonthInfo((int)acmi.id);
-//                break;
-//            }  // case delete
-//
-//            default:
-//            {
-//                break;
-//            } // default
-//        } // switch
-//
-//        return super.onContextItemSelected(item);
-//    }   // onContextItemSelected
 
-    public void deleteMonthInfo(int monthYearCode)
-    {
-        DeleteDialog dialog = new DeleteDialog(this, monthYearCode);
-        dialog.show();
-    } // deleteMonthInfo
 
     public void onClick(DialogInterface v, int buttonID)
     {
@@ -104,17 +54,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
             default: break;
         }
     }  // onClick
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		MenuInflater mi = getMenuInflater();
-		mi.inflate(R.menu.menu, menu);
-		
-		this.menu = menu;
-		//return true;
-		return super.onCreateOptionsMenu(menu);
-	} // onCreateOptionsMenu
+
 
 	@Override
 	public boolean onOptionsItemSelected( MenuItem menuItem )
@@ -136,6 +76,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
 			default: return super.onOptionsItemSelected( menuItem );
 		}
 	}
+
 
 	  
 //	public void onItemClick(AdapterView<?> adView, View target, int position, long id)

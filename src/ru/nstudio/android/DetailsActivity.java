@@ -24,7 +24,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.SimpleCursorAdapter;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -128,16 +128,6 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 	
 	private void getOperationValues(long idFinance)
 	{
-//		String query = new String (" SELECT " + DBHelper.Finance.TABLE_NAME + ".*, " +
-//								   DBHelper.Category.TABLE_NAME + "." + DBHelper.Category.CATEGORY_NAME +
-//								   " FROM " + DBHelper.Finance.TABLE_NAME +
-//								   " INNER JOIN  " + DBHelper.Category.TABLE_NAME +
-//								   " ON " + DBHelper.Category.TABLE_NAME+"."+DBHelper.Category.ID +
-//								   "=" + DBHelper.Finance.TABLE_NAME + "." + DBHelper.Finance.CATEGORY +
-//								   " WHERE " + DBHelper.Finance.ID + " = ?");
-
-
-		//Cursor c = _db.rawQuery(query, new String[]{Long.toString(idFinance)});
 		ContentResolver cr = getContentResolver();
 		Uri itemUri = Uri.withAppendedPath( MoneyContract.Finance.CONTENT_URI, Long.toString( idFinance ));
 		Cursor c = cr.query( itemUri, null, null, null, null );

@@ -112,12 +112,12 @@ public class ActivityCategories extends ActionBarActivity implements LoaderManag
 		}
 	}
 
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
-	{
-		ContextMenuInitializer initializer = new ContextMenuInitializer(menu, v, menuInfo);
-		menu = initializer.getMenu();
-	}
+//	@Override
+//	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+//	{
+//		ContextMenuInitializer initializer = new ContextMenuInitializer(menu, v, menuInfo);
+//		menu = initializer.getMenu();
+//	}
 
 	@Override
 	public Loader onCreateLoader( int i, Bundle bundle )

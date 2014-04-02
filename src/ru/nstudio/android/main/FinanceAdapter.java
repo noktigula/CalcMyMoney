@@ -101,8 +101,9 @@ public class FinanceAdapter extends BaseAdapter
 	{
 		if(this._cursor == null)
 		{
-			String err = this._context.getString(R.string.errNoCursor);
-			throw new IllegalArgumentException(err);
+			return;
+//			String err = this._context.getString(R.string.errNoCursor);
+//			throw new IllegalArgumentException(err);
 		} // if
 
 		if( _alView.size() > 0 )
