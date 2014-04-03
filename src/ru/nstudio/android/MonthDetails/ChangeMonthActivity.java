@@ -5,7 +5,9 @@ package ru.nstudio.android.MonthDetails;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.*;
 import android.widget.AdapterView;
@@ -28,7 +30,7 @@ public class ChangeMonthActivity extends ActionBarActivity //implements OnItemCl
 	{
 		super.onCreate(savedInstanceState);
 		setContentView( R.layout.activity_month_details );
-	
+
 		Intent parentIntent = getIntent();
 		int idItem = parentIntent.getIntExtra("ru.nstudio.android.selectedItem", -1);
 		String monthTitle = parentIntent.getStringExtra( "ru.nstudio.android.monthTitle" );
@@ -37,6 +39,42 @@ public class ChangeMonthActivity extends ActionBarActivity //implements OnItemCl
 
 		_pager = (ViewPager)findViewById( R.id.pagerMonth );
 		_pager.setAdapter( new MonthOverviewPagerAdapter( idItem, monthTitle, getSupportFragmentManager() ) );
+		_pager.setOnPageChangeListener( new ViewPager.SimpleOnPageChangeListener()
+			{
+				@Override
+				public void onPageSelected( int position )
+				{
+					getActionBar().setSelectedNavigationItem( position );
+				}
+			});
+
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setNavigationMode( ActionBar.NAVIGATION_MODE_TABS );
+
+		ActionBar.TabListener tabListener = new ActionBar.TabListener()
+		{
+			@Override
+			public void onTabSelected( ActionBar.Tab tab, FragmentTransaction fragmentTransaction )
+			{
+				_pager.setCurrentItem( tab.getPosition() );
+			}
+
+			@Override
+			public void onTabUnselected( ActionBar.Tab tab, FragmentTransaction fragmentTransaction )
+			{
+
+			}
+
+			@Override
+			public void onTabReselected( ActionBar.Tab tab, FragmentTransaction fragmentTransaction )
+			{
+
+			}
+		};
+
+		actionBar.addTab( actionBar.newTab().setText( "Операции" ).setTabListener( tabListener ) );
+		actionBar.addTab( actionBar.newTab().setText( "Категории" ).setTabListener( tabListener ) );
+
         //registerForContextMenu(this._lvAddFinances );
 	} // onCreate
 
