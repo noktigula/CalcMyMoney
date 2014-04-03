@@ -33,7 +33,7 @@ import ru.nstudio.android.Storage.MoneyContract;
 import ru.nstudio.android.dialogs.AddCategoryDialog;
 
 public class DetailsActivity extends FragmentActivity
-implements OnClickListener, android.content.DialogInterface.OnClickListener, IDialogListener
+implements OnClickListener,  IDialogListener
 {
 	private EditText 			_etExplain;
 	private EditText 			_etPrice;
@@ -55,7 +55,6 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 	private long 				_idFinance;
 		
 	private final int DIALOG_DATE_EXPLAIN = 1;
-	private final int RESULT_FIRST_USER_DETAIL = 11;
 		
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -87,28 +86,28 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 		if (_idFinance != -1)
 		{
 			getOperationValues(_idFinance);
-		} // if isset _idFinance
+		}
 		else
 		{
 			String action = intent.getAction();
 			if(action.equalsIgnoreCase("ru.nstudio.android.showDetails"))
 			{
-				int year = intent.getIntExtra("ru.nstudio.android.year", 2013); // TODO set current date
-				int month = intent.getIntExtra("ru.nstudio.android.month", 1);
+				int year = intent.getIntExtra("ru.nstudio.android._year", 2013 ); // TODO set current date
+				int month = intent.getIntExtra("ru.nstudio.android._month", 1);
 				_gcDate = new GregorianCalendar(year, month-1, 1);
-			} // if
+			}
 			else
 			{
 				_gcDate = new GregorianCalendar();
-			} // else
+			}
 			
 			_rbIncome.setChecked(true);
 			
 			displayDate();
-		} // else
+		}
 
 		_btnAddCategory.setOnClickListener( this );
-	} // onCreate
+	}
 
 	@TargetApi( Build.VERSION_CODES.HONEYCOMB )
 	private void fillSpinnerWithCategories()
@@ -191,9 +190,9 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 			
 			dpdExplain.setTitle(R.string.hintSelectDate);
 			return dpdExplain;
-		} // id == DIALOG_DATE_EXPLAIN
+		}
 		return super.onCreateDialog(id);
-	} // onCreateDialog
+	}
 	//TODO - replace this shit to fragments
 	OnDateSetListener dpdExplainCallback = new OnDateSetListener() 
 	{
@@ -246,24 +245,21 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 			if (_idFinance == -1)
 			{
 				cr.insert( MoneyContract.Finance.CONTENT_URI, cv );
-			} // if adding new
+			}
 			else
 			{
 				Uri updateUri = Uri.withAppendedPath( MoneyContract.Finance.CONTENT_URI, Long.toString( _idFinance) );
 				cr.update( updateUri,
 						cv, null, null );
-			} // else
+			}
 
-			Intent intent = new Intent();
-			intent.putExtra("ru.nstudio.android.success", true);
-			setResult(RESULT_FIRST_USER_DETAIL, intent);
 			finish();
-		} // if
+		}
 		else if ( v.getId() == R.id.btnAddCategory )
 		{
 			showDialogAddCategory();
 		}
-	} //onClick
+	}
 
 	@TargetApi( Build.VERSION_CODES.HONEYCOMB )
 	private void showDialogAddCategory()
@@ -272,13 +268,13 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 		dialog.show( getSupportFragmentManager(), "add_category" );
 	}
 
-	public void onClick(DialogInterface dialog, int which) 
-	{
-		if (which == DialogInterface.BUTTON_POSITIVE)
-		{
-			
-		} // if
-	} // onClick(Dialog)
+//	public void onClick(DialogInterface dialog, int which)
+//	{
+//		if (which == DialogInterface.BUTTON_POSITIVE)
+//		{
+//
+//		}
+//	}
 
 	@Override
 	public void onDialogPositiveClick( DialogFragment dialog )
@@ -292,13 +288,12 @@ implements OnClickListener, android.content.DialogInterface.OnClickListener, IDi
 		ContentResolver cr = getContentResolver();
 		cr.insert( MoneyContract.Category.CONTENT_URI, values );
 
-		//_dbHelper.insertDistinct( DBHelper.Category.TABLE_NAME, DBHelper.Category.CATEGORY_NAME, category );
 		fillSpinnerWithCategories();
 	}
 
 	@Override
 	public void onDialogNegativeClick( DialogFragment dialog )
 	{
-
+		return;
 	}
-} // AddNewDetailsActivity
+}

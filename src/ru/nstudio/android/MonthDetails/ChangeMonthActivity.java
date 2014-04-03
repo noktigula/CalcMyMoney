@@ -1,9 +1,6 @@
 package ru.nstudio.android.MonthDetails;
 
-//import android.R;
-
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -19,11 +16,8 @@ import ru.nstudio.android.R;
 
 public class ChangeMonthActivity extends ActionBarActivity //implements OnItemClickListener
 {
-	private SQLiteDatabase 	_db;
-	public  boolean 		_wasChanges;
 	private ViewPager		_pager;
-
-	private static int RESULT_FIRST_USER_DETAIL = 11;
+	private int 			_idItem;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -32,13 +26,13 @@ public class ChangeMonthActivity extends ActionBarActivity //implements OnItemCl
 		setContentView( R.layout.activity_month_details );
 
 		Intent parentIntent = getIntent();
-		int idItem = parentIntent.getIntExtra("ru.nstudio.android.selectedItem", -1);
+		_idItem = parentIntent.getIntExtra("ru.nstudio.android.selectedItem", -1);
 		String monthTitle = parentIntent.getStringExtra( "ru.nstudio.android.monthTitle" );
 
-		if(idItem == -1) throw new IllegalArgumentException("ERROR: can`t load _month details - can`t get _month ID");
+		if(_idItem == -1) throw new IllegalArgumentException("ERROR: can`t load _month details - can`t get _month ID");
 
 		_pager = (ViewPager)findViewById( R.id.pagerMonth );
-		_pager.setAdapter( new MonthOverviewPagerAdapter( idItem, monthTitle, getSupportFragmentManager() ) );
+		_pager.setAdapter( new MonthOverviewPagerAdapter( _idItem, getSupportFragmentManager() ) );
 		_pager.setOnPageChangeListener( new ViewPager.SimpleOnPageChangeListener()
 			{
 				@Override
@@ -50,6 +44,13 @@ public class ChangeMonthActivity extends ActionBarActivity //implements OnItemCl
 
 		ActionBar actionBar = getSupportActionBar();
 		actionBar.setNavigationMode( ActionBar.NAVIGATION_MODE_TABS );
+
+		StringBuilder stringBuilder = new StringBuilder( );
+		stringBuilder.append( monthTitle );
+		stringBuilder.append( " " );
+		stringBuilder.append( Integer.toString( _idItem/100 ) );
+
+		actionBar.setTitle( stringBuilder.toString() );
 
 		ActionBar.TabListener tabListener = new ActionBar.TabListener()
 		{
@@ -74,57 +75,75 @@ public class ChangeMonthActivity extends ActionBarActivity //implements OnItemCl
 
 		actionBar.addTab( actionBar.newTab().setText( "Операции" ).setTabListener( tabListener ) );
 		actionBar.addTab( actionBar.newTab().setText( "Категории" ).setTabListener( tabListener ) );
-
-        //registerForContextMenu(this._lvAddFinances );
 	} // onCreate
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
-    {
-        ContextMenuInitializer initializer = new ContextMenuInitializer(menu, v, menuInfo);
-        menu = initializer.getMenu();
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item)
-    {
-        AdapterView.AdapterContextMenuInfo acmi = (AdapterContextMenuInfo) item.getMenuInfo();
-        int id = (int) acmi.id;
-
-        switch(item.getGroupId())
-        {
-            case ContextMenuInitializer.CONTEXT_MENU_CHANGE:
-            {
-                //this.showOperationDetails(id);
-                break;
-            }
-
-            case ContextMenuInitializer.CONTEXT_MENU_DELETE:
-            {
-                //this.deleteOperation(id);
-                break;
-            }
-
-            default:
-            {
-                break;
-            }
-        }
-
-        return true;
-    }
-	
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event)
+	public boolean onCreateOptionsMenu( Menu menu )
 	{
-		if (keyCode == KeyEvent.KEYCODE_BACK)
-		{
-			Intent intent = new Intent();
-			intent.putExtra("ru.nstudio.android.changes", this._wasChanges );
-			setResult(RESULT_OK, intent);
-		}
-		return super.onKeyDown(keyCode, event);
+		getMenuInflater().inflate( R.menu.menu_change_month, menu );
+		return true;
 	}
+
+	@Override
+	public boolean onOptionsItemSelected( MenuItem menuItem )
+	{
+		switch( menuItem.getItemId() )
+		{
+			case R.id.menuNewItem:
+			{
+				Intent intent = new Intent( getString( R.string.INTENT_ACTION_SHOW_DETAILS ));
+				intent.putExtra("ru.nstudio.android.idFinance", -1);
+
+				intent.putExtra("ru.nstudio.android._month", _idItem%100 );
+				intent.putExtra("ru.nstudio.android._year", _idItem/100 );
+
+				startActivity( intent );
+				return true;
+			}
+			default: return super.onOptionsItemSelected( menuItem );
+		}
+	}
+
+//    @Override
+//    public boolean onContextItemSelected(MenuItem item)
+//    {
+//        AdapterView.AdapterContextMenuInfo acmi = (AdapterContextMenuInfo) item.getMenuInfo();
+//        int id = (int) acmi.id;
+//
+//        switch(item.getGroupId())
+//        {
+//            case ContextMenuInitializer.CONTEXT_MENU_CHANGE:
+//            {
+//                //this.showOperationDetails(id);
+//                break;
+//            }
+//
+//            case ContextMenuInitializer.CONTEXT_MENU_DELETE:
+//            {
+//                //this.deleteOperation(id);
+//                break;
+//            }
+//
+//            default:
+//            {
+//                break;
+//            }
+//        }
+//
+//        return true;
+//    }
+//
+//	@Override
+//	public boolean onKeyDown(int keyCode, KeyEvent event)
+//	{
+//		if (keyCode == KeyEvent.KEYCODE_BACK)
+//		{
+//			Intent intent = new Intent();
+//			intent.putExtra("ru.nstudio.android.changes", this._wasChanges );
+//			setResult(RESULT_OK, intent);
+//		}
+//		return super.onKeyDown(keyCode, event);
+//	}
 
 
 //	public void onItemClick(AdapterView<?> adapterView, View view, int position, long id)
@@ -200,16 +219,16 @@ public class ChangeMonthActivity extends ActionBarActivity //implements OnItemCl
 //		this._db.close();
 //	}
 	
-	public void onActivityResult(int requestCode, int resultCode, Intent outputIntent)
-	{
-		if (resultCode == RESULT_FIRST_USER_DETAIL)
-		{
-			this._wasChanges = outputIntent.getBooleanExtra("ru.nstudio.android.success", false);
-			if (this._wasChanges )
-			{
-				//TODO refresh list view in fragment
-				//this.createListView();
-			}
-		}
-	}
+//	public void onActivityResult(int requestCode, int resultCode, Intent outputIntent)
+//	{
+//		if (resultCode == RESULT_FIRST_USER_DETAIL)
+//		{
+//			this._wasChanges = outputIntent.getBooleanExtra("ru.nstudio.android.success", false);
+//			if (this._wasChanges )
+//			{
+//				//TODO refresh list view in fragment
+//				//this.createListView();
+//			}
+//		}
+//	}
 }

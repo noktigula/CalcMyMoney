@@ -4,18 +4,22 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.ContentObserver;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.support.v7.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import ru.nstudio.android.MonthDetails.Adapters.MonthDetailsAdapter;
+import ru.nstudio.android.MonthDetails.ChangeMonthActivity;
 import ru.nstudio.android.R;
 import ru.nstudio.android.Storage.MoneyContract;
 
@@ -26,20 +30,66 @@ public class MonthDetailsFragment extends Fragment
 		implements AdapterView.OnItemClickListener, android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor>
 {
 	private ListView 		_lvAddFinances;
-	private View 			_vFooter;
 
 	private int 			_month;
 	private int				_year;
-	private TextView 		_tvMonthDescription;
 	private MonthDetailsAdapter _adapter;
 
-	ContentObserver _observer;
+	private ContentObserver _observer;
 
-	private static final String KEY_MONTH_TITLE = "MonthTitle";
+	private ActionMode _actionMode;
+	private ActionMode.Callback _callback = new ActionMode.Callback()
+	{
+		@Override
+		public boolean onCreateActionMode( ActionMode actionMode, Menu menu )
+		{
+			actionMode.getMenuInflater().inflate( R.menu.action_mode_month_details, menu );
+			return true;
+		}
+
+		@Override
+		public boolean onPrepareActionMode( ActionMode actionMode, Menu menu )
+		{
+			return false;
+		}
+
+		@Override
+		public boolean onActionItemClicked( ActionMode actionMode, MenuItem menuItem )
+		{
+			switch( menuItem.getItemId() )
+			{
+				case R.id.menuEdit:
+				{
+					showOperationDetails( _lvAddFinances.getChildAt( _selectedItem ).getId() );
+					actionMode.finish();
+					return true;
+				}
+				case R.id.menuDelete:
+				{
+					actionMode.finish();
+					return true;
+				}
+				default: return false;
+			}
+		}
+
+		@Override
+		public void onDestroyActionMode( ActionMode actionMode )
+		{
+			if( _lvAddFinances.getChildCount() > _selectedItem )
+			{
+				_lvAddFinances.getChildAt( _selectedItem ).setBackgroundResource( Color.TRANSPARENT );
+			}
+			_actionMode = null;
+		}
+	};
+
 	private static final String KEY_ID_ITEM = "IdItem";
 
 	private static final int RESULT_FIRST_USER_DETAIL = 11;
 	private static final int LOADER_ID = 0;
+
+	private int _selectedItem;
 
 	@Override
 	public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
@@ -49,16 +99,6 @@ public class MonthDetailsFragment extends Fragment
 		int idItem = getArguments().getInt( KEY_ID_ITEM );
 		_month = idItem % 100;
 		_year = idItem / 100;
-
-		StringBuilder monthTitleBuilder = new StringBuilder(  );
-		monthTitleBuilder.append( getArguments().getString( KEY_MONTH_TITLE ) );
-		monthTitleBuilder.append( " " );
-		monthTitleBuilder.append( Integer.toString( _year ) );
-
-		this._tvMonthDescription = (TextView)v.findViewById( R.id.tvMonthDescription );
-		this._tvMonthDescription.setText( monthTitleBuilder.toString() );
-
-		this._vFooter = inflater.inflate(R.layout.tip_add_new_details, null);
 
 		createListView( v );
 
@@ -92,13 +132,12 @@ public class MonthDetailsFragment extends Fragment
 		getActivity().getContentResolver().unregisterContentObserver( _observer );
 	}
 
-	public static MonthDetailsFragment getInstance( int idItem, String monthTitle )
+	public static MonthDetailsFragment getInstance( int idItem)
 	{
 		MonthDetailsFragment fragment = new MonthDetailsFragment();
 
 		Bundle arguments = new Bundle();
 		arguments.putInt( KEY_ID_ITEM, idItem );
-		arguments.putString( KEY_MONTH_TITLE, monthTitle );
 		fragment.setArguments( arguments );
 
 		return fragment;
@@ -120,14 +159,7 @@ public class MonthDetailsFragment extends Fragment
 
 	private void createListView(View v)
 	{
-		if (this._lvAddFinances != null)
-		{
-			this._lvAddFinances.removeFooterView( this._vFooter );
-		}
-		this._lvAddFinances = null;
 		this._lvAddFinances = (ListView)v.findViewById( R.id.listOperations );
-
-		this._lvAddFinances.addFooterView(this._vFooter, null, true);
 
 		String[] whereArgs = new String[] { Integer.toString(this._year ), getMonthWithLeadingZero() };
 		String where = new String("strftime('%Y', " + MoneyContract.ViewMonthOperations.DATE + ") = ? " +
@@ -141,6 +173,22 @@ public class MonthDetailsFragment extends Fragment
 
 		_lvAddFinances.setAdapter(_adapter);
 		_lvAddFinances.setOnItemClickListener( this );
+		_lvAddFinances.setOnItemLongClickListener( new AdapterView.OnItemLongClickListener()
+		{
+			@Override
+			public boolean onItemLongClick( AdapterView<?> adapterView, View view, int position, long id )
+			{
+				if( _actionMode != null )
+				{
+					return false;
+				}
+				_selectedItem = position;
+				_actionMode = ((ChangeMonthActivity)getActivity()).startSupportActionMode( _callback );
+				view.setBackgroundResource( android.R.color.holo_blue_light );
+				view.setSelected( true );
+				return true;
+			}
+		} );
 	}
 
 	@Override
@@ -181,6 +229,6 @@ public class MonthDetailsFragment extends Fragment
         intent.putExtra("ru.nstudio.android._month", this._month );
         intent.putExtra("ru.nstudio.android._year", this._year );
 
-        startActivityForResult(intent, RESULT_FIRST_USER_DETAIL);
+        startActivity( intent );
 	}
 }

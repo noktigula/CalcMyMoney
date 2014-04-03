@@ -3,18 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
-    <LinearLayout 
-        android:id = "@+id/llMonthActivityDescription"
-        android:orientation="horizontal"
-        style="@style/llChild">
-        
-        <TextView 
-            android:id = "@+id/tvMonthDescription"
-            style = "@style/delimiter" 
-        	android:text = "test_test_ololo"
-        />
-    </LinearLayout>
         
     <ListView
         android:id = "@+id/listOperations"

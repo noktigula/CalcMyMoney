@@ -15,13 +15,11 @@ public class MonthOverviewPagerAdapter extends FragmentStatePagerAdapter
 	public static final int PAGES_COUNT = 2;
 
 	private int _idItem;
-	private String _monthTitle;
 
-	public MonthOverviewPagerAdapter( int idItem, String monthTitle, FragmentManager fm )
+	public MonthOverviewPagerAdapter( int idItem, FragmentManager fm )
 	{
 		super(fm);
 		_idItem = idItem;
-		_monthTitle = monthTitle;
 	}
 
 	@Override
@@ -29,8 +27,8 @@ public class MonthOverviewPagerAdapter extends FragmentStatePagerAdapter
 	{
 		switch(i)
 		{
-			case 0: return MonthDetailsFragment.getInstance( _idItem, _monthTitle );
-			case 1: return MonthCategoryFragment.getInstance( _idItem, _monthTitle );
+			case 0: return MonthDetailsFragment.getInstance( _idItem );
+			case 1: return MonthCategoryFragment.getInstance( _idItem );
 			default: throw new RuntimeException( "Unexpected index" );
 		}
 	}

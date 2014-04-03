@@ -41,8 +41,6 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
 		return true;
 	}
 
-
-
     public void onClick(DialogInterface v, int buttonID)
     {
         switch (buttonID)

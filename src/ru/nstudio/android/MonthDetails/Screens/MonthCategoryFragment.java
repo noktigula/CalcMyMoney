@@ -28,7 +28,6 @@ public class MonthCategoryFragment extends Fragment
 		implements AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks
 {
 	private ListView _lv;
-	private View _vFooter;
 
 	private int _year;
 	private int _month;
@@ -36,10 +35,8 @@ public class MonthCategoryFragment extends Fragment
 	private MonthCategoryAdapter _adapter;
 	private ContentObserver _observer;
 
-	private TextView _tvMonthDescription;
-
 	private static final String KEY_ITEM_ID = "IdItem";
-	private static final String KEY_MONTH_TITLE = "MonthTitle";
+
 	private static final int LOADER_ID = 1;
 	private static final int RESULT_FIRST_USER_DETAIL = 11;
 
@@ -51,17 +48,6 @@ public class MonthCategoryFragment extends Fragment
 		int itemId = getArguments().getInt( KEY_ITEM_ID );
 		_month = itemId % 100;
 		_year = itemId / 100;
-
-		StringBuilder stringBuilder = new StringBuilder(  );
-		stringBuilder.append( getArguments().getString( KEY_MONTH_TITLE ) );
-		stringBuilder.append( " " );
-		stringBuilder.append( Integer.toString( _year ) );
-
-		this._tvMonthDescription = (TextView )v.findViewById( R.id.tvMonthDescription );
-		_tvMonthDescription.setText( stringBuilder.toString() );
-
-		_vFooter = inflater.inflate(R.layout.tip_add_new_details, null);
-		_vFooter.setId( -1 );
 
 		getLoaderManager().initLoader( LOADER_ID, null, this );
 		_observer = new ContentObserver(new Handler())
@@ -94,13 +80,12 @@ public class MonthCategoryFragment extends Fragment
 				.unregisterContentObserver( _observer );
 	}
 
-	public static MonthCategoryFragment getInstance( int idItem, String monthTitle )
+	public static MonthCategoryFragment getInstance( int idItem )
 	{
 		MonthCategoryFragment mc = new MonthCategoryFragment();
 
 		Bundle args = new Bundle();
 		args.putInt( KEY_ITEM_ID, idItem );
-		args.putString( KEY_MONTH_TITLE, monthTitle );
 		mc.setArguments( args );;
 
 		return mc;
@@ -122,14 +107,7 @@ public class MonthCategoryFragment extends Fragment
 
 	private void createListView( View parent )
 	{
-		if (this._lv != null)
-		{
-			this._lv.removeFooterView( this._vFooter );
-		}
-		this._lv = null;
 		this._lv = (ListView)parent.findViewById( R.id.listOperations );
-
-		this._lv.addFooterView(this._vFooter, null, true);
 
 		String where = new String("strftime( '%Y', " + MoneyContract.Finance.DATE + ") = ? " +
 				"AND strftime( '%m', " + MoneyContract.Finance.DATE + ") = ? " );
