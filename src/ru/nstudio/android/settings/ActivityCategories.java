@@ -122,7 +122,9 @@ public class ActivityCategories extends ActionBarActivity implements LoaderManag
 	@Override
 	public Loader onCreateLoader( int i, Bundle bundle )
 	{
-		return new CursorLoader( this, MoneyContract.Category.CONTENT_URI, null, null, null, null );
+		String selection = MoneyContract.Category._ID + " != ?";
+		String[] args = new String[]{ Integer.toString( 1 ) };
+		return new CursorLoader( this, MoneyContract.Category.CONTENT_URI, null, selection, args, null );
 	}
 
 	@Override
