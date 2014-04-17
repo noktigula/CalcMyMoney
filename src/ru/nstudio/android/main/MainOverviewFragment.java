@@ -191,7 +191,7 @@ public class MainOverviewFragment extends Fragment
 	{
 		DialogFragment dialogFragment = MyAlertDialog.getInstance( R.string.deleteDialogTitle, R.string.deleteDialogFinalAsk );
 		dialogFragment.setTargetFragment( this, DIALOG_ID );
-		dialogFragment.show( getActivity().getSupportFragmentManager(), "deleteDialog" );
+		dialogFragment.show( getActivity().getSupportFragmentManager(), MyAlertDialog.class.toString() );
 	} // deleteMonthInfo
 
 	public Intent getIntentForChange(int id, String monthTitle)

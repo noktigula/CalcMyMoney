@@ -1,5 +1,7 @@
 package ru.nstudio.android.MonthDetails.Screens;
 
+import android.net.Uri;
+import android.support.v4.app.DialogFragment;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.ContentObserver;
@@ -18,17 +20,21 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import ru.nstudio.android.IDialogListener;
 import ru.nstudio.android.MonthDetails.Adapters.MonthDetailsAdapter;
 import ru.nstudio.android.MonthDetails.ChangeMonthActivity;
 import ru.nstudio.android.R;
 import ru.nstudio.android.Storage.MoneyContract;
+import ru.nstudio.android.dialogs.MyAlertDialog;
 
 /**
  * Created by noktigula on 16.02.14.
  */
 public class MonthDetailsFragment extends Fragment
-		implements AdapterView.OnItemClickListener, android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor>
+		implements AdapterView.OnItemClickListener, android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor>, IDialogListener
 {
+	private static final int DIALOG_ID = 1;
+
 	private ListView 		_lvAddFinances;
 
 	private int 			_month;
@@ -66,6 +72,7 @@ public class MonthDetailsFragment extends Fragment
 				}
 				case R.id.menuDelete:
 				{
+					deleteOperation( _lvAddFinances.getChildAt( _selectedItem ).getId() );
 					actionMode.finish();
 					return true;
 				}
@@ -230,5 +237,30 @@ public class MonthDetailsFragment extends Fragment
         intent.putExtra("ru.nstudio.android._year", this._year );
 
         startActivity( intent );
+	}
+
+	private void deleteOperation( long id )
+	{
+		DialogFragment deleteDialog = MyAlertDialog.getInstance( R.string.deleteDialogTitle, R.string.deleteDialogFinalAsk );
+		deleteDialog.setTargetFragment( this, DIALOG_ID );
+		deleteDialog.show( getActivity().getSupportFragmentManager(), MyAlertDialog.class.toString() );
+	}
+
+	@Override
+	public void onDialogPositiveClick( DialogFragment dialog )
+	{
+		if( dialog instanceof MyAlertDialog )
+		{
+			long id = _lvAddFinances.getChildAt( _selectedItem ).getId();
+			Uri uri = Uri.withAppendedPath( MoneyContract.Finance.CONTENT_URI, Long.toString( id ) );
+			getActivity().getContentResolver().delete( uri, null, null);
+			getActivity().getSupportLoaderManager().restartLoader( LOADER_ID, null, this );
+		}
+	}
+
+	@Override
+	public void onDialogNegativeClick( DialogFragment dialog )
+	{
+		return;
 	}
 }
