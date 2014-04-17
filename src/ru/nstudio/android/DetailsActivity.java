@@ -264,8 +264,8 @@ implements OnClickListener,  IDialogListener
 	@TargetApi( Build.VERSION_CODES.HONEYCOMB )
 	private void showDialogAddCategory()
 	{
-		AddCategoryDialog dialog = new AddCategoryDialog();
-		dialog.show( getSupportFragmentManager(), "add_category" );
+		AddCategoryDialog dialog = AddCategoryDialog.getInstance( null, -1L );
+		dialog.show( getSupportFragmentManager(), AddCategoryDialog.class.toString() );
 	}
 
 //	public void onClick(DialogInterface dialog, int which)

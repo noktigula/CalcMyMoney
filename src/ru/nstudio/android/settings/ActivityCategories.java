@@ -88,7 +88,7 @@ public class ActivityCategories extends ActionBarActivity implements LoaderManag
 	private void showEditCategoryDialog( String category, Long itemId )
 	{
 		AddCategoryDialog dialog = AddCategoryDialog.getInstance( category, itemId );
-		dialog.show( getSupportFragmentManager(), "add_category" );
+		dialog.show( getSupportFragmentManager(), AddCategoryDialog.class.toString() );
 	}
 
 	private void removeItem( long itemId )
