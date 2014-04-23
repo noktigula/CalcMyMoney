@@ -14,28 +14,35 @@
             android:textSize="12sp"
             android:layout_gravity="left|bottom"
             android:gravity="left"
-            android:text="категория"/>
+            android:text="категория"
+            android:paddingLeft="3dp"/>
         <TextView
-                android:id="@+id/tvShowDate1"
-                android:layout_width="match_parent"
-                android:layout_height = "15dp"
-                android:layout_weight="1.0"
-                android:textSize="12sp"
-                android:layout_gravity="right|bottom"
-                android:gravity="right"
-                android:text = "дата"
+            android:id="@+id/tvShowDate1"
+            android:layout_width="match_parent"
+            android:layout_height = "15dp"
+            android:layout_weight="1.0"
+            android:textSize="12sp"
+            android:layout_gravity="right|bottom"
+            android:gravity="right"
+            android:text = "дата"
+            android:paddingRight="3dp"
                 />
     </TableRow>
-
-    <TextView 
-	    android:id = "@+id/tvFinanceOperationDetails1"
-	    android:layout_width="match_parent"
-	    android:layout_height = "18dp"
-	    android:textSize="14sp"
-	    android:gravity = "left"
-	    android:text = "описание"
-    />
-        
+    <TableRow
+            android:layout_height="19dp"
+            android:layout_width="match_parent"
+            >
+        <TextView
+            android:id = "@+id/tvFinanceOperationDetails1"
+            android:layout_width="0dp"
+            android:layout_weight="1.0"
+            android:layout_height = "18dp"
+            android:textSize="14sp"
+            android:gravity = "center"
+            android:layout_gravity="center"
+            android:text = "описание"
+        />
+    </TableRow>
 	<TableRow
 	    style = "@style/list_item_3_point">"
 		 <TextView 
@@ -47,13 +54,14 @@
 	        android:layout_gravity="left"
 	        android:gravity = "left" 
 	        android:text = "100"
+            android:paddingLeft="3dp"
 	        />
 	    
 	    <TextView 
 	        android:id = "@+id/tvShowQuant1"
 	        android:layout_width="0dp"
 	   		android:layout_height = "15dp"
-	        android:layout_weight = "1.0" 
+	        android:layout_weight = "1.0"
 	        android:textSize="12sp"
 	        android:layout_gravity="center"
 	        android:gravity="center"

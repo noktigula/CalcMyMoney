@@ -39,7 +39,10 @@ public class ChangeMonthActivity extends ActionBarActivity
 				@Override
 				public void onPageSelected( int position )
 				{
-					_actionMode.finish();
+					if( _actionMode != null )
+					{
+						_actionMode.finish();
+					}
 					getActionBar().setSelectedNavigationItem( position );
 				}
 			});

@@ -9,6 +9,7 @@
             style="@style/list_item_2_items"
             android:layout_gravity="left"
             android:gravity="left|center_vertical"
+            android:paddingLeft="5dp"
             android:text="@string/stubCategory"
         />
         <TextView
