@@ -15,12 +15,8 @@ import ru.nstudio.android.R;
 public class MainActivity extends ActionBarActivity implements OnClickListener
 {
 	private ViewPager _pager;
-
-	private Menu			menu;
-	private MenuListener menuListener;
 	
 	public static final int 	RESULT_FIRST_USER_MAIN = 10;
-	public static final int		RESULT_FIRST_USER_DETAIL = 11;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) 
@@ -30,9 +26,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
 
 		_pager = (ViewPager)findViewById( R.id.pagerTotalOverview );
 		_pager.setAdapter( new FinancePagerAdapter( getSupportFragmentManager() ) );
-    	
-    	menuListener = new MenuListener( this );
-    } // onCreate
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu( Menu menu )
@@ -51,7 +45,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
 
             default: break;
         }
-    }  // onClick
+    }
 
 
 	@Override
@@ -74,61 +68,4 @@ public class MainActivity extends ActionBarActivity implements OnClickListener
 			default: return super.onOptionsItemSelected( menuItem );
 		}
 	}
-
-
-	  
-//	public void onItemClick(AdapterView<?> adView, View target, int position, long id)
-//	{
-//		Intent intent;
-//		if (id == -1)
-//		{
-//			intent = new Intent(INTENT_ACTION_ADD);
-//		} // if
-//		else
-//		{
-//			TextView tvMonth = (TextView)target.findViewById(R.id.tvMainMonthTitle);
-//			intent = this.getIntentForChange((int)id, tvMonth.getText().toString());
-//		} //if
-//
-//        runChangeActivity(intent);
-//	} // onItemCLick
-
-//    public void runChangeActivity(Intent intent)
-//    {
-//        try
-//        {
-//            startActivityForResult( intent, RESULT_FIRST_USER_MAIN );
-//        } // try
-//        catch(IllegalArgumentException iae)
-//        {
-//            Toast.makeText(this, iae.getMessage(), 10000).show();
-//        } // catch
-//    } // runChangeActivity
-
-//    public Intent getIntentForChange(int id, String monthTitle)
-//    {
-//        Intent intent = new Intent(INTENT_ACTION_CHANGE);
-//        intent.putExtra("ru.nstudio.android.selectedItem", id);
-//        intent.putExtra("ru.nstudio.android.monthTitle", monthTitle);
-//        return intent;
-//    } // getIntentForChange
-	  
-//	  public void onActivityResult(int requestCode, int resultCode, Intent outputIntent)
-//	  {
-//		  boolean refresh = false;
-//
-//		  if (resultCode == RESULT_OK)
-//		  {
-//			  refresh = outputIntent.getBooleanExtra("ru.nstudio.android.changes", false);
-//		  } // if
-//		  else if (resultCode == RESULT_FIRST_USER_DETAIL)
-//		  {
-//			  refresh = outputIntent.getBooleanExtra("ru.nstudio.android.success", false);
-//		  } // else if
-//
-//		  if (refresh)
-//		  {
-//			  this.makeListCalculations();
-//		  } // if
-//	  } // onActivityResult
-} // class MainActivity
+}

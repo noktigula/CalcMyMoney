@@ -125,7 +125,7 @@ public class MainOverviewFragment extends Fragment
 		ContentResolver cr = getActivity().getContentResolver();
 		Cursor c = cr.query( MoneyContract.ViewYear.CONTENT_URI, null, null, null, null );
 
-		this._fAdapter = new FinanceAdapter(getActivity(), getActivity().getLayoutInflater(), c, 0);
+		this._fAdapter = new FinanceAdapter(getActivity(), getActivity().getLayoutInflater(), c);
 
 		try
 		{
