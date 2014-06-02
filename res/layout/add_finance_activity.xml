@@ -8,7 +8,7 @@
              android:layout_height="match_parent">
 
     <LinearLayout
-            style="@style/llChild"
+            style="@style/match"
             android:orientation="vertical">
         <LinearLayout
             android:id = "@+id/llAddExplain"
@@ -181,6 +181,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="bottom"
+            android:layout_gravity="bottom"
             android:orientation="horizontal"
             android:layout_weight="0">
 
@@ -209,9 +210,6 @@
                 android:gravity="center"
                 android:text=" " />
         </LinearLayout>
-        <Spinner android:id="@+id/stub"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"/>
         </LinearLayout>
     </ScrollView>
 

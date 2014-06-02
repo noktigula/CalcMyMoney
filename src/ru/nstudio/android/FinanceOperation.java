@@ -22,7 +22,7 @@ public class FinanceOperation implements Parcelable
 		this.setQuantity(iQty);
 		this.setType(isIncome);
 		this.setDate(gcDate);
-	} // ctor
+	}
 	
 	private FinanceOperation(Parcel in)
 	{

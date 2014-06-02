@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import ru.nstudio.android.details.DetailsActivity;
 import ru.nstudio.android.IDialogListener;
 import ru.nstudio.android.MonthDetails.Adapters.MonthDetailsAdapter;
 import ru.nstudio.android.MonthDetails.ChangeMonthActivity;
@@ -93,7 +94,6 @@ public class MonthDetailsFragment extends Fragment
 
 	private static final String KEY_ID_ITEM = "IdItem";
 
-	private static final int RESULT_FIRST_USER_DETAIL = 11;
 	private static final int LOADER_ID = 0;
 
 	private int _selectedItem;
@@ -191,7 +191,7 @@ public class MonthDetailsFragment extends Fragment
 				}
 				_selectedItem = position;
 				_actionMode = ((ChangeMonthActivity)getActivity()).startSupportActionMode( _callback );
-				view.setBackgroundResource( android.R.color.holo_blue_light );
+				view.setBackgroundColor( android.R.color.holo_blue_light );
 				view.setSelected( true );
 				return true;
 			}
@@ -230,11 +230,11 @@ public class MonthDetailsFragment extends Fragment
 
 	private void showOperationDetails( long id )
 	{
-		Intent intent = new Intent(getActivity().getResources().getString( R.string.INTENT_ACTION_SHOW_DETAILS ));
-        intent.putExtra("ru.nstudio.android.idFinance", id);
+		Intent intent = new Intent( getActivity(), DetailsActivity.class);
+        intent.putExtra( getString( R.string.key_finance_id ), id);
 
-        intent.putExtra("ru.nstudio.android._month", this._month );
-        intent.putExtra("ru.nstudio.android._year", this._year );
+        intent.putExtra( getString( R.string.key_month ), this._month );
+        intent.putExtra( getString( R.string.key_year ), this._year );
 
         startActivity( intent );
 	}

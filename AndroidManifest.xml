@@ -25,7 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="DetailsActivity">
+        <activity android:name=".details.DetailsActivity">
             <intent-filter android:label="ru.nstudio.android.addDetails">
                 <category android:name="android.intent.category.DEFAULT"/>
                 <action android:name="ru.nstudio.android.addDetails"/>

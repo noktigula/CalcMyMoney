@@ -24,7 +24,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ru.nstudio.android.details.DetailsActivity;
 import ru.nstudio.android.IDialogListener;
+import ru.nstudio.android.MonthDetails.ChangeMonthActivity;
 import ru.nstudio.android.R;
 import ru.nstudio.android.Storage.MoneyContract;
 import ru.nstudio.android.dialogs.MyAlertDialog;
@@ -163,7 +165,7 @@ public class MainOverviewFragment extends Fragment
 		Intent intent;
 		if (id == -1)
 		{
-			intent = new Intent( getActivity().getResources().getString( R.string.INTENT_ACTION_ADD ) );
+			intent = new Intent( getActivity(), DetailsActivity.class );
 			runChangeActivity( intent );
 		}
 		else
@@ -179,7 +181,7 @@ public class MainOverviewFragment extends Fragment
 	{
 		try
 		{
-			startActivityForResult( intent, ((MainActivity)getActivity()).RESULT_FIRST_USER_MAIN );
+			startActivity( intent );
 		}
 		catch(IllegalArgumentException iae)
 		{
@@ -192,13 +194,13 @@ public class MainOverviewFragment extends Fragment
 		DialogFragment dialogFragment = MyAlertDialog.getInstance( R.string.deleteDialogTitle, R.string.deleteDialogFinalAsk );
 		dialogFragment.setTargetFragment( this, DIALOG_ID );
 		dialogFragment.show( getActivity().getSupportFragmentManager(), MyAlertDialog.class.toString() );
-	} // deleteMonthInfo
+	}
 
 	public Intent getIntentForChange(int id, String monthTitle)
 	{
-		Intent intent = new Intent( getActivity().getResources().getString( R.string.INTENT_ACTION_CHANGE ) );
-		intent.putExtra("ru.nstudio.android.selectedItem", id);
-		intent.putExtra("ru.nstudio.android.monthTitle", monthTitle);
+		Intent intent = new Intent( getActivity(), ChangeMonthActivity.class );
+		intent.putExtra(getString( R.string.key_selected_item ), id);
+		intent.putExtra(getString( R.string.key_month_title ), monthTitle);
 		return intent;
 	}
 
