@@ -101,7 +101,7 @@ public class MainOverviewFragment extends Fragment
 	@Override
 	public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
-		Log.d(getActivity().getResources().getString( R.string.TAG ), container.getClass().getName());
+		//Log.d(getActivity().getResources().getString( R.string.TAG ), container.getClass().getName());
 		View v = inflater.inflate( R.layout.list_total_operation_overview, container, false );
 
 		_lv = ( ListView) v.findViewById( R.id.lvMain );
@@ -131,7 +131,7 @@ public class MainOverviewFragment extends Fragment
 		{
 			_lv.setAdapter( this._fAdapter );
 			_lv.setOnItemClickListener( this );
-		} // try
+		}
 		catch(Exception e)
 		{
 			Log.d( getActivity().getResources().getString( R.string.TAG ), e.getMessage() );
@@ -150,7 +150,7 @@ public class MainOverviewFragment extends Fragment
 				_selectedPos = position;
 				_actionMode = ((MainActivity)getActivity()).startSupportActionMode( _actionModeCallback );
 				view.setSelected( true );
-				view.setBackgroundResource( android.R.color.holo_blue_light );
+				view.setBackgroundColor( android.R.color.holo_blue_light );
 
 				return true;
 			}
@@ -212,7 +212,6 @@ public class MainOverviewFragment extends Fragment
 	@Override
 	public void onLoadFinished( Loader loader, Object o )
 	{
-		Log.d( getActivity().getResources().getString( R.string.TAG ), this.getClass().getName() + ": onLoadFinished" );
 		_fAdapter.swapCursor( (Cursor)o );
 	}
 
