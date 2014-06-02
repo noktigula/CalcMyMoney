@@ -44,7 +44,7 @@ public final class MoneyContract
 		public static final Uri CONTENT_URI = Uri.parse( "content://" + AUTHORITY + "/monthOverview" );
 		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.nstudio.monthOverviews";
 		public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.nstudio.monthOverview";
-		public static final String DEFAULT_SORT_ORDER = " fyear, fmonth ASC";
+		public static final String DEFAULT_SORT_ORDER = " fyear DESC, fmonth DESC";
 
 		public static final String VIEW_NAME = "YearOperationsView";
 		public static final String YEAR = "fyear";

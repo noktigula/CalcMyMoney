@@ -135,7 +135,7 @@ public class MainOverviewFragment extends Fragment
 		catch(Exception e)
 		{
 			Log.d( getActivity().getResources().getString( R.string.TAG ), e.getMessage() );
-			Toast.makeText( getActivity(), "Что-то пошло не так", 10000000 ).show();
+			Toast.makeText( getActivity(), "Что-то пошло не так", Toast.LENGTH_LONG ).show();
 		}
 
 		_lv.setOnItemLongClickListener( new AdapterView.OnItemLongClickListener()
@@ -183,7 +183,7 @@ public class MainOverviewFragment extends Fragment
 		}
 		catch(IllegalArgumentException iae)
 		{
-			Toast.makeText( getActivity(), iae.getMessage(), 10000).show();
+			Toast.makeText( getActivity(), iae.getMessage(), Toast.LENGTH_LONG).show();
 		}
 	}
 
