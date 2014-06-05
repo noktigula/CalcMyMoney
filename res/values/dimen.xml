@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="hint_text_size">12sp</dimen>
+
+    <dimen name="operation_big_text">20sp</dimen>
+    <dimen name="operation_small_size">12sp</dimen>
+
+    <dimen name="operation_main_height">30dp</dimen>
+    <dimen name="operation_small_height">15dp</dimen>
+
+    <dimen name="split_margin">10dp</dimen>
 </resources>

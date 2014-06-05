@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <color name="income_view_background">#d3ff84</color>
+    <color name="expend_view_background">#ff9191</color>
+</resources>

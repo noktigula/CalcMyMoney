@@ -4,15 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <ScrollView android:layout_width="match_parent"
-             android:layout_height="match_parent">
-
     <LinearLayout
-            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:orientation="vertical">
-    <LinearLayout
-            style="@style/match"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="vertical">
         <LinearLayout
             android:id = "@+id/llAddExplain"
@@ -125,33 +120,32 @@
              </RadioGroup>
         </LinearLayout>
 
-            <LinearLayout
-                style="@style/llChild"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:id = "@+id/tvDate"
-                    style="@style/wrap"
-                    android:text="@string/date_main_hint"
-                    android:textSize="10sp"
-                    android:layout_weight="1.0"
-                    android:layout_gravity="left"
-                    android:gravity="bottom|left"/>
+        <LinearLayout
+            style="@style/llChild"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:id = "@+id/tvDate"
+                style="@style/wrap"
+                android:text="@string/date_main_hint"
+                android:textSize="10sp"
+                android:layout_weight="1.0"
+                android:layout_gravity="left"
+                android:gravity="bottom|left"/>
 
-                 <TextView
-                   android:id="@+id/tvFinanceDate"
-                   style="@style/match"
-                   android:layout_gravity="left"
-                   android:gravity="left"
-                   android:layout_weight="1.0"
-                   android:text="2012-08-24"
-                   android:textSize="18sp"
-                   android:clickable="true"
-                   android:onClick="onDateExplainClick"
-                   />
-           </LinearLayout>
-        </LinearLayout>
+             <TextView
+               android:id="@+id/tvFinanceDate"
+               style="@style/match"
+               android:layout_gravity="left"
+               android:gravity="left"
+               android:layout_weight="1.0"
+               android:text="2012-08-24"
+               android:textSize="18sp"
+               android:clickable="true"
+               android:onClick="onDateExplainClick"
+               />
+       </LinearLayout>
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -186,6 +180,4 @@
                     android:text=" " />
         </LinearLayout>
     </LinearLayout>
-    </ScrollView>
-
 </LinearLayout>

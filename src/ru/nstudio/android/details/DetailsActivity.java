@@ -1,5 +1,6 @@
 package ru.nstudio.android.details;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import android.annotation.TargetApi;
@@ -38,7 +39,6 @@ implements OnClickListener, IDialogListener
 {
 	private EditText 			_etExplain;
 	private EditText 			_etPrice;
-	private EditText 			_etQuantity;
 
 	private RadioButton 		_rbIncome;
 	private RadioButton 		_rbExpend;
@@ -65,7 +65,6 @@ implements OnClickListener, IDialogListener
 
 		_etExplain = (EditText) findViewById(R.id.etExplain);
 		_etPrice = (EditText) findViewById(R.id.etPrice);
-		_etQuantity = (EditText) findViewById(R.id.etQuantity);
 
 		_rbIncome = (RadioButton) findViewById(R.id.rbIncome);
 		_rbExpend = (RadioButton) findViewById(R.id.rbExpend);
@@ -89,15 +88,17 @@ implements OnClickListener, IDialogListener
 		}
 		else
 		{
+            GregorianCalendar currentDate = new GregorianCalendar();
 			int year = intent.getIntExtra( getString( R.string.key_year ), INVALID_VALUE );
 			int month = intent.getIntExtra( getString( R.string.key_month ), INVALID_VALUE );
-			if( year == INVALID_VALUE || month == INVALID_VALUE )
+			if( ( year == INVALID_VALUE || month == INVALID_VALUE )
+                ||(currentDate.get(Calendar.MONTH) == month-1 && currentDate.get(Calendar.YEAR) == year) )
 			{
-				_gcDate = new GregorianCalendar();
+				_gcDate = currentDate;
 			}
 			else
 			{
-				_gcDate = new GregorianCalendar( year, month, 1 );
+				_gcDate = new GregorianCalendar( year, month-1, 1 );
 			}
 
 			_rbExpend.setChecked( true );
@@ -135,11 +136,9 @@ implements OnClickListener, IDialogListener
 			_etExplain.setText(c.getString(c.getColumnIndex( MoneyContract.Finance.REASON ) ));
 			
 			Double price = c.getDouble(c.getColumnIndex(MoneyContract.Finance.PRICE));
-			_etPrice.setText(String.format(getString(R.string.money_format), price ));
-			
-			int quant = c.getInt(c.getColumnIndex(MoneyContract.Finance.QUANTITY));
-			_etQuantity.setText(Integer.toString(quant));
-			
+            int quant = c.getInt(c.getColumnIndex(MoneyContract.Finance.QUANTITY));
+			_etPrice.setText(String.format(getString(R.string.money_format), price*quant ));
+
 			String strDate = c.getString(c.getColumnIndex(MoneyContract.Finance.DATE));
 			
 			displayDate(strDate);		
@@ -227,7 +226,6 @@ implements OnClickListener, IDialogListener
 		if ( v.getId() == R.id.btnExplainOK )
 		{
 			if ( TextUtils.isEmpty( _etExplain.getText().toString() ) ||
-				 TextUtils.isEmpty( _etQuantity.getText().toString() ) ||
 				 TextUtils.isEmpty( _etPrice.getText().toString() ))
 			{
 				Toast.makeText( this, R.string.errEmptyField, Toast.LENGTH_LONG ).show();
@@ -236,21 +234,16 @@ implements OnClickListener, IDialogListener
 			
 			ContentValues cv = new ContentValues();
 
-            String quant = _etQuantity.getText().toString();
             String price = _etPrice.getText().toString();
 			long categoryID = _spinner.getSelectedItemId();
 
-            if(quant.contains(","))
-            {
-                quant = quant.replace(",", ".");
-            }
             if(price.contains(","))
             {
                 price = price.replace(",", ".");
             }
 
 			cv.put( MoneyContract.Finance.REASON, _etExplain.getText().toString() );
-			cv.put( MoneyContract.Finance.QUANTITY, Double.parseDouble(quant) );
+			cv.put( MoneyContract.Finance.QUANTITY, 1 );
 			cv.put( MoneyContract.Finance.PRICE, Double.parseDouble(price) );
 			cv.put( MoneyContract.Finance.TYPE, _rbIncome.isChecked() );
 			cv.put( MoneyContract.Finance.DATE, DateParser.format(_gcDate, DateParser.SQLITE_FORMAT ) );

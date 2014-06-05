@@ -152,7 +152,7 @@ public class MainOverviewFragment extends Fragment
 				_selectedPos = position;
 				_actionMode = ((MainActivity)getActivity()).startSupportActionMode( _actionModeCallback );
 				view.setSelected( true );
-				view.setBackgroundColor( android.R.color.holo_blue_light );
+				view.setBackgroundColor( getResources().getColor(android.R.color.holo_blue_light) );
 
 				return true;
 			}
@@ -214,7 +214,7 @@ public class MainOverviewFragment extends Fragment
 	@Override
 	public void onLoadFinished( Loader loader, Object o )
 	{
-		_fAdapter.swapCursor( (Cursor)o );
+        _fAdapter.swapCursor( (Cursor)o );
 	}
 
 	@Override

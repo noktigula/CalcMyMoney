@@ -191,7 +191,7 @@ public class MonthDetailsFragment extends Fragment
 				}
 				_selectedItem = position;
 				_actionMode = ((ChangeMonthActivity)getActivity()).startSupportActionMode( _callback );
-				view.setBackgroundColor( android.R.color.holo_blue_light );
+				view.setBackgroundColor( getResources().getColor(android.R.color.holo_blue_light) );
 				view.setSelected( true );
 				return true;
 			}

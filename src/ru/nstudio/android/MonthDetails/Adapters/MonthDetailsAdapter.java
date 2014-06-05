@@ -54,22 +54,11 @@ public class MonthDetailsAdapter extends CursorAdapter //implements OnItemClickL
 		String dateDescript =
 				DateParser.format( date, DateParser.CALCMONEY_FORMAT );
 
-		int color = (isIncome) ? Color.GREEN : Color.RED;
-
 		TextView tvExplain = (TextView) v.findViewById(R.id.tvFinanceOperationDetails1);
 		tvExplain.setText(explain);
 
-		TextView tvPrice = (TextView) v.findViewById(R.id.tvShowPrice1);
-		tvPrice.setText(String.format( _moneyFormat, price ) );
-		tvPrice.setTextColor(color);
-
-		TextView tvQuant = (TextView) v.findViewById(R.id.tvShowQuant1);
-		tvQuant.setText(quant.toString());
-		tvQuant.setTextColor(color);
-
 		TextView tvBalance = (TextView) v.findViewById(R.id.tvShowTotalCost1);
 		tvBalance.setText(String.format( _moneyFormat, price * quant ) );
-		tvBalance.setTextColor(color);
 
 		TextView tvDate = (TextView) v.findViewById(R.id.tvShowDate1);
 		tvDate.setText(dateDescript);
@@ -77,6 +66,10 @@ public class MonthDetailsAdapter extends CursorAdapter //implements OnItemClickL
 		TextView tvCategory = (TextView) v.findViewById(R.id.tvShowCategory);
 		tvCategory.setText(category);
 
+        int color = (isIncome) ? context.getResources().getColor(R.color.income_view_background)
+                : context.getResources().getColor(R.color.expend_view_background);
+        v.setBackgroundColor(color);
+
 		v.setId(id);
 	}
-} // class MonthDetailsAdapter
+}
