@@ -9,14 +9,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
+import ru.nstudio.android.details.DetailsActivity;
 import ru.nstudio.android.MonthDetails.Adapters.MonthCategoryAdapter;
 import ru.nstudio.android.R;
 import ru.nstudio.android.Storage.MoneyContract;
@@ -149,17 +148,12 @@ public class MonthCategoryFragment extends Fragment
 	@Override
 	public void onItemClick( AdapterView<?> adapterView, View view, int position, long id )
 	{
-		if( id == -1 )
-		{
-			Intent intent = new Intent( getActivity().getResources().getString( R.string.INTENT_ACTION_SHOW_DETAILS ) );
-			intent.putExtra("ru.nstudio.android.idFinance", id);
+		Intent intent = new Intent( getActivity(), DetailsActivity.class );
+		intent.putExtra(getString( R.string.key_finance_id ), id);
 
-			intent.putExtra("ru.nstudio.android._month", this._month );
-			intent.putExtra("ru.nstudio.android._year", this._year );
+		intent.putExtra(getString( R.string.key_month ), this._month );
+		intent.putExtra(getString( R.string.key_year ), this._year );
 
-			startActivityForResult( intent, RESULT_FIRST_USER_DETAIL );
-		}
+		startActivity(intent);
 	}
-
-
 }

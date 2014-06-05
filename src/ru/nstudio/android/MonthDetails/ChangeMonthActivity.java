@@ -11,6 +11,7 @@ import android.support.v7.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import ru.nstudio.android.details.DetailsActivity;
 import ru.nstudio.android.MonthDetails.Adapters.MonthOverviewPagerAdapter;
 import ru.nstudio.android.R;
 
@@ -27,8 +28,8 @@ public class ChangeMonthActivity extends ActionBarActivity
 		setContentView( R.layout.activity_month_details );
 
 		Intent parentIntent = getIntent();
-		_idItem = parentIntent.getIntExtra("ru.nstudio.android.selectedItem", -1);
-		String monthTitle = parentIntent.getStringExtra( "ru.nstudio.android.monthTitle" );
+		_idItem = parentIntent.getIntExtra(getString( R.string.key_selected_item ), -1);
+		String monthTitle = parentIntent.getStringExtra( getString( R.string.key_month_title ) );
 
 		if(_idItem == -1) throw new IllegalArgumentException("ERROR: can`t load _month details - can`t get _month ID");
 
@@ -103,11 +104,10 @@ public class ChangeMonthActivity extends ActionBarActivity
 		{
 			case R.id.menuNewItem:
 			{
-				Intent intent = new Intent( getString( R.string.INTENT_ACTION_SHOW_DETAILS ));
-				intent.putExtra("ru.nstudio.android.idFinance", -1);
+				Intent intent = new Intent( this, DetailsActivity.class );
 
-				intent.putExtra("ru.nstudio.android._month", _idItem%100 );
-				intent.putExtra("ru.nstudio.android._year", _idItem/100 );
+				intent.putExtra(getString( R.string.key_month ), _idItem%100 );
+				intent.putExtra(getString( R.string.key_year ), _idItem/100 );
 
 				startActivity( intent );
 				return true;

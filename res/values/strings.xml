@@ -80,6 +80,12 @@
     <string name="INTENT_ACTION_SHOW_ALL_CATEGORIES">ru.nstudio.android.showAllCategories</string>
 
     <string name="TAG">CalcMoney</string>
+
+    <string name="key_finance_id">ru.nstudio.android.idFinance</string>
+    <string name="key_selected_item">ru.nstudio.android.selectedItem</string>
+    <string name="key_month_title">ru.nstudio.android.monthTitle</string>
+    <string name="key_year">ru.nstudio.android._year</string>
+    <string name="key_month">ru.nstudio.android._month</string>
 	    
     <string-array name="strArrayMonths">
         <item>Январь</item>

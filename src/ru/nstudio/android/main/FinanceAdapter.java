@@ -2,6 +2,7 @@ package ru.nstudio.android.main;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import ru.nstudio.android.Storage.MoneyContract;
 
 public class FinanceAdapter extends BaseAdapter
 {
+	private static final String TAG = FinanceAdapter.class.toString();
+
 	public static final int MONTH_VIEW_TYPE = 0;
 	public static final int YEAR_VIEW_TYPE 	= 1;
 	public static final int TYPE_COUNT 		= 2;
@@ -109,6 +112,7 @@ public class FinanceAdapter extends BaseAdapter
 			Integer curYear = _cursor.getInt( _cursor.getColumnIndex( MoneyContract.ViewYear.YEAR ) );
 			Integer curMonth = Integer.parseInt( _cursor.getString( _cursor.getColumnIndex(
 					MoneyContract.ViewYear.MONTH ) ));
+
 			int idItem = (curYear*100) + curMonth;
 
 			if (curYear != checkYear)

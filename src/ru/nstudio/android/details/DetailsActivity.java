@@ -1,4 +1,4 @@
-package ru.nstudio.android;
+package ru.nstudio.android.details;
 
 import java.util.GregorianCalendar;
 
@@ -10,7 +10,6 @@ import android.content.ContentResolver;
 import android.net.Uri;
 import android.support.v4.app.DialogFragment;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
@@ -23,23 +22,24 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ru.nstudio.android.DateParser;
+import ru.nstudio.android.IDialogListener;
+import ru.nstudio.android.R;
 import ru.nstudio.android.Storage.MoneyContract;
 import ru.nstudio.android.dialogs.AddCategoryDialog;
 
 public class DetailsActivity extends FragmentActivity
-implements OnClickListener,  IDialogListener
+implements OnClickListener, IDialogListener
 {
 	private EditText 			_etExplain;
 	private EditText 			_etPrice;
 	private EditText 			_etQuantity;
 
-	private RadioGroup 			_rgIncomeExpend;
 	private RadioButton 		_rbIncome;
 	private RadioButton 		_rbExpend;
 
@@ -55,18 +55,18 @@ implements OnClickListener,  IDialogListener
 	private long 				_idFinance;
 		
 	private final int DIALOG_DATE_EXPLAIN = 1;
+	private static final int INVALID_VALUE = -1;
 		
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.add_finance_activity);
+		setContentView( R.layout.add_finance_activity);
 
 		_etExplain = (EditText) findViewById(R.id.etExplain);
 		_etPrice = (EditText) findViewById(R.id.etPrice);
 		_etQuantity = (EditText) findViewById(R.id.etQuantity);
-		
-		_rgIncomeExpend = (RadioGroup) findViewById(R.id.rgIncomeExpend);
+
 		_rbIncome = (RadioButton) findViewById(R.id.rbIncome);
 		_rbExpend = (RadioButton) findViewById(R.id.rbExpend);
 	
@@ -82,29 +82,28 @@ implements OnClickListener,  IDialogListener
 		fillSpinnerWithCategories();
 
 		Intent intent = getIntent();
-		_idFinance = intent.getLongExtra("ru.nstudio.android.idFinance", -1);
-		if (_idFinance != -1)
+		_idFinance = intent.getLongExtra(getString( R.string.key_finance_id ), INVALID_VALUE );
+		if (_idFinance != INVALID_VALUE)
 		{
 			getOperationValues(_idFinance);
 		}
 		else
 		{
-			String action = intent.getAction();
-			if(action.equalsIgnoreCase("ru.nstudio.android.showDetails"))
-			{
-				int year = intent.getIntExtra("ru.nstudio.android._year", 2013 ); // TODO set current date
-				int month = intent.getIntExtra("ru.nstudio.android._month", 1);
-				_gcDate = new GregorianCalendar(year, month-1, 1);
-			}
-			else
+			int year = intent.getIntExtra( getString( R.string.key_year ), INVALID_VALUE );
+			int month = intent.getIntExtra( getString( R.string.key_month ), INVALID_VALUE );
+			if( year == INVALID_VALUE || month == INVALID_VALUE )
 			{
 				_gcDate = new GregorianCalendar();
 			}
-			
-			_rbIncome.setChecked(true);
-			
+			else
+			{
+				_gcDate = new GregorianCalendar( year, month, 1 );
+			}
+
+			_rbExpend.setChecked( true );
 			displayDate();
 		}
+
 
 		_btnAddCategory.setOnClickListener( this );
 	}
@@ -113,10 +112,10 @@ implements OnClickListener,  IDialogListener
 	private void fillSpinnerWithCategories()
 	{
 		ContentResolver cr = getContentResolver();
-		Cursor c = cr.query( MoneyContract.Category.CONTENT_URI, null, null, null, null );
+		Cursor c = cr.query( MoneyContract.Category.CONTENT_URI, null, null, null, MoneyContract.Category.DEFAULT_SORT_ORDER );
 
-		SimpleCursorAdapter categoryAdapter =
-				new SimpleCursorAdapter( this, android.R.layout.simple_spinner_item, c,
+		android.widget.SimpleCursorAdapter categoryAdapter =
+				new android.widget.SimpleCursorAdapter( this, android.R.layout.simple_spinner_item, c,
 										 new String[]{ MoneyContract.Category.NAME },
 										 new int[]{ android.R.id.text1 },
 										 SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER );
@@ -136,7 +135,7 @@ implements OnClickListener,  IDialogListener
 			_etExplain.setText(c.getString(c.getColumnIndex( MoneyContract.Finance.REASON ) ));
 			
 			Double price = c.getDouble(c.getColumnIndex(MoneyContract.Finance.PRICE));
-			_etPrice.setText(String.format(getString(R.string.money_format), price));
+			_etPrice.setText(String.format(getString(R.string.money_format), price ));
 			
 			int quant = c.getInt(c.getColumnIndex(MoneyContract.Finance.QUANTITY));
 			_etQuantity.setText(Integer.toString(quant));
@@ -149,12 +148,28 @@ implements OnClickListener,  IDialogListener
 			_rbIncome.setChecked(type);
 			_rbExpend.setChecked(!type);
 
-			int selection = c.getInt( c.getColumnIndex( MoneyContract.Finance.CATEGORY ) )-1;
-			_spinner.setSelection( selection );
-		} // if
+			int category = c.getInt( c.getColumnIndex( MoneyContract.Finance.CATEGORY ) );
+			selectItemInSpinner(category);
+		}
 		
 		c.close();
+	}
 
+	private void selectItemInSpinner(int category)
+	{
+		Cursor c = getContentResolver().query( MoneyContract.Category.CONTENT_URI, null, null, null, MoneyContract.Category.DEFAULT_SORT_ORDER );
+		int position = 0;
+		for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext())
+		{
+			if( category == c.getInt( c.getColumnIndex( MoneyContract.Category._ID ) ))
+			{
+				break;
+			}
+			++position;
+		}
+
+		_spinner.setSelection( position );
+		c.close();
 	}
 	
 	private void displayDate(String strDate)
@@ -215,7 +230,7 @@ implements OnClickListener,  IDialogListener
 				 TextUtils.isEmpty( _etQuantity.getText().toString() ) ||
 				 TextUtils.isEmpty( _etPrice.getText().toString() ))
 			{
-				Toast.makeText( this, R.string.errEmptyField, 10000 ).show();
+				Toast.makeText( this, R.string.errEmptyField, Toast.LENGTH_LONG ).show();
 				return;
 			}
 			
@@ -268,14 +283,6 @@ implements OnClickListener,  IDialogListener
 		dialog.show( getSupportFragmentManager(), AddCategoryDialog.class.toString() );
 	}
 
-//	public void onClick(DialogInterface dialog, int which)
-//	{
-//		if (which == DialogInterface.BUTTON_POSITIVE)
-//		{
-//
-//		}
-//	}
-
 	@Override
 	public void onDialogPositiveClick( DialogFragment dialog )
 	{
@@ -289,6 +296,7 @@ implements OnClickListener,  IDialogListener
 		cr.insert( MoneyContract.Category.CONTENT_URI, values );
 
 		fillSpinnerWithCategories();
+		_spinner.setSelection( _spinner.getAdapter().getCount()-1 );
 	}
 
 	@Override

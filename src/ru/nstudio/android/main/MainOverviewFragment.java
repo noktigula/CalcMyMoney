@@ -24,7 +24,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ru.nstudio.android.details.DetailsActivity;
 import ru.nstudio.android.IDialogListener;
+import ru.nstudio.android.MonthDetails.ChangeMonthActivity;
 import ru.nstudio.android.R;
 import ru.nstudio.android.Storage.MoneyContract;
 import ru.nstudio.android.dialogs.MyAlertDialog;
@@ -101,7 +103,7 @@ public class MainOverviewFragment extends Fragment
 	@Override
 	public View onCreateView( LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState )
 	{
-		Log.d(getActivity().getResources().getString( R.string.TAG ), container.getClass().getName());
+		//Log.d(getActivity().getResources().getString( R.string.TAG ), container.getClass().getName());
 		View v = inflater.inflate( R.layout.list_total_operation_overview, container, false );
 
 		_lv = ( ListView) v.findViewById( R.id.lvMain );
@@ -131,11 +133,11 @@ public class MainOverviewFragment extends Fragment
 		{
 			_lv.setAdapter( this._fAdapter );
 			_lv.setOnItemClickListener( this );
-		} // try
+		}
 		catch(Exception e)
 		{
 			Log.d( getActivity().getResources().getString( R.string.TAG ), e.getMessage() );
-			Toast.makeText( getActivity(), "Что-то пошло не так", 10000000 ).show();
+			Toast.makeText( getActivity(), "Что-то пошло не так", Toast.LENGTH_LONG ).show();
 		}
 
 		_lv.setOnItemLongClickListener( new AdapterView.OnItemLongClickListener()
@@ -150,7 +152,7 @@ public class MainOverviewFragment extends Fragment
 				_selectedPos = position;
 				_actionMode = ((MainActivity)getActivity()).startSupportActionMode( _actionModeCallback );
 				view.setSelected( true );
-				view.setBackgroundResource( android.R.color.holo_blue_light );
+				view.setBackgroundColor( android.R.color.holo_blue_light );
 
 				return true;
 			}
@@ -163,7 +165,7 @@ public class MainOverviewFragment extends Fragment
 		Intent intent;
 		if (id == -1)
 		{
-			intent = new Intent( getActivity().getResources().getString( R.string.INTENT_ACTION_ADD ) );
+			intent = new Intent( getActivity(), DetailsActivity.class );
 			runChangeActivity( intent );
 		}
 		else
@@ -179,11 +181,11 @@ public class MainOverviewFragment extends Fragment
 	{
 		try
 		{
-			startActivityForResult( intent, ((MainActivity)getActivity()).RESULT_FIRST_USER_MAIN );
+			startActivity( intent );
 		}
 		catch(IllegalArgumentException iae)
 		{
-			Toast.makeText( getActivity(), iae.getMessage(), 10000).show();
+			Toast.makeText( getActivity(), iae.getMessage(), Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -192,13 +194,13 @@ public class MainOverviewFragment extends Fragment
 		DialogFragment dialogFragment = MyAlertDialog.getInstance( R.string.deleteDialogTitle, R.string.deleteDialogFinalAsk );
 		dialogFragment.setTargetFragment( this, DIALOG_ID );
 		dialogFragment.show( getActivity().getSupportFragmentManager(), MyAlertDialog.class.toString() );
-	} // deleteMonthInfo
+	}
 
 	public Intent getIntentForChange(int id, String monthTitle)
 	{
-		Intent intent = new Intent( getActivity().getResources().getString( R.string.INTENT_ACTION_CHANGE ) );
-		intent.putExtra("ru.nstudio.android.selectedItem", id);
-		intent.putExtra("ru.nstudio.android.monthTitle", monthTitle);
+		Intent intent = new Intent( getActivity(), ChangeMonthActivity.class );
+		intent.putExtra(getString( R.string.key_selected_item ), id);
+		intent.putExtra(getString( R.string.key_month_title ), monthTitle);
 		return intent;
 	}
 
@@ -212,7 +214,6 @@ public class MainOverviewFragment extends Fragment
 	@Override
 	public void onLoadFinished( Loader loader, Object o )
 	{
-		Log.d( getActivity().getResources().getString( R.string.TAG ), this.getClass().getName() + ": onLoadFinished" );
 		_fAdapter.swapCursor( (Cursor)o );
 	}
 
