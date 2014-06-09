@@ -2,7 +2,6 @@ package ru.nstudio.android.main;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -125,16 +124,16 @@ public class FinanceAdapter extends BaseAdapter
 				_alView.add( vYear );
 			}
 
-			View monthDetails = _inflater.inflate(R.layout.main_menu_list_item, null);
+			View monthDetails = _inflater.inflate(R.layout.list_item_main_overview, null);
 
 			TextView tvMonthName = (TextView) monthDetails.findViewById(R.id.tvMainMonthTitle);
 			tvMonthName.setText(monthTitle);
 
 			TextView tvIncome = (TextView) monthDetails.findViewById(R.id.tvMainMonthIncome);
-			tvIncome.setText(String.format(_moneyFormat, income));
+			tvIncome.setText(getTextForIncome(income));
 
 			TextView tvExpend = (TextView) monthDetails.findViewById(R.id.tvMainMonthExpend);
-			tvExpend.setText(String.format(_moneyFormat, expend));
+			tvExpend.setText(getTextForExpend(expend));
 
 			TextView tvBalance = (TextView) monthDetails.findViewById(R.id.tvMainMonthBalance);
 			tvBalance.setText(String.format(_moneyFormat, diff));
@@ -142,8 +141,17 @@ public class FinanceAdapter extends BaseAdapter
 			monthDetails.setId(idItem);
 			_alView.add( monthDetails );
 		} while( _cursor.moveToNext());
-
 	}
+
+    private String getTextForIncome(double income)
+    {
+        return String.format(_context.getString(R.string.format_income), income);
+    }
+
+    private String getTextForExpend(double expend)
+    {
+        return String.format(_context.getString(R.string.format_expend), expend);
+    }
 
 	public void swapCursor(Cursor newCursor)
 	{

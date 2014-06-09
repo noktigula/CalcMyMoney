@@ -3,10 +3,10 @@
     <dimen name="hint_text_size">12sp</dimen>
 
     <dimen name="operation_big_text">20sp</dimen>
-    <dimen name="operation_small_size">12sp</dimen>
+    <dimen name="operation_small_text">14sp</dimen>
 
     <dimen name="operation_main_height">30dp</dimen>
-    <dimen name="operation_small_height">15dp</dimen>
+    <dimen name="operation_small_height">18dp</dimen>
 
     <dimen name="margin_details_horizontal">10dp</dimen>
     <dimen name="margin_details_vertical">5dp</dimen>

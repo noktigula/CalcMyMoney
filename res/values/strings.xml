@@ -27,6 +27,10 @@
     <string name="type_expend">Расходы</string>
     <string name="date_main_hint">Дата</string>
     <string name="new_category">Новая категория</string>
+    <string name="hint_income">Доходы:</string>
+    <string name="hint_expend">Расходы:</string>
+    <string name="format_income">Доходы: %9.2f</string>
+    <string name="format_expend">Расходы: %9.2f</string>
 
     <!-- Dialog items -->
     <string name="dialog_category_title_add">Добавление категории</string>
