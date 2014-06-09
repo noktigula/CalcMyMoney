@@ -35,6 +35,7 @@ public class MonthDetailsFragment extends Fragment
 		implements AdapterView.OnItemClickListener, android.support.v4.app.LoaderManager.LoaderCallbacks<Cursor>, IDialogListener
 {
 	private static final int DIALOG_ID = 1;
+    private static final String TAG = MonthDetailsFragment.class.getName();
 
 	private ListView 		_lvAddFinances;
 
@@ -86,7 +87,8 @@ public class MonthDetailsFragment extends Fragment
 		{
 			if( _lvAddFinances.getChildCount() > _selectedItem )
 			{
-				_lvAddFinances.getChildAt( _selectedItem ).setBackgroundResource( Color.TRANSPARENT );
+                View selectedItem = _lvAddFinances.getChildAt(_selectedItem);
+                selectedItem.setBackgroundColor(_adapter.getColorForItem(selectedItem.getId()));
 			}
 			_actionMode = null;
 		}
@@ -191,6 +193,7 @@ public class MonthDetailsFragment extends Fragment
 				}
 				_selectedItem = position;
 				_actionMode = ((ChangeMonthActivity)getActivity()).startSupportActionMode( _callback );
+                Log.d(TAG, "Setting color...");
 				view.setBackgroundColor( getResources().getColor(android.R.color.holo_blue_light) );
 				view.setSelected( true );
 				return true;

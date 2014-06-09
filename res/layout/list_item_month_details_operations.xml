@@ -8,8 +8,8 @@
         android:layout_height="@dimen/operation_main_height"
         android:layout_width="match_parent"
         android:orientation="horizontal"
-        android:layout_marginLeft="@dimen/split_margin"
-        android:layout_marginRight="@dimen/split_margin">
+        android:layout_marginLeft="@dimen/margin_details_horizontal"
+        android:layout_marginRight="@dimen/margin_details_horizontal">
 
         <TextView
             android:id = "@+id/tvFinanceOperationDetails1"
@@ -39,8 +39,9 @@
     <LinearLayout
         android:layout_height="@dimen/operation_small_height"
         android:layout_width="match_parent"
-        android:layout_marginLeft="@dimen/split_margin"
-        android:layout_marginRight="@dimen/split_margin">
+        android:layout_marginLeft="@dimen/margin_details_horizontal"
+        android:layout_marginRight="@dimen/margin_details_horizontal"
+        android:layout_marginBottom="@dimen/margin_details_vertical">
 
         <TextView
             android:id="@+id/tvShowCategory"

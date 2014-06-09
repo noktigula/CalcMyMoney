@@ -2,13 +2,15 @@ package ru.nstudio.android.MonthDetails.Adapters;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.support.v4.widget.CursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import ru.nstudio.android.DateParser;
 import ru.nstudio.android.R;
@@ -18,12 +20,14 @@ public class MonthDetailsAdapter extends CursorAdapter //implements OnItemClickL
 {
 	private String	_moneyFormat;
 	private int 	_layout;
+    private Map<Integer, Boolean> _itemTypes;
 
 	public MonthDetailsAdapter( Context context, Cursor cursor, int layout )
 	{
 		super( context, cursor, 0 );
 		_moneyFormat = context.getString( R.string.money_format);
 		_layout = layout;
+        _itemTypes = new HashMap<Integer, Boolean>();
 	} // MonthDetailsAdapter
 
 	public Object getItem(int position) 
@@ -66,10 +70,26 @@ public class MonthDetailsAdapter extends CursorAdapter //implements OnItemClickL
 		TextView tvCategory = (TextView) v.findViewById(R.id.tvShowCategory);
 		tvCategory.setText(category);
 
-        int color = (isIncome) ? context.getResources().getColor(R.color.income_view_background)
-                : context.getResources().getColor(R.color.expend_view_background);
-        v.setBackgroundColor(color);
+        _itemTypes.put(id, isIncome);
+
+        v.setBackgroundColor(getColorForItem(id));
 
 		v.setId(id);
 	}
+
+    public int getColorForItem(Integer id)
+    {
+        boolean isIncome = isIncomeView(id);
+        return isIncome ? mContext.getResources().getColor(R.color.income_view_background)
+                        : mContext.getResources().getColor(R.color.expend_view_background);
+    }
+
+    public boolean isIncomeView(Integer id)
+    {
+        if(!_itemTypes.containsKey(id))
+        {
+            throw new IllegalArgumentException("Unexpected view id");
+        }
+        return _itemTypes.get(id);
+    }
 }
