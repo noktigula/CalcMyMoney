@@ -137,7 +137,8 @@ implements OnClickListener, IDialogListener
 			
 			Double price = c.getDouble(c.getColumnIndex(MoneyContract.Finance.PRICE));
             int quant = c.getInt(c.getColumnIndex(MoneyContract.Finance.QUANTITY));
-			_etPrice.setText(String.format(getString(R.string.money_format), price*quant ));
+			String cost = String.format(getString(R.string.money_format), price*quant );
+			_etPrice.setText(cost.trim());
 
 			String strDate = c.getString(c.getColumnIndex(MoneyContract.Finance.DATE));
 			

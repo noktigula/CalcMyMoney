@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.9.+'
+        classpath 'com.android.tools.build:gradle:0.9.1'
     }
 }
 apply plugin: 'android'
@@ -43,5 +43,23 @@ android {
         // by a similar customization.
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
+    }
+
+    signingConfigs {
+        release{
+            storeFile file("/Users/noktigula/noktigula.keystore")
+            storePassword "A\$m_mu\$t_di3"
+            keyAlias "noktigula"
+            keyPassword "A\$m_mu\$t_di3"
+        }
+
+    }
+
+    buildTypes{
+        release{
+            debuggable false
+            jniDebugBuild false
+            signingConfig signingConfigs.release
+        }
     }
 }

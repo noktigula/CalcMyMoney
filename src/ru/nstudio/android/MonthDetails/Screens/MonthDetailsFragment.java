@@ -173,10 +173,11 @@ public class MonthDetailsFragment extends Fragment
 		String[] whereArgs = new String[] { Integer.toString(this._year ), getMonthWithLeadingZero() };
 		String where = new String("strftime('%Y', " + MoneyContract.ViewMonthOperations.DATE + ") = ? " +
 				"AND strftime('%m', " + MoneyContract.ViewMonthOperations.DATE + ") = ? ");
+		String orderBy = MoneyContract.ViewMonthOperations.DATE + " DESC";
 
 		ContentResolver cr = getActivity().getContentResolver();
 		Cursor c = cr.query( MoneyContract.ViewMonthOperations.CONTENT_URI,
-				null, where, whereArgs, null );
+				null, where, whereArgs, orderBy );
 
 		_adapter = new MonthDetailsAdapter( getActivity(), c, R.layout.list_item_month_details_operations );
 
@@ -193,7 +194,6 @@ public class MonthDetailsFragment extends Fragment
 				}
 				_selectedItem = position;
 				_actionMode = ((ChangeMonthActivity)getActivity()).startSupportActionMode( _callback );
-                Log.d(TAG, "Setting color...");
 				view.setBackgroundColor( getResources().getColor(android.R.color.holo_blue_light) );
 				view.setSelected( true );
 				return true;
@@ -208,9 +208,11 @@ public class MonthDetailsFragment extends Fragment
 		String where = new String("strftime('%Y', " + MoneyContract.ViewMonthOperations.DATE + ") = ? " +
 				"AND strftime('%m', " + MoneyContract.ViewMonthOperations.DATE + ") = ? ");
 
+		String orderBy = MoneyContract.ViewMonthOperations.DATE + " DESC";
+
 		return new android.support.v4.content.CursorLoader(
 				getActivity(), MoneyContract.ViewMonthOperations.CONTENT_URI, null,
-				where, whereArgs, null );
+				where, whereArgs, orderBy );
 	}
 
 	@Override

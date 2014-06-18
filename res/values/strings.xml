@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">CalcMyMoney</string>
+    <string name="app_name">Easy Budget</string>
     <string name="month_tip">Месяц:</string>
     <string name="newMonthButtonTip">Новый месяц</string>
     <string name="newMonthButtonOk">Готово!</string>
@@ -10,7 +10,7 @@
     <string name="financeOperations">Финансы</string>
     <string name="emptyDetails">Нет данных о финансах</string>
     <string name="hintExplain">Описание</string>
-    <string name="hintPrice">Цена</string>
+    <string name="hintPrice">Сумма</string>
     <string name="hintQuantity">Кол-во</string>
     <string name="hintCategory">Категория</string>
     <string name="hintType">Тип операции</string>
