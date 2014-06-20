@@ -24,7 +24,7 @@ import ru.nstudio.android.Storage.MoneyContract;
  * Created by noktigula on 26.02.14.
  */
 public class MonthCategoryFragment extends Fragment
-		implements AdapterView.OnItemClickListener, LoaderManager.LoaderCallbacks
+		implements /*AdapterView.OnItemClickListener,*/ LoaderManager.LoaderCallbacks
 {
 	private ListView _lv;
 
@@ -118,7 +118,7 @@ public class MonthCategoryFragment extends Fragment
 		_adapter = new MonthCategoryAdapter(getActivity(), c, R.layout.list_item_month_details_category);
 
 		_lv.setAdapter( _adapter );
-		_lv.setOnItemClickListener( this );
+		//_lv.setOnItemClickListener( this );
 	}
 
 	@Override
@@ -145,15 +145,15 @@ public class MonthCategoryFragment extends Fragment
 		_adapter.swapCursor( null );
 	}
 
-	@Override
-	public void onItemClick( AdapterView<?> adapterView, View view, int position, long id )
-	{
-		Intent intent = new Intent( getActivity(), DetailsActivity.class );
-		intent.putExtra(getString( R.string.key_finance_id ), id);
-
-		intent.putExtra(getString( R.string.key_month ), this._month );
-		intent.putExtra(getString( R.string.key_year ), this._year );
-
-		startActivity(intent);
-	}
+//	@Override
+//	public void onItemClick( AdapterView<?> adapterView, View view, int position, long id )
+//	{
+//		Intent intent = new Intent( getActivity(), DetailsActivity.class );
+//		intent.putExtra(getString( R.string.key_finance_id ), id);
+//
+//		intent.putExtra(getString( R.string.key_month ), this._month );
+//		intent.putExtra(getString( R.string.key_year ), this._year );
+//
+//		startActivity(intent);
+//	}
 }
