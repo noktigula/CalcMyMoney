@@ -26,6 +26,9 @@ public final class MoneyContract
 		public static final String DATE     = "financeDate";
 		public static final String TYPE     = "type";
 		public static final String CATEGORY = "idCategory";
+
+		public static final int TYPE_INCOME = 1;
+		public static final int TYPE_EXPEND = 0;
 	}
 
 	public static final class Category implements BaseColumns
@@ -66,6 +69,10 @@ public final class MoneyContract
 
 		public static final String CATEGORY_TITLE = Category.NAME;
 		public static final String CATEGORY_SUM = "cost";
+		public static final String CATEGORY_TYPE = "type";
+
+		public static final int TYPE_INCOME = Finance.TYPE_INCOME;
+		public static final int TYPE_EXPEND = Finance.TYPE_EXPEND;
 	}
 
 	//this isn't a real view in database, it uses only for creating complex query

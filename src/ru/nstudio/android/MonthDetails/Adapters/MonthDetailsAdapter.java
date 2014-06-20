@@ -38,7 +38,6 @@ public class MonthDetailsAdapter extends CursorAdapter //implements OnItemClickL
 	@Override
 	public View newView( Context context, Cursor cursor, ViewGroup parentGroup )
 	{
-		Log.d("nTag", "MonthDetailsAdapter - new view");
 		LayoutInflater inflater = LayoutInflater.from( context );
 		return inflater.inflate( _layout, parentGroup, false );
 	}
@@ -46,7 +45,6 @@ public class MonthDetailsAdapter extends CursorAdapter //implements OnItemClickL
 	@Override
 	public void bindView( View v, Context context, Cursor c )
 	{
-		Log.d("nTag", "MonthDetailsAdapter - bind view");
 		boolean isIncome = (c.getInt(c.getColumnIndex( MoneyContract.Finance.TYPE)) == 1);
 		String explain = new String(c.getString(c.getColumnIndex(MoneyContract.Finance.REASON)));
 		Double price = c.getDouble( c.getColumnIndex( MoneyContract.Finance.PRICE ) );
