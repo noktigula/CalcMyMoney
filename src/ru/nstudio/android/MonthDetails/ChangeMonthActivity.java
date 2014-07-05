@@ -44,7 +44,7 @@ public class ChangeMonthActivity extends ActionBarActivity
 					{
 						_actionMode.finish();
 					}
-					getActionBar().setSelectedNavigationItem( position );
+					getSupportActionBar().setSelectedNavigationItem( position );
 				}
 			});
 

@@ -115,8 +115,8 @@ implements OnClickListener, IDialogListener
 		ContentResolver cr = getContentResolver();
 		Cursor c = cr.query( MoneyContract.Category.CONTENT_URI, null, null, null, MoneyContract.Category.DEFAULT_SORT_ORDER );
 
-		android.widget.SimpleCursorAdapter categoryAdapter =
-				new android.widget.SimpleCursorAdapter( this, android.R.layout.simple_spinner_item, c,
+		SimpleCursorAdapter categoryAdapter =
+				new SimpleCursorAdapter( this, android.R.layout.simple_spinner_item, c,
 										 new String[]{ MoneyContract.Category.NAME },
 										 new int[]{ android.R.id.text1 },
 										 SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER );
