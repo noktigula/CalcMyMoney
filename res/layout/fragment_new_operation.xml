@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:fillViewport="true">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        <LinearLayout
+                android:layout_marginLeft="@dimen/margin_details_horizontal"
+                android:layout_marginRight="@dimen/margin_details_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+            <LinearLayout
+                    android:id = "@+id/llAddExplain"
+                    style="@style/llChild"
+                    android:orientation = "vertical"
+                    android:layout_marginTop="10dp"
+                    >
+
+                <TextView
+                        android:id = "@+id/tvExplainHint"
+                        style="@style/wrap"
+                        android:text="@string/hintExplain"
+                        android:textSize="@dimen/hint_text_size"
+                        android:layout_gravity="left"
+                        android:gravity="bottom|left"/>
+
+                <EditText
+                        android:id = "@+id/etExplain"
+                        style="@style/match"
+                        android:layout_weight="1.0"
+                        android:singleLine="true"
+                        />
+            </LinearLayout>
+
+            <LinearLayout style="@style/llChild"
+                          android:orientation="vertical">
+
+                <TextView
+                        android:id = "@+id/tvPriceHint"
+                        style="@style/match"
+                        android:text="@string/hintPrice"
+                        android:textSize="@dimen/hint_text_size"
+                        android:layout_weight="1.0"
+                        android:layout_gravity="left"
+                        android:gravity="bottom|left"/>
+
+                <EditText
+                        android:id = "@+id/etPrice"
+                        style="@style/match"
+                        android:singleLine="true"
+                        android:inputType="numberDecimal"
+                        android:maxLength="9"
+                        />
+            </LinearLayout>
+            <LinearLayout
+                    android:id = "@+id/llAddCategory"
+                    style="@style/llChild"
+                    android:orientation = "vertical"
+                    android:layout_marginTop="10dp"
+                    >
+
+                <TextView
+                        android:id = "@+id/tvCategoryHint"
+                        style="@style/wrap"
+                        android:text="@string/hintCategory"
+                        android:textSize="10sp"
+                        android:layout_gravity="left"
+                        android:gravity="bottom|left"/>
+                <TableLayout
+                        style="@style/llChild"
+                        >
+                    <TableRow
+                            android:weightSum="1.0">
+                        <Spinner
+                                android:id = "@+id/spinnerCategory"
+                                style="@style/wrap"
+                                android:layout_weight="0.8"
+                                />
+                        <Button
+                                android:id="@+id/btnAddCategory"
+                                style="@style/wrap"
+                                android:text="+"
+                                android:layout_weight="0.2"
+                                />
+                    </TableRow>
+                </TableLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                    style="@style/llChild"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:id = "@+id/tvTypeOperation"
+                        style="@style/wrap"
+                        android:text="@string/hintType"
+                        android:textSize="10sp"
+                        android:layout_weight="1.0"
+                        android:layout_gravity="left"
+                        android:gravity="bottom|left"/>
+
+                <RadioGroup
+                        android:id="@+id/rgIncomeExpend"
+                        style="@style/match"
+                        android:layout_weight="1.0"
+                        android:orientation="horizontal" >
+
+                    <RadioButton
+                            android:id="@+id/rbIncome"
+                            style="@style/wrap"
+                            android:layout_weight ="1.0"
+                            android:text="@string/type_income" />
+
+                    <RadioButton
+                            android:id="@+id/rbExpend"
+                            style="@style/wrap"
+                            android:layout_weight ="1.0"
+                            android:text="@string/type_expend" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                    style="@style/llChild"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    >
+                <TextView
+                        android:id = "@+id/tvDate"
+                        style="@style/wrap"
+                        android:text="@string/date_main_hint"
+                        android:textSize="10sp"
+                        android:layout_weight="1.0"
+                        android:layout_gravity="left"
+                        android:gravity="bottom|left"/>
+
+                <TextView
+                        android:id="@+id/tvFinanceDate"
+                        style="@style/match"
+                        android:layout_gravity="left"
+                        android:gravity="left"
+                        android:layout_weight="1.0"
+                        android:text="2012-08-24"
+                        android:textSize="18sp"
+                        android:clickable="true"
+                        android:onClick="onDateExplainClick"
+                        />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="bottom"
+                android:layout_gravity="bottom"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text=" " />
+
+            <Button
+                    android:id="@+id/btnExplainOK"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/newMonthButtonOk" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:text=" " />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

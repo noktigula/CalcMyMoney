@@ -26,17 +26,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".details.DetailsActivity"
-                android:windowSoftInputMode="adjustResize">
+
+        <activity android:name=".details.DetailsActivity" >
+                <!--android:windowSoftInputMode="adjustResize|stateAlwaysHidden"-->
+
             <intent-filter android:label="ru.nstudio.android.addDetails">
                 <category android:name="android.intent.category.DEFAULT"/>
                 <action android:name="ru.nstudio.android.addDetails"/>
             </intent-filter>
+
             <intent-filter android:label="ru.nstudio.android.showDetails">
                 <category android:name="android.intent.category.DEFAULT"/>
                 <action android:name="ru.nstudio.android.showDetails"/>
             </intent-filter>
+
         </activity>
+
         <activity android:name=".MonthDetails.ChangeMonthActivity">
             <intent-filter android:label="ru.nstudio.android.changeMonth">
                 <category android:name="android.intent.category.DEFAULT"/>
