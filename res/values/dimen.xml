@@ -8,6 +8,8 @@
     <dimen name="operation_main_height">30dp</dimen>
     <dimen name="operation_small_height">18dp</dimen>
 
+    <dimen name="list_item_heigh">48dp</dimen>
+
     <dimen name="margin_details_horizontal">10dp</dimen>
     <dimen name="margin_details_vertical">5dp</dimen>
 </resources>

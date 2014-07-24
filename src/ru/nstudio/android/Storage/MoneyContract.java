@@ -80,7 +80,7 @@ public final class MoneyContract
 	{
 		public static final Uri CONTENT_URI = Uri.parse( "content://" + AUTHORITY + "/monthOperation" );
 		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.android.nstudio.monthOperations";
-		public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.dir/vnd.android.nstudio.monthOperation";
+		public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.android.nstudio.monthOperation";
 
 		public static final String VIEW_NAME = "ViewMonthOperations";
 
@@ -90,5 +90,20 @@ public final class MoneyContract
 		public static final String DATE = Finance.DATE;
 		public static final String TYPE = Finance.TYPE;
 		public static final String CATEGORY_NAME = Category.NAME;
+	}
+
+	//this isn't a real view in database, it uses only for creating complex query
+	public static final class ViewMonthDays implements BaseColumns
+	{
+		public static final Uri CONTENT_URI = Uri.parse( "content://" + AUTHORITY + "/monthdays" );
+		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.android.nstudio.monthdays";
+		public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.android.nstudio.monthdays";
+
+		public static final String VIEW_NAME = "ViewMonthDays";
+
+		public static final String DAY_NUMBER = "DayNumber";
+		public static final String DAY_INCOME = "DayIncome";
+		public static final String DAY_EXPEND = "DayExpend";
+
 	}
 }
